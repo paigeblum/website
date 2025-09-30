@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, FileText } from "lucide-react";
 
 const contactLinks = [
   {
@@ -23,6 +23,12 @@ const contactLinks = [
     value: "github.com/paigeblum",
     href: "https://github.com/paigeblum",
     icon: Github,
+  },
+  {
+    name: "Resume",
+    value: "Download PDF",
+    href: "/resume.pdf",
+    icon: FileText,
   },
 ];
 
@@ -48,7 +54,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid md:grid-cols-3 gap-10"
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-10"
         >
           {contactLinks.map((link, index) => (
             <a

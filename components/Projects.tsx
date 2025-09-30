@@ -4,6 +4,19 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
+const professionalWork = [
+  {
+    title: "Call of Duty: Black Ops 6",
+    year: "2024",
+    trailerLink: "https://www.callofduty.com/blackops6"
+  },
+  {
+    title: "Call of Duty: Modern Warfare III",
+    year: "2023",
+    trailerLink: "https://www.callofduty.com/store/games/modernwarfare3"
+  },
+];
+
 const projects = [
   {
     title: "Sponsor Analytics Platform",
@@ -12,7 +25,8 @@ const projects = [
     tags: ["React", "Analytics", "Data Visualization", "Vercel", "Web Development"],
     demoLink: "https://sponsor-analytics.vercel.app/#/events",
     githubLink: "https://github.com/paigeblum/sponsor-analytics",
-    demoLabel: "View Demo"
+    demoLabel: "View Demo",
+    type: "personal"
   },
   {
     title: "Interactive Map Application",
@@ -21,7 +35,8 @@ const projects = [
     tags: ["Next.js", "React", "TypeScript", "Vercel", "Web Development"],
     demoLink: "https://interactive-map-silk.vercel.app/",
     githubLink: "https://github.com/paigeblum/interactive-map",
-    demoLabel: "View Demo"
+    demoLabel: "View Demo",
+    type: "personal"
   },
   {
     title: "What Makes an Image Steerable?",
@@ -31,7 +46,8 @@ const projects = [
     demoLink: "/thesis.pdf",
     githubLink: "/thesis-poster.pptx",
     demoLabel: "Read Thesis",
-    githubLabel: "View Poster"
+    githubLabel: "View Poster",
+    type: "personal"
   },
   {
     title: "Lyric Generation with RNNs",
@@ -40,7 +56,8 @@ const projects = [
     tags: ["Python", "TensorFlow", "NLP", "RNN", "Deep Learning"],
     demoLink: "https://medium.com/@paigemblum/lyric-generation-with-recurrent-neural-networks-dfedfc0b7d33",
     githubLink: "https://github.com/gillianfeder/SongLyricsML",
-    demoLabel: "Read Article"
+    demoLabel: "Read Article",
+    type: "personal"
   },
 ];
 
@@ -58,7 +75,7 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
         >
           <span className="bg-gradient-to-r from-[#ff6b6b] via-[#ff9f6b] via-[#ffd93d] via-[#6bcf7f] via-[#6bb9f0] via-[#9370db] to-[#f72585] bg-clip-text text-transparent">
-            Selected Work
+            Selected Projects
           </span>
         </motion.h2>
 
@@ -110,6 +127,34 @@ export default function Projects() {
             </motion.div>
           ))}
         </div>
+
+        {/* Professional Work - No Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-32 space-y-8"
+        >
+          {professionalWork.map((work, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+              className="flex items-baseline justify-between"
+            >
+              <a
+                href={work.trailerLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xl md:text-2xl font-semibold text-gray-900 hover:text-[#f72585] transition-colors"
+              >
+                {work.title}
+              </a>
+              <span className="text-sm text-gray-400 font-normal ml-4">{work.year}</span>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
