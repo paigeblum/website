@@ -18,7 +18,7 @@ const projects = [
   {
     title: "Interactive Map Application",
     description: "Full-stack web application featuring interactive geographical visualization with real-time data rendering and user-driven exploration capabilities.",
-    year: "2024",
+    year: "2025",
     tags: ["Next.js", "React", "TypeScript", "Vercel", "Web Development"],
     demoLink: "https://interactive-map-silk.vercel.app/",
     githubLink: null,
