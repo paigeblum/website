@@ -6,6 +6,15 @@ import { useRef } from "react";
 
 const projects = [
   {
+    title: "Interactive Map Application",
+    description: "Full-stack web application featuring interactive geographical visualization with real-time data rendering and user-driven exploration capabilities.",
+    year: "2025",
+    tags: ["Next.js", "React", "TypeScript", "Vercel", "Web Development"],
+    demoLink: "https://interactive-map-silk.vercel.app/",
+    githubLink: null,
+    demoLabel: "View Demo"
+  },
+  {
     title: "What Makes an Image Steerable?",
     description: "Senior thesis investigating predictability of image steerability in text-to-image AI models using CNNs and linear regression. Analyzed feature importance in generative AI interactions, revealing key insights into how real vs. AI-generated images affect model steering capabilities.",
     year: "2024",
@@ -14,15 +23,6 @@ const projects = [
     githubLink: "/thesis-poster.pptx",
     demoLabel: "Read Thesis",
     githubLabel: "View Poster"
-  },
-  {
-    title: "Interactive Map Application",
-    description: "Full-stack web application featuring interactive geographical visualization with real-time data rendering and user-driven exploration capabilities.",
-    year: "2025",
-    tags: ["Next.js", "React", "TypeScript", "Vercel", "Web Development"],
-    demoLink: "https://interactive-map-silk.vercel.app/",
-    githubLink: null,
-    demoLabel: "View Demo"
   },
   {
     title: "Lyric Generation with RNNs",
