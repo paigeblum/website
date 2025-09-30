@@ -6,6 +6,15 @@ import { useRef } from "react";
 
 const projects = [
   {
+    title: "Sponsor Analytics Platform",
+    description: "Sample analytics platform for tracking brand investment performance and sponsor engagement. Features real-time event tracking, data visualization, and performance metrics to measure sponsorship ROI.",
+    year: "2025",
+    tags: ["React", "Analytics", "Data Visualization", "Vercel", "Web Development"],
+    demoLink: "https://sponsor-analytics.vercel.app/#/events",
+    githubLink: null,
+    demoLabel: "View Demo"
+  },
+  {
     title: "Interactive Map Application",
     description: "Full-stack web application featuring interactive geographical visualization with real-time data rendering and user-driven exploration capabilities.",
     year: "2025",
