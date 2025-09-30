@@ -39,7 +39,7 @@ const projects = [
     year: "2023",
     tags: ["Python", "TensorFlow", "NLP", "RNN", "Deep Learning"],
     demoLink: "https://medium.com/@paigemblum/lyric-generation-with-recurrent-neural-networks-dfedfc0b7d33",
-    githubLink: "https://github.com/paigeblum/Lyric-Generation-RNN",
+    githubLink: "https://github.com/gillianfeder/SongLyricsML",
     demoLabel: "Read Article"
   },
 ];
