@@ -29,21 +29,21 @@ export default function About() {
           className="space-y-10"
         >
           <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-light">
-            I'm a software engineer who believes the best technology balances innovation with responsibility.
+            I&apos;m a software engineer who believes the best technology balances innovation with responsibility.
             At Infinity Ward, I design real time AI systems for Call of Duty, building experiences that reach
             over 100 million players while staying grounded in thoughtful, ethical design.
           </p>
 
           <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-light">
             My work spans scalable backend systems, applied machine learning, and strategic problem solving.
-            I've built recommendation engines, full stack analytics platforms, and ETL pipelines across AAA
+            I&apos;ve built recommendation engines, full stack analytics platforms, and ETL pipelines across AAA
             gaming, startups, and analytics. I work with Python, C++, Java, SQL, TensorFlow, PyTorch, and Next.js, but
             I care as much about the why behind a system as the how.
           </p>
 
           <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-light">
-            Beyond production systems, I love exploring AI's creative potential, from generative album art
-            to lyric generation models. I'm driven by the belief that technology should empower people,
+            Beyond production systems, I love exploring AI&apos;s creative potential, from generative album art
+            to lyric generation models. I&apos;m driven by the belief that technology should empower people,
             not replace them, and I bring that mindset to every project I touch.
           </p>
         </motion.div>
