@@ -11,7 +11,7 @@ const projects = [
     year: "2025",
     tags: ["React", "Analytics", "Data Visualization", "Vercel", "Web Development"],
     demoLink: "https://sponsor-analytics.vercel.app/#/events",
-    githubLink: null,
+    githubLink: "https://github.com/paigeblum/sponsor-analytics",
     demoLabel: "View Demo"
   },
   {
@@ -20,7 +20,7 @@ const projects = [
     year: "2025",
     tags: ["Next.js", "React", "TypeScript", "Vercel", "Web Development"],
     demoLink: "https://interactive-map-silk.vercel.app/",
-    githubLink: null,
+    githubLink: "https://github.com/paigeblum/interactive-map",
     demoLabel: "View Demo"
   },
   {
