@@ -54,7 +54,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-10"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10"
         >
           {contactLinks.map((link, index) => (
             <a
@@ -62,7 +62,7 @@ export default function Contact() {
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="group p-10 border border-gray-200 rounded-2xl hover:border-[#f72585] hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 hover:scale-105"
+              className="group p-6 md:p-10 border border-gray-200 rounded-2xl hover:border-[#f72585] hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 hover:scale-105"
             >
               <link.icon size={32} className="text-gray-400 group-hover:text-[#f72585] transition-colors mb-4" />
               <div className="text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">{link.name}</div>

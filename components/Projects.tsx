@@ -66,20 +66,21 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="min-h-screen flex items-center justify-center relative px-6 sm:px-8 md:px-12 lg:px-20 py-20">
+    <section id="projects" className="min-h-screen flex items-center justify-center relative px-6 sm:px-8 md:px-12 lg:px-20 pt-48 pb-20">
       <div className="max-w-4xl mx-auto w-full" ref={ref}>
         <motion.h2
-          className="text-4xl md:text-5xl font-semibold mb-16 text-center tracking-tight"
+          className="text-4xl md:text-5xl font-semibold text-center tracking-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
+          style={{ marginBottom: '3rem', marginTop: '8rem' }}
         >
           <span className="bg-gradient-to-r from-[#ff6b6b] via-[#ff9f6b] via-[#ffd93d] via-[#6bcf7f] via-[#6bb9f0] via-[#9370db] to-[#f72585] bg-clip-text text-transparent">
             Selected Projects
           </span>
         </motion.h2>
 
-        <div className="space-y-16">
+        <div className="space-y-0">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -87,9 +88,10 @@ export default function Projects() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
+              style={{ marginBottom: '3.5rem' }}
             >
               {/* Title and Year */}
-              <div className="flex items-baseline justify-between mb-3">
+              <div className="flex items-baseline justify-between" style={{ marginBottom: '0.75rem' }}>
                 <h3 className="text-xl md:text-2xl font-semibold text-gray-900">
                   {project.title}
                 </h3>
@@ -97,7 +99,7 @@ export default function Projects() {
               </div>
 
               {/* Description */}
-              <p className="text-base text-gray-600 font-light leading-relaxed mb-4">
+              <p className="text-base text-gray-600 font-light leading-relaxed" style={{ marginBottom: '1rem' }}>
                 {project.description}
               </p>
 
@@ -133,7 +135,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-32 space-y-8"
+          style={{ marginTop: '6rem' }}
         >
           {professionalWork.map((work, index) => (
             <motion.div
@@ -142,6 +144,7 @@ export default function Projects() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
               className="flex items-baseline justify-between"
+              style={{ marginBottom: '1.5rem' }}
             >
               <a
                 href={work.trailerLink}

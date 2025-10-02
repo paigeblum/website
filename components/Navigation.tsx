@@ -116,7 +116,7 @@ export default function Navigation() {
           </a>
 
           {/* Nav items */}
-          <div className="flex items-center gap-12">
+          <div className="flex items-center gap-6 md:gap-12">
             {navItems.map((item, index) => (
               <motion.a
                 key={item.name}
@@ -124,7 +124,7 @@ export default function Navigation() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
-                className="text-sm font-medium text-gray-900 hover:text-[#f72585] transition-colors relative group tracking-wide uppercase"
+                className="text-xs md:text-sm font-medium text-gray-900 hover:text-[#f72585] transition-colors relative group tracking-wide uppercase"
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#f72585] transition-all duration-300 group-hover:w-full"></span>
