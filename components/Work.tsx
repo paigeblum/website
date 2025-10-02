@@ -7,12 +7,12 @@ import { useRef } from "react";
 const professionalWork = [
   {
     title: "Call of Duty: Black Ops 6",
-    year: "2024",
+    year: "2025",
     trailerLink: "https://www.youtube.com/watch?v=V69n6NnN5Fo"
   },
   {
     title: "Call of Duty: Modern Warfare III",
-    year: "2023",
+    year: "2024",
     trailerLink: "https://www.youtube.com/watch?v=qHi3NbfVqsE"
   },
 ];
