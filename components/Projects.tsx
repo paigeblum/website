@@ -6,6 +6,11 @@ import { useRef } from "react";
 
 const professionalWork = [
   {
+    title: "Call of Duty: Black Ops 7",
+    year: "2025",
+    trailerLink: "https://www.callofduty.com/store/games/blackops7"
+  },
+  {
     title: "Call of Duty: Black Ops 6",
     year: "2025",
     trailerLink: "https://www.callofduty.com/blackops6"
@@ -66,14 +71,14 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="min-h-screen flex items-center justify-center relative px-6 sm:px-8 md:px-12 lg:px-20 pt-48 pb-20">
+    <section id="projects" className="flex justify-center relative px-6 sm:px-8 md:px-12 lg:px-20 py-20">
       <div className="max-w-4xl mx-auto w-full" ref={ref}>
         <motion.h2
           className="text-4xl md:text-5xl font-semibold text-center tracking-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          style={{ marginBottom: '3rem', marginTop: '8rem' }}
+          style={{ marginTop: '12rem', marginBottom: '3rem' }}
         >
           <span className="bg-gradient-to-r from-[#ff6b6b] via-[#ff9f6b] via-[#ffd93d] via-[#6bcf7f] via-[#6bb9f0] via-[#9370db] to-[#f72585] bg-clip-text text-transparent">
             Selected Projects
