@@ -37,7 +37,7 @@ export default function Contact() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="min-h-screen flex items-center justify-center relative px-6 sm:px-8 md:px-12 lg:px-20 py-20">
+    <section id="contact" className="min-h-screen flex items-center justify-center relative px-6 sm:px-8 md:px-12 lg:px-20 pt-8 pb-20">
       <div className="max-w-4xl mx-auto w-full" ref={ref}>
         <motion.h2
           className="text-5xl md:text-6xl mb-24 text-center tracking-tight font-medium"
