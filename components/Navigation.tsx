@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const navItems = [
-  { name: "Work", href: "#projects" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Work", href: "/#projects" },
+  { name: "About", href: "/#about" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export default function Navigation() {
@@ -35,7 +36,7 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-20 py-6">
         <div className="flex justify-between items-center">
           {/* Butterfly Logo */}
-          <a href="#" className="flex items-center hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
             <svg
               width="40"
               height="40"
@@ -113,7 +114,7 @@ export default function Navigation() {
               <circle cx="42" cy="20" r="2" fill="url(#navButterflyGradient)" />
               <circle cx="58" cy="20" r="2" fill="url(#navButterflyGradient)" />
             </svg>
-          </a>
+          </Link>
 
           {/* Nav items */}
           <div className="flex items-center gap-6 md:gap-12">
