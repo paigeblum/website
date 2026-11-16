@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PortfolioHero from "@/components/portfolio/PortfolioHero";
 
 export const metadata: Metadata = {
   title: "Portfolio | Paige Blum",
@@ -8,10 +9,18 @@ export const metadata: Metadata = {
 
 export default function PortfolioPage() {
   return (
-    <main className="px-6 sm:px-8 md:px-12 lg:px-20 pt-36 pb-24">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl leading-tight">Portfolio</h1>
-      </div>
+    <main className="relative overflow-hidden">
+      <PortfolioHero />
+
+      {/* Work goes here. Each piece will be its own section. */}
+      <section style={{ padding: "0 clamp(1.5rem, 6vw, 5rem) 8rem" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="rounded-3xl border border-dashed border-gray-300 bg-white/40 backdrop-blur-sm text-center text-sm text-gray-400"
+            style={{ padding: "6rem 1.5rem" }}>
+            selected work coming soon
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
