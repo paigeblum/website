@@ -105,7 +105,7 @@ export const groups: Group[] = [
         media: {
           type: "image",
           src: "/portfolio/dancing-leg.gif",
-          alt: "Animated skeleton dancing, seen from the front and side, with the lower leg drawn in bold",
+          alt: "Animated skeleton dancing, seen from the front and side, with the real lower leg in black and three predicted versions in color",
           width: 700,
           height: 440,
         },
