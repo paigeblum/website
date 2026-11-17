@@ -40,7 +40,7 @@ export const groups: Group[] = [
         title: "Dogs and K9 robots",
         meta: "Behavior, locomotion, attacks / C++",
         description:
-          "AI for the attack dogs in the campaign and the K9 robots in DMZ. Both are built on one quadruped base, each with its own behavior, animation and movement. Also Rex, the tracker dog in the DMZ opening mission.",
+          "AI for the attack dogs in the campaign and the K9 robots in DMZ. Both are built on one quadruped base, each with its own behavior, animation and movement.",
         media: {
           type: "video",
           src: "/portfolio/dogs-hired-gun.mp4",
@@ -48,6 +48,18 @@ export const groups: Group[] = [
           alt: "An attack dog lunges at the player, is knocked away, gets back up and comes again, in the campaign mission Hired Gun",
         },
         placeholder: "Still wanted: a K9 robot clip, recorded from the shipped game",
+      },
+      {
+        title: "Rex",
+        meta: "Companion behavior / C++",
+        description:
+          "The dog who opens DMZ. In the first mission the player follows Rex as he runs ahead through the forest, crosses the river and leads them to the crash site.",
+        media: {
+          type: "video",
+          src: "/portfolio/rex-dmz.mp4",
+          poster: "/portfolio/rex-dmz-poster.jpg",
+          alt: "Rex the dog runs ahead of the player through a forest, across a river, to a crashed aircraft",
+        },
       },
       {
         title: "AI and vehicles",
