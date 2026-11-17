@@ -107,8 +107,21 @@ function GroupHeading({ title, note }: { title: string; note?: string }) {
 }
 
 export default function PortfolioPage() {
-  const artRows = [];
-  for (let i = 0; i < artworks.length; i += 2) artRows.push(artworks.slice(i, i + 2));
+  // Pair pieces into rows of two; a piece marked wide gets a row to itself.
+  const artRows: (typeof artworks)[] = [];
+  let pending: typeof artworks = [];
+  for (const a of artworks) {
+    if (a.wide) {
+      artRows.push([a]);
+      continue;
+    }
+    pending.push(a);
+    if (pending.length === 2) {
+      artRows.push(pending);
+      pending = [];
+    }
+  }
+  if (pending.length) artRows.push(pending);
   const index = [...groups.map((g) => ({ id: g.id, title: g.title })), { id: "art", title: "Art" }];
 
   return (
@@ -152,8 +165,8 @@ export default function PortfolioPage() {
                         alt={a.alt}
                         width={a.width}
                         height={a.height}
-                        className="block h-auto w-full rounded-2xl"
-                        sizes="(min-width: 640px) 45vw, 100vw"
+                        className="block h-auto w-full rounded-2xl border border-gray-200"
+                        sizes={row.length === 1 ? "(min-width: 1024px) 1024px, 100vw" : "(min-width: 640px) 45vw, 100vw"}
                       />
                     </div>
                   ))}

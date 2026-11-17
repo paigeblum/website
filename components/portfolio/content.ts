@@ -108,7 +108,8 @@ export const groups: Group[] = [
   },
 ];
 
-export type Artwork = { src: string; alt: string; medium: string; title?: string; width: number; height: number };
+// wide: true gives a piece its own full-width row.
+export type Artwork = { src: string; alt: string; medium: string; title?: string; width: number; height: number; wide?: boolean };
 
 // Shown without captions for now. Title and medium are kept here for later.
 export const artworks: Artwork[] = [
@@ -139,5 +140,13 @@ export const artworks: Artwork[] = [
     medium: "Mixed media, sketchbook",
     width: 1910,
     height: 1408,
+  },
+  {
+    src: "/portfolio/art/watercolor-profile.jpg",
+    alt: "Watercolor and ink of a blue figure in profile with a many-colored jester crown, facing a rainbow-washed form with a small blue shape between them",
+    medium: "Watercolor and ink",
+    width: 1700,
+    height: 884,
+    wide: true,
   },
 ];
