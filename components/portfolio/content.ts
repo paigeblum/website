@@ -37,17 +37,28 @@ export const groups: Group[] = [
     note: "AI Gameplay Engineer, Infinity Ward. Campaign and DMZ. 2026.",
     pieces: [
       {
-        title: "Dogs and K9 robots",
+        title: "Attack dogs",
         meta: "Behavior, locomotion, attacks / C++",
         description:
-          "AI for the attack dogs in the campaign and the K9 robots in DMZ. Both are built on one quadruped base, each with its own behavior, animation and movement.",
+          "AI for the attack dogs in the campaign. They run on a quadruped base shared with the K9 robots, each with its own behavior, animation and movement.",
         media: {
           type: "video",
           src: "/portfolio/dogs-hired-gun.mp4",
           poster: "/portfolio/dogs-hired-gun-poster.jpg",
           alt: "An attack dog lunges at the player, is knocked away, gets back up and comes again, in the campaign mission Hired Gun",
         },
-        placeholder: "Still wanted: a K9 robot clip, recorded from the shipped game",
+      },
+      {
+        title: "K9 robots",
+        meta: "Behavior, locomotion, attacks / C++",
+        description:
+          "Explosive robot dogs in DMZ that charge the player and self-destruct. Same base as the attack dogs, tuned to move and fight like machines.",
+        media: {
+          type: "video",
+          src: "/portfolio/k9-robots-dmz.mp4",
+          poster: "/portfolio/k9-robots-dmz-poster.jpg",
+          alt: "K9 robot dogs charge across a shopping mall atrium toward the player, and one detonates",
+        },
       },
       {
         title: "Rex",
