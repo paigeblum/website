@@ -30,10 +30,18 @@ function Media({ piece }: { piece: Piece }) {
     );
   }
   if (piece.media?.type === "image") {
+    const { src, alt, width = 1600, height = 900 } = piece.media;
     return (
-      <div className="relative w-full overflow-hidden rounded-2xl" style={{ aspectRatio: "16 / 9" }}>
-        <Image src={piece.media.src} alt={piece.media.alt} fill className="object-cover" sizes="(min-width: 768px) 60vw, 100vw" />
-      </div>
+      <a href={src} target="_blank" rel="noopener noreferrer" className="block" title="Open full size">
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className="block h-auto w-full rounded-2xl border border-gray-200"
+          sizes="(min-width: 768px) 60vw, 100vw"
+        />
+      </a>
     );
   }
   return (
@@ -47,12 +55,16 @@ function Media({ piece }: { piece: Piece }) {
 }
 
 function PieceRow({ piece }: { piece: Piece }) {
+  // A piece with no media and no placeholder shows as text only.
+  const hasVisual = Boolean(piece.media || piece.placeholder);
   return (
     <article className="grid items-start md:grid-cols-5" style={{ gap: "2rem", marginBottom: "4.5rem" }}>
-      <div className="md:col-span-3">
-        <Media piece={piece} />
-      </div>
-      <div className="md:col-span-2">
+      {hasVisual && (
+        <div className="md:col-span-3">
+          <Media piece={piece} />
+        </div>
+      )}
+      <div className={hasVisual ? "md:col-span-2" : "md:col-span-3"}>
         <h3 className="text-xl md:text-2xl font-semibold text-gray-900">{piece.title}</h3>
         <p className="text-xs uppercase tracking-widest text-gray-400" style={{ marginTop: "0.5rem" }}>
           {piece.meta}

@@ -6,7 +6,8 @@ export type Piece = {
   meta: string; // short facts: role, tools, year
   description: string;
   // Path under /public (e.g. "/portfolio/dogs.mp4") or leave undefined to show a placeholder.
-  media?: { type: "video" | "image"; src: string; alt: string };
+  // Images need width and height (in pixels) so they keep their own proportions.
+  media?: { type: "video" | "image"; src: string; alt: string; width?: number; height?: number };
   placeholder?: string; // what should go here, shown until media is added
   links?: { label: string; href: string }[];
   status?: string; // e.g. "In progress"
@@ -54,10 +55,16 @@ export const groups: Group[] = [
     pieces: [
       {
         title: "What Makes an Image Steerable?",
-        meta: "Senior thesis, Colgate University / PyTorch / 2024",
+        meta: "Senior thesis, Colgate University / With Emily Kociubes and Nyah Harrison / PyTorch / 2024",
         description:
           "Can you predict how easily a text-to-image model can be steered away from a starting image? CNNs and linear regression on image features, comparing real and AI-generated images.",
-        placeholder: "Image: a key figure from the thesis or the poster",
+        media: {
+          type: "image",
+          src: "/portfolio/thesis-poster.jpg",
+          alt: "Research poster: Exploring Generative AI, What Makes an Image Steerable?",
+          width: 2400,
+          height: 1953,
+        },
         links: [
           { label: "Read thesis", href: "/thesis.pdf" },
           { label: "Poster", href: "/thesis-poster.pptx" },
@@ -66,8 +73,8 @@ export const groups: Group[] = [
       {
         title: "Lyric generation with RNNs",
         meta: "LSTM / TensorFlow / 2023",
-        description: "A long short-term memory model trained across genres to write song lyrics.",
-        placeholder: "Image: sample generated lyrics",
+        description:
+          "LSTM models trained on pop and rock lyrics, comparing how genre and training length change what they write.",
         links: [
           {
             label: "Read article",
