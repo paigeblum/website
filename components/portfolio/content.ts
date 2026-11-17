@@ -7,7 +7,16 @@ export type Piece = {
   description: string;
   // Path under /public (e.g. "/portfolio/dogs.mp4") or leave undefined to show a placeholder.
   // Images need width and height (in pixels) so they keep their own proportions.
-  media?: { type: "video" | "image"; src: string; alt: string; width?: number; height?: number };
+  // For "youtube", src is the video ID. start and end (in seconds) pick the segment that plays.
+  media?: {
+    type: "video" | "image" | "youtube";
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+    start?: number;
+    end?: number;
+  };
   placeholder?: string; // a note on what media to add. Not shown on the page.
   links?: { label: string; href: string }[];
   status?: string; // e.g. "In progress"
@@ -31,7 +40,12 @@ export const groups: Group[] = [
         meta: "Behavior, locomotion, attacks / C++",
         description:
           "AI for the attack dogs in the campaign and the K9 robots in DMZ. Both are built on one quadruped base, each with its own behavior, animation and movement. Also Rex, the tracker dog in the DMZ opening mission.",
-        placeholder: "Clip: a dog and a K9 robot, recorded from the shipped game",
+        media: {
+          type: "youtube",
+          src: "W-oz598xQds",
+          alt: "Call of Duty: Modern Warfare 4 dog takedown animations",
+        },
+        placeholder: "Still wanted: a K9 robot clip, recorded from the shipped game",
       },
       {
         title: "AI and vehicles",

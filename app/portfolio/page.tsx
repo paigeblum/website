@@ -14,6 +14,35 @@ export const metadata: Metadata = {
 const gutter = "clamp(1.5rem, 6vw, 5rem)";
 
 function Media({ piece }: { piece: Piece }) {
+  if (piece.media?.type === "youtube") {
+    const { src, alt, start, end } = piece.media;
+    const params = new URLSearchParams({ rel: "0", modestbranding: "1" });
+    if (start) params.set("start", String(start));
+    if (end) params.set("end", String(end));
+    return (
+      <div>
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${src}?${params}`}
+          title={alt}
+          className="block w-full rounded-2xl border border-gray-200 bg-black"
+          style={{ aspectRatio: "16 / 9" }}
+          allow="encrypted-media; picture-in-picture; fullscreen"
+          referrerPolicy="strict-origin-when-cross-origin"
+          loading="lazy"
+          allowFullScreen
+        />
+        <a
+          href={`https://www.youtube.com/watch?v=${src}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-gray-400 hover:text-[#f72585]"
+          style={{ display: "inline-block", marginTop: "0.5rem" }}
+        >
+          Footage via YouTube
+        </a>
+      </div>
+    );
+  }
   if (piece.media?.type === "video") {
     return (
       <video
