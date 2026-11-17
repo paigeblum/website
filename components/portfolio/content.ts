@@ -101,8 +101,36 @@ export const groups: Group[] = [
   },
 ];
 
-export const paintings: { src?: string; title: string }[] = [
-  { title: "Painting" },
-  { title: "Painting" },
-  { title: "Painting" },
+export type Artwork = { src: string; alt: string; medium: string; title?: string; width: number; height: number };
+
+// Add a title to any piece and it shows before the medium.
+export const artworks: Artwork[] = [
+  {
+    src: "/portfolio/art/watercolor-sea.jpg",
+    alt: "Watercolor of a pink sea creature covered in white dots, with a small orange fish, against blue and violet water",
+    medium: "Watercolor and ink",
+    width: 2000,
+    height: 1400,
+  },
+  {
+    src: "/portfolio/art/stained-glass-flowers.jpg",
+    alt: "Stained glass panel of red and orange flowers on green glass",
+    medium: "Stained glass",
+    width: 1960,
+    height: 1545,
+  },
+  {
+    src: "/portfolio/art/stained-glass-sun-valley.jpg",
+    alt: "Stained glass panel of a sun over a green ski mountain with a Sun Valley banner",
+    medium: "Stained glass",
+    width: 1976,
+    height: 1318,
+  },
+  {
+    src: "/portfolio/art/sketchbook-mixed-media.jpg",
+    alt: "Sketchbook spread with painted fruit, a bird on collaged dictionary pages, and looping colored lines",
+    medium: "Mixed media, sketchbook",
+    width: 1910,
+    height: 1408,
+  },
 ];

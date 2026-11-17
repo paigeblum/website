@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PortfolioHero from "@/components/portfolio/PortfolioHero";
 import RadianceCanvas from "@/components/portfolio/RadianceCanvas";
-import { groups, paintings, type Piece } from "@/components/portfolio/content";
+import { groups, artworks, type Piece } from "@/components/portfolio/content";
 
 export const metadata: Metadata = {
   title: "Portfolio | Paige Blum",
@@ -123,28 +123,28 @@ export default function PortfolioPage() {
 
           <section id="art" style={{ scrollMarginTop: "6rem" }}>
             <GroupHeading title="Art" />
-            <div style={{ marginBottom: "3rem" }}>
+            <div className="grid items-start sm:grid-cols-2" style={{ columnGap: "1.5rem", marginBottom: "3rem" }}>
+              {artworks.map((a) => (
+                <figure key={a.src} style={{ marginBottom: "2rem" }}>
+                  <Image
+                    src={a.src}
+                    alt={a.alt}
+                    width={a.width}
+                    height={a.height}
+                    className="h-auto w-full rounded-2xl"
+                    sizes="(min-width: 640px) 45vw, 100vw"
+                  />
+                  <figcaption className="text-sm text-gray-500" style={{ marginTop: "0.5rem" }}>
+                    {a.title ? `${a.title}. ${a.medium}.` : `${a.medium}.`}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <div>
               <RadianceCanvas />
               <p className="text-sm text-gray-500" style={{ marginTop: "0.5rem" }}>
                 Radiance. Generative, p5.js.
               </p>
-            </div>
-            <div className="grid sm:grid-cols-3" style={{ gap: "1rem" }}>
-              {paintings.map((p, i) =>
-                p.src ? (
-                  <div key={i} className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "4 / 5" }}>
-                    <Image src={p.src} alt={p.title} fill className="object-cover" sizes="(min-width: 640px) 30vw, 100vw" />
-                  </div>
-                ) : (
-                  <div
-                    key={i}
-                    className="flex items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white/40 text-xs text-gray-400"
-                    style={{ aspectRatio: "4 / 5" }}
-                  >
-                    {p.title}
-                  </div>
-                )
-              )}
             </div>
           </section>
 
