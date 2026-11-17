@@ -47,9 +47,11 @@ function Media({ piece }: { piece: Piece }) {
     return (
       <video
         src={piece.media.src}
+        poster={piece.media.poster}
         aria-label={piece.media.alt}
-        className="w-full rounded-2xl bg-black"
+        className="block w-full rounded-2xl border border-gray-200 bg-black"
         style={{ aspectRatio: "16 / 9" }}
+        autoPlay
         controls
         muted
         loop

@@ -16,6 +16,7 @@ export type Piece = {
     height?: number;
     start?: number;
     end?: number;
+    poster?: string; // still frame shown before a video loads
   };
   placeholder?: string; // a note on what media to add. Not shown on the page.
   links?: { label: string; href: string }[];
@@ -41,9 +42,10 @@ export const groups: Group[] = [
         description:
           "AI for the attack dogs in the campaign and the K9 robots in DMZ. Both are built on one quadruped base, each with its own behavior, animation and movement. Also Rex, the tracker dog in the DMZ opening mission.",
         media: {
-          type: "youtube",
-          src: "W-oz598xQds",
-          alt: "Call of Duty: Modern Warfare 4 dog takedown animations",
+          type: "video",
+          src: "/portfolio/dogs-hired-gun.mp4",
+          poster: "/portfolio/dogs-hired-gun-poster.jpg",
+          alt: "An attack dog lunges at the player, is knocked away, gets back up and comes again, in the campaign mission Hired Gun",
         },
         placeholder: "Still wanted: a K9 robot clip, recorded from the shipped game",
       },
