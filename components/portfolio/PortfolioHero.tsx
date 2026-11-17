@@ -11,7 +11,7 @@ const lights = [
 
 export default function PortfolioHero() {
   return (
-    <section className="relative min-h-[80vh] flex items-center" style={{ padding: "8rem clamp(1.5rem, 6vw, 5rem) 4rem" }}>
+    <section className="relative min-h-[55vh] flex items-center" style={{ padding: "8rem clamp(1.5rem, 6vw, 5rem) 4rem" }}>
       {/* Subtle drifting lights */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         {lights.map((l, i) => (
