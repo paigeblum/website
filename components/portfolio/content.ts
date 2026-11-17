@@ -34,9 +34,9 @@ export const groups: Group[] = [
       },
       {
         title: "AI and vehicles",
-        meta: "Entering, exiting, riding / C++",
+        meta: "Driving, entering, exiting / C++",
         description:
-          "Soldiers getting in and out of vehicles and fighting from them, used by the patrols and convoys that move through the DMZ map.",
+          "AI that drives vehicles, and soldiers that get in, ride and get out of them. Used by the patrols and convoys that move through the DMZ map.",
         placeholder: "Clip: a patrol pulling up and soldiers dismounting",
       },
       {
