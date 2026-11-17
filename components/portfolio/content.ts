@@ -74,7 +74,14 @@ export const groups: Group[] = [
         title: "Lyric generation with RNNs",
         meta: "LSTM / TensorFlow / 2023",
         description:
-          "LSTM models trained on pop and rock lyrics, comparing how genre and training length change what they write.",
+          "Single-direction and bidirectional LSTMs trained on pop and rock lyrics, comparing how genre and training length change what they write. Validation loss turns upward after about 25 epochs, where the models begin to overfit.",
+        media: {
+          type: "image",
+          src: "/portfolio/lyric-loss.png",
+          alt: "Training and validation loss over 50 epochs for single-direction and bidirectional models on rock lyrics",
+          width: 1400,
+          height: 568,
+        },
         links: [
           {
             label: "Read article",
@@ -95,7 +102,13 @@ export const groups: Group[] = [
         status: "In progress",
         description:
           "Predicting what a missing lower leg would do during dance, from the motion of the rest of the body.",
-        placeholder: "Clip or interactive demo: predicted leg next to the original motion",
+        media: {
+          type: "image",
+          src: "/portfolio/dancing-leg.gif",
+          alt: "Animated skeleton dancing, seen from the front and side, with the lower leg drawn in bold",
+          width: 700,
+          height: 440,
+        },
       },
       {
         title: "Faces in nature",

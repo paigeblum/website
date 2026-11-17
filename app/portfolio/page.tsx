@@ -38,8 +38,9 @@ function Media({ piece }: { piece: Piece }) {
           alt={alt}
           width={width}
           height={height}
-          className="block h-auto w-full rounded-2xl border border-gray-200"
+          className="block h-auto w-full rounded-2xl border border-gray-200 bg-white"
           sizes="(min-width: 768px) 60vw, 100vw"
+          unoptimized={src.endsWith(".gif")}
         />
       </a>
     );
