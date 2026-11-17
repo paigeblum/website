@@ -95,6 +95,8 @@ function GroupHeading({ title, note }: { title: string; note?: string }) {
 }
 
 export default function PortfolioPage() {
+  const artRows = [];
+  for (let i = 0; i < artworks.length; i += 2) artRows.push(artworks.slice(i, i + 2));
   const index = [...groups.map((g) => ({ id: g.id, title: g.title })), { id: "art", title: "Art" }];
 
   return (
@@ -123,21 +125,27 @@ export default function PortfolioPage() {
 
           <section id="art" style={{ scrollMarginTop: "6rem" }}>
             <GroupHeading title="Art" />
-            <div className="grid items-start sm:grid-cols-2" style={{ columnGap: "1.5rem", marginBottom: "3rem" }}>
-              {artworks.map((a) => (
-                <figure key={a.src} style={{ marginBottom: "2rem" }}>
-                  <Image
-                    src={a.src}
-                    alt={a.alt}
-                    width={a.width}
-                    height={a.height}
-                    className="h-auto w-full rounded-2xl"
-                    sizes="(min-width: 640px) 45vw, 100vw"
-                  />
-                  <figcaption className="text-sm text-gray-500" style={{ marginTop: "0.5rem" }}>
-                    {a.title ? `${a.title}. ${a.medium}.` : `${a.medium}.`}
-                  </figcaption>
-                </figure>
+            {/* Rows of two. Widths follow each piece's proportions so both share one height. */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              {artRows.map((row, i) => (
+                <div key={i} className="flex flex-col sm:flex-row" style={{ gap: "1.5rem", marginBottom: "1.5rem" }}>
+                  {row.map((a) => (
+                    <div
+                      key={a.src}
+                      className="min-w-0 sm:[flex:var(--ratio)_1_0%]"
+                      style={{ "--ratio": a.width / a.height } as React.CSSProperties}
+                    >
+                      <Image
+                        src={a.src}
+                        alt={a.alt}
+                        width={a.width}
+                        height={a.height}
+                        className="block h-auto w-full rounded-2xl"
+                        sizes="(min-width: 640px) 45vw, 100vw"
+                      />
+                    </div>
+                  ))}
+                </div>
               ))}
             </div>
             <div>

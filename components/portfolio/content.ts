@@ -103,7 +103,7 @@ export const groups: Group[] = [
 
 export type Artwork = { src: string; alt: string; medium: string; title?: string; width: number; height: number };
 
-// Add a title to any piece and it shows before the medium.
+// Shown without captions for now. Title and medium are kept here for later.
 export const artworks: Artwork[] = [
   {
     src: "/portfolio/art/watercolor-sea.jpg",
