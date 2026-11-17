@@ -133,21 +133,9 @@ function GroupHeading({ title, note }: { title: string; note?: string }) {
 }
 
 export default function PortfolioPage() {
-  // Pair pieces into rows of two; a piece marked wide gets a row to itself.
-  const artRows: (typeof artworks)[] = [];
-  let pending: typeof artworks = [];
-  for (const a of artworks) {
-    if (a.wide) {
-      artRows.push([a]);
-      continue;
-    }
-    pending.push(a);
-    if (pending.length === 2) {
-      artRows.push(pending);
-      pending = [];
-    }
-  }
-  if (pending.length) artRows.push(pending);
+  // Group pieces by their row number, in order.
+  const rowNumbers = [...new Set(artworks.map((a) => a.row))].sort((x, y) => x - y);
+  const artRows = rowNumbers.map((n) => artworks.filter((a) => a.row === n));
   const index = [...groups.map((g) => ({ id: g.id, title: g.title })), { id: "art", title: "Art" }];
 
   return (
@@ -192,7 +180,7 @@ export default function PortfolioPage() {
                         width={a.width}
                         height={a.height}
                         className="block h-auto w-full rounded-2xl border border-gray-200"
-                        sizes={row.length === 1 ? "(min-width: 1024px) 1024px, 100vw" : "(min-width: 640px) 45vw, 100vw"}
+                        sizes={`(min-width: 640px) ${Math.round(100 / row.length)}vw, 100vw`}
                       />
                     </div>
                   ))}

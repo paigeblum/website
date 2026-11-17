@@ -149,8 +149,16 @@ export const groups: Group[] = [
   },
 ];
 
-// wide: true gives a piece its own full-width row.
-export type Artwork = { src: string; alt: string; medium: string; title?: string; width: number; height: number; wide?: boolean };
+// Pieces with the same row number sit side by side at one shared height.
+export type Artwork = {
+  src: string;
+  alt: string;
+  medium: string;
+  title?: string;
+  width: number;
+  height: number;
+  row: number;
+};
 
 // Shown without captions for now. Title and medium are kept here for later.
 export const artworks: Artwork[] = [
@@ -160,27 +168,7 @@ export const artworks: Artwork[] = [
     medium: "Watercolor and ink",
     width: 2000,
     height: 1400,
-  },
-  {
-    src: "/portfolio/art/stained-glass-flowers.jpg",
-    alt: "Stained glass panel of red and orange flowers on green glass",
-    medium: "Stained glass",
-    width: 1960,
-    height: 1545,
-  },
-  {
-    src: "/portfolio/art/stained-glass-sun-valley.jpg",
-    alt: "Stained glass panel of a sun over a green ski mountain with a Sun Valley banner",
-    medium: "Stained glass",
-    width: 1976,
-    height: 1318,
-  },
-  {
-    src: "/portfolio/art/sketchbook-mixed-media.jpg",
-    alt: "Sketchbook spread with painted fruit, a bird on collaged dictionary pages, and looping colored lines",
-    medium: "Mixed media, sketchbook",
-    width: 1910,
-    height: 1408,
+    row: 1,
   },
   {
     src: "/portfolio/art/watercolor-profile.jpg",
@@ -188,6 +176,30 @@ export const artworks: Artwork[] = [
     medium: "Watercolor and ink",
     width: 1700,
     height: 884,
-    wide: true,
+    row: 1,
+  },
+  {
+    src: "/portfolio/art/stained-glass-flowers.jpg",
+    alt: "Stained glass panel of red and orange flowers on green glass",
+    medium: "Stained glass",
+    width: 1960,
+    height: 1545,
+    row: 2,
+  },
+  {
+    src: "/portfolio/art/stained-glass-geometric.jpg",
+    alt: "Square stained glass panel with a pink pinwheel flower around a blue center, inside a blue diamond, set in a yellow circle",
+    medium: "Stained glass",
+    width: 1780,
+    height: 1780,
+    row: 2,
+  },
+  {
+    src: "/portfolio/art/stained-glass-sun-valley.jpg",
+    alt: "Stained glass panel of a sun over a green ski mountain with a Sun Valley banner",
+    medium: "Stained glass",
+    width: 1976,
+    height: 1318,
+    row: 2,
   },
 ];
