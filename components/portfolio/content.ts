@@ -21,12 +21,14 @@ export type Piece = {
   placeholder?: string; // a note on what media to add. Not shown on the page.
   links?: { label: string; href: string }[];
   status?: string; // e.g. "In progress"
+  hidden?: boolean; // kept here for later (e.g. a case study page) but not shown
 };
 
 export type Group = {
   id: string;
   title: string;
   note?: string;
+  also?: string; // one line under the section, for work without its own entry
   pieces: Piece[];
 };
 
@@ -35,7 +37,20 @@ export const groups: Group[] = [
     id: "mw4",
     title: "Call of Duty: Modern Warfare 4",
     note: "AI Gameplay Engineer, Infinity Ward. Campaign and DMZ. 2026.",
+    also: "Also built: AI that drives and rides in vehicles, and battle chatter between soldiers.",
     pieces: [
+      {
+        title: "Rex",
+        meta: "Companion behavior / C++",
+        description:
+          "The dog who opens DMZ. In the first mission the player follows Rex as he runs ahead through the forest, crosses the river and leads them to the crash site.",
+        media: {
+          type: "video",
+          src: "/portfolio/rex-dmz.mp4",
+          poster: "/portfolio/rex-dmz-poster.jpg",
+          alt: "Rex the dog runs ahead of the player through a forest, across a river, to a crashed aircraft",
+        },
+      },
       {
         title: "Attack dogs",
         meta: "Behavior, locomotion, attacks / C++",
@@ -61,18 +76,7 @@ export const groups: Group[] = [
         },
       },
       {
-        title: "Rex",
-        meta: "Companion behavior / C++",
-        description:
-          "The dog who opens DMZ. In the first mission the player follows Rex as he runs ahead through the forest, crosses the river and leads them to the crash site.",
-        media: {
-          type: "video",
-          src: "/portfolio/rex-dmz.mp4",
-          poster: "/portfolio/rex-dmz-poster.jpg",
-          alt: "Rex the dog runs ahead of the player through a forest, across a river, to a crashed aircraft",
-        },
-      },
-      {
+        hidden: true,
         title: "AI and vehicles",
         meta: "Driving, entering, exiting / C++",
         description:
@@ -80,6 +84,7 @@ export const groups: Group[] = [
         placeholder: "Clip: a patrol pulling up and soldiers dismounting",
       },
       {
+        hidden: true,
         title: "Battle chatter",
         meta: "Dialogue system / C++",
         description:

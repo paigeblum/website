@@ -54,6 +54,16 @@ export default function PortfolioHero() {
           </span>
         </motion.h1>
 
+        <motion.p
+          className="text-lg text-gray-600"
+          style={{ marginTop: "1.25rem" }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          AI gameplay engineer at Infinity Ward.
+        </motion.p>
+
         {/* A single flowing line, like a path traced by a moving body */}
         <svg viewBox="0 0 800 120" className="w-full max-w-3xl overflow-visible" style={{ marginTop: "2.5rem" }} aria-hidden="true">
           <defs>

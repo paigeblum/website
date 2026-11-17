@@ -156,9 +156,16 @@ export default function PortfolioPage() {
           {groups.map((group) => (
             <section key={group.id} id={group.id} style={{ scrollMarginTop: "6rem", marginBottom: "3rem" }}>
               <GroupHeading title={group.title} note={group.note} />
-              {group.pieces.map((piece) => (
-                <PieceRow key={piece.title} piece={piece} />
-              ))}
+              {group.pieces
+                .filter((piece) => !piece.hidden)
+                .map((piece) => (
+                  <PieceRow key={piece.title} piece={piece} />
+                ))}
+              {group.also && (
+                <p className="text-base font-light text-gray-600" style={{ marginTop: "-1.5rem", marginBottom: "3rem" }}>
+                  {group.also}
+                </p>
+              )}
             </section>
           ))}
 
