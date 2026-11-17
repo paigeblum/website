@@ -45,12 +45,12 @@ const projects = [
   },
   {
     title: "What Makes an Image Steerable?",
-    description: "Senior thesis investigating predictability of image steerability in text-to-image AI models using CNNs and linear regression. Analyzed feature importance in generative AI interactions, revealing key insights into how real vs. AI-generated images affect model steering capabilities.",
+    description: "Senior capstone research investigating predictability of image steerability in text-to-image AI models using CNNs and linear regression. Analyzed feature importance in generative AI interactions, revealing key insights into how real vs. AI-generated images affect model steering capabilities.",
     year: "2024",
     tags: ["Computer Vision", "CNNs", "Machine Learning", "Research", "PyTorch"],
     demoLink: "/thesis.pdf",
     githubLink: "/thesis-poster.pptx",
-    demoLabel: "Read Thesis",
+    demoLabel: "Read Paper",
     githubLabel: "View Poster",
     type: "personal"
   },

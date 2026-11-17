@@ -55,7 +55,7 @@ export const groups: Group[] = [
     pieces: [
       {
         title: "What Makes an Image Steerable?",
-        meta: "Senior thesis, Colgate University / With Emily Kociubes and Nyah Harrison / PyTorch / 2024",
+        meta: "Senior capstone research, Colgate University / With Emily Kociubes and Nyah Harrison / PyTorch / 2024",
         description:
           "Can you predict how easily a text-to-image model can be steered away from a starting image? CNNs and linear regression on image features, comparing real and AI-generated images.",
         media: {
@@ -66,7 +66,7 @@ export const groups: Group[] = [
           height: 1953,
         },
         links: [
-          { label: "Read thesis", href: "/thesis.pdf" },
+          { label: "Read paper", href: "/thesis.pdf" },
           { label: "Poster", href: "/thesis-poster.pptx" },
         ],
       },
