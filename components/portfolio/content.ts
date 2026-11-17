@@ -8,7 +8,7 @@ export type Piece = {
   // Path under /public (e.g. "/portfolio/dogs.mp4") or leave undefined to show a placeholder.
   // Images need width and height (in pixels) so they keep their own proportions.
   media?: { type: "video" | "image"; src: string; alt: string; width?: number; height?: number };
-  placeholder?: string; // what should go here, shown until media is added
+  placeholder?: string; // a note on what media to add. Not shown on the page.
   links?: { label: string; href: string }[];
   status?: string; // e.g. "In progress"
 };

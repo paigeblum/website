@@ -45,19 +45,13 @@ function Media({ piece }: { piece: Piece }) {
       </a>
     );
   }
-  return (
-    <div
-      className="flex w-full items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white/40 text-center text-xs text-gray-400"
-      style={{ aspectRatio: "16 / 9", padding: "1.5rem" }}
-    >
-      {piece.placeholder}
-    </div>
-  );
+  return null;
 }
 
 function PieceRow({ piece }: { piece: Piece }) {
-  // A piece with no media and no placeholder shows as text only.
-  const hasVisual = Boolean(piece.media || piece.placeholder);
+  // A piece with no media yet shows as text only. Its placeholder note in
+  // content.ts is a reminder of what to add, and is never shown on the page.
+  const hasVisual = Boolean(piece.media);
   return (
     <article className="grid items-start md:grid-cols-5" style={{ gap: "2rem", marginBottom: "4.5rem" }}>
       {hasVisual && (
