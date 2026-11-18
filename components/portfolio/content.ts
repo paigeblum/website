@@ -37,7 +37,7 @@ export const groups: Group[] = [
     id: "mw4",
     title: "Call of Duty: Modern Warfare 4",
     note: "AI Gameplay Engineer, Infinity Ward. Campaign and DMZ. 2026.",
-    also: "Also built: AI that drives and rides in vehicles, and battle chatter between soldiers.",
+    also: "Also built: battle chatter between soldiers.",
     pieces: [
       {
         title: "Rex",
@@ -89,12 +89,16 @@ export const groups: Group[] = [
         },
       },
       {
-        hidden: true,
         title: "AI and vehicles",
-        meta: "Driving, entering, exiting / C++",
+        meta: "Driving, seating, entering, exiting / C++",
         description:
-          "AI that drives vehicles, and soldiers that get in, ride and get out of them. Used by the patrols and convoys that move through the DMZ map.",
-        placeholder: "Clip: a patrol pulling up and soldiers dismounting",
+          "AI that drives, rides and fights from vehicles, used by the patrols and convoys that move through DMZ. I also refactored the system that moves soldiers between seats.",
+        media: {
+          type: "video",
+          src: "/portfolio/vehicles-dmz.mp4",
+          poster: "/portfolio/vehicles-dmz-poster.jpg",
+          alt: "An enemy vehicle pulls up on a road and soldiers jump out and spread into cover",
+        },
       },
       {
         hidden: true,
