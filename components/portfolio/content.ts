@@ -76,6 +76,19 @@ export const groups: Group[] = [
         },
       },
       {
+        title: "Foot phase annotator",
+        meta: "Animation tooling / Python",
+        description:
+          "Walk and run animations are kept in sync by marking four poses in every step: each foot landing and each foot passing the other. Animators placed these marks by hand, and the old automatic tool broke on noisy motion capture. I rebuilt it to treat the distance between the feet as a wave, smooth out the noise, and read the poses from its peaks and crossings. It now marks most cycles on its own, more accurately than the tool it replaced.",
+        media: {
+          type: "image",
+          src: "/portfolio/foot-phase-diagram.svg",
+          alt: "Diagram: the distance between the feet over one step forms a wave; its crossings mark each foot passing and its peaks mark each foot landing",
+          width: 1600,
+          height: 900,
+        },
+      },
+      {
         hidden: true,
         title: "AI and vehicles",
         meta: "Driving, entering, exiting / C++",

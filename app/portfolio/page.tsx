@@ -71,7 +71,7 @@ function Media({ piece }: { piece: Piece }) {
           height={height}
           className="block h-auto w-full rounded-2xl border border-gray-200 bg-white"
           sizes="(min-width: 768px) 60vw, 100vw"
-          unoptimized={src.endsWith(".gif")}
+          unoptimized={src.endsWith(".gif") || src.endsWith(".svg")}
         />
       </a>
     );
