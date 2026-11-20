@@ -6,42 +6,51 @@
 <meta name="robots" content="noindex">
 <title>Card Companion (prototype)</title>
 <style>
-  :root { --bg:#f6f1ea; --ink:#2f2a28; --soft:#8a817b; --body:#cfe3dc; --cheek:#f3c9c0; --line:#e4dbd1; }
+  :root { --bg:#f6f1ea; --ink:#2f2a28; --soft:#8a817b; --body:#cfe3dc; --cheek:#f3c9c0; --line:#e4dbd1; --amp:1; --spd:1; }
   * { box-sizing:border-box; }
   body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--bg); color:var(--ink); }
-  main { display:grid; grid-template-columns: 340px 1fr; height:100vh; }
-  aside { padding:20px; border-right:1px solid var(--line); overflow:auto; }
+  main { display:grid; grid-template-columns: 360px 1fr; height:100vh; }
+  aside { padding:18px 20px 40px; border-right:1px solid var(--line); overflow:auto; }
   h1 { font-size:18px; margin:0 0 4px; }
-  h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--soft); margin:22px 0 8px; }
-  p.note { font-size:13px; color:var(--soft); margin:0 0 8px; line-height:1.4; }
-  video { width:100%; border-radius:10px; background:#ddd; transform:scaleX(-1); aspect-ratio:4/3; object-fit:cover; }
+  details { border-top:1px solid var(--line); padding:10px 0; }
+  summary { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--soft); cursor:pointer; font-weight:600; }
+  p.note { font-size:13px; color:var(--soft); margin:8px 0; line-height:1.4; }
+  label.f { display:block; font-size:13px; margin:10px 0 4px; }
+  video { width:100%; border-radius:10px; background:#ddd; transform:scaleX(-1); aspect-ratio:4/3; object-fit:cover; margin-top:8px; }
   button { font:inherit; font-size:13px; border:1px solid var(--line); background:#fff; border-radius:8px; padding:6px 10px; cursor:pointer; }
   button:hover { border-color:var(--soft); }
   button.primary { background:var(--ink); color:#fff; border-color:var(--ink); }
   .row { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
-  input[type=text] { font:inherit; font-size:13px; padding:6px 8px; border:1px solid var(--line); border-radius:8px; flex:1; min-width:0; }
+  input[type=text], select, textarea { font:inherit; font-size:13px; padding:6px 8px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  input[type=text], textarea { width:100%; }
+  textarea { min-height:54px; resize:vertical; }
   #status { font-size:12px; color:var(--soft); margin-top:6px; min-height:16px; }
-  .cardlist div { display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px dashed var(--line); }
-  #stage { display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; }
-  #caption { font-size:34px; min-height:48px; margin-top:12px; text-align:center; transition:opacity .4s; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  td { padding:3px 0; border-bottom:1px dashed var(--line); vertical-align:middle; }
+  td:first-child { width:34%; color:var(--soft); }
+  td input { border:none !important; background:transparent !important; padding:3px 2px !important; }
+  td input:focus { background:#fff !important; outline:1px solid var(--line); }
+  #summary { font-size:13px; white-space:pre-wrap; background:#fff; border:1px solid var(--line); border-radius:8px; padding:10px; margin-top:8px; display:none; }
+  #stage { display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  #caption { font-size:34px; min-height:48px; margin-top:12px; text-align:center; padding:0 20px; }
   #item { position:absolute; top:12%; font-size:22px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:8px 18px; opacity:0; transition:opacity .4s; }
   #state { position:absolute; bottom:14px; right:18px; font-size:12px; color:var(--soft); }
+  #sessionBadge { position:absolute; top:14px; right:18px; font-size:12px; color:var(--soft); }
   svg { width:min(400px, 60vw, 60vh); overflow:visible; }
-  #creature { transform-origin:200px 330px; transition: transform .5s ease, filter 1s ease; }
+  #creature { transform-origin:200px 330px; transition: transform calc(.5s / var(--spd)) ease, filter 1s ease; }
   .breathing #bodyGroup { animation: breathe 4s ease-in-out infinite; transform-origin:200px 330px; }
-  @keyframes breathe { 50% { transform: scaleY(1.025) scaleX(.99); } }
-  .bounce #creature { animation: bounce .5s ease 2; }
-  @keyframes bounce { 50% { transform: translateY(-28px); } }
-  .nod #creature { animation: nod .45s ease 2; }
-  @keyframes nod { 50% { transform: rotate(4deg) translateY(6px); } }
-  .shake #creature { animation: shake .3s ease 3; }
-  @keyframes shake { 25% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); } }
-  .scoot #creature { animation: scoot 1.2s ease 1; }
-  @keyframes scoot { 25% { transform: translateX(-30px); } 75% { transform: translateX(30px); } }
-  .wave #arm { animation: wave .5s ease 3; transform-origin:300px 270px; }
+  @keyframes breathe { 50% { transform: scaleY(calc(1 + .025 * var(--amp))); } }
+  .bounce #creature { animation: bounce calc(.5s / var(--spd)) ease 2; }
+  @keyframes bounce { 50% { transform: translateY(calc(-28px * var(--amp))); } }
+  .nod #creature { animation: nod calc(.45s / var(--spd)) ease 2; }
+  @keyframes nod { 50% { transform: rotate(calc(4deg * var(--amp))) translateY(calc(6px * var(--amp))); } }
+  .scoot #creature { animation: scoot calc(1.2s / var(--spd)) ease 1; }
+  @keyframes scoot { 25% { transform: translateX(calc(-30px * var(--amp))); } 75% { transform: translateX(calc(30px * var(--amp))); } }
+  .wave #arm { animation: wave calc(.5s / var(--spd)) ease 3; transform-origin:300px 270px; }
   @keyframes wave { 50% { transform: rotate(-35deg); } }
   .resting #creature { filter: saturate(.4) brightness(.92); transform: scaleY(.92); }
-  .close #creature { transform: scale(1.12); }
+  .close #creature { transform: scale(calc(1 + .12 * var(--amp))); }
+  .backoff #creature { transform: scale(.94) translateY(6px); }
   .frozen * { animation-play-state: paused !important; }
   body.kid aside { display:none; }
   body.kid main { grid-template-columns: 1fr; }
@@ -52,36 +61,66 @@
 <main>
 <aside>
   <h1>Card Companion</h1>
-  <p class="note">Prototype. Hold a card up to the camera for about a second and the character responds. Nothing leaves this browser.</p>
+  <p class="note">Prototype. The child holds a picture card up to the camera and the companion responds. It only says the lines listed under Responses, and video never leaves this device.</p>
 
-  <h2>1. Camera</h2>
-  <video id="video" autoplay playsinline muted></video>
-  <div class="row" style="margin-top:8px">
-    <button id="startCam" class="primary">Start camera</button>
-    <label style="font-size:13px"><input type="checkbox" id="voice"> Voice</label>
-    <button id="kidBtn">Kid view</button>
-  </div>
-  <div id="status">Loading model…</div>
+  <details open>
+    <summary>1. About the child</summary>
+    <p class="note">Filled in by the therapist or parent before the session. Each answer directly changes how the companion behaves.</p>
+    <label class="f">First name (optional)</label>
+    <input type="text" id="pName" placeholder="e.g. Sam">
+    <label class="f">Favorite things (each becomes a card it can learn)</label>
+    <input type="text" id="pFavs" placeholder="e.g. bubbles, lizards, trains">
+    <label class="f">Movement</label>
+    <select id="pMotion"><option value="calm">Calm: small, slow movements</option><option value="normal">Normal</option><option value="lively">Lively</option></select>
+    <label class="f">Voice</label>
+    <select id="pVoice"><option value="off">Off: words on screen only</option><option value="soft">Soft voice</option><option value="normal">Normal voice</option></select>
+    <label class="f">Wait before responding</label>
+    <select id="pPace"><option value="1500">Longer pause (1.5 s)</option><option value="700">Short pause (0.7 s)</option></select>
+    <label class="f"><input type="checkbox" id="pGrownup"> A grown-up is joining the session</label>
+    <p class="note" style="margin-top:2px">When checked, some responses hand off to the grown-up (for example "all done" ends with "Show your grown-up!").</p>
+    <label class="f">Notes for the therapist</label>
+    <textarea id="pNotes" placeholder="What calms them, what to avoid..."></textarea>
+    <p class="note" style="margin-top:2px">Only for the adults. The companion never reads this.</p>
+  </details>
 
-  <h2>2. Teach cards</h2>
-  <p class="note">First teach <b>no card</b> (just you, no card in view). Then hold each card up and click Teach. 3 seconds each, a couple of angles helps.</p>
-  <div class="row">
-    <select id="cardSelect" style="font:inherit;font-size:13px;padding:6px;border-radius:8px;border:1px solid var(--line)"></select>
-    <button id="teachBtn">Teach</button>
-  </div>
-  <div class="row" style="margin-top:6px">
-    <input type="text" id="newCard" placeholder="Add a personal card (e.g. bubbles)">
-    <button id="addBtn">Add</button>
-  </div>
-  <div class="cardlist" id="cardList" style="margin-top:10px"></div>
-  <div class="row" style="margin-top:8px"><button id="clearBtn">Forget all cards</button></div>
+  <details>
+    <summary>2. Responses (everything it can say)</summary>
+    <p class="note">This is the complete list of what the companion can say. Nothing is generated. Edit any line. {item} is the card the child picked.</p>
+    <table id="respTable"></table>
+    <div class="row" style="margin-top:8px"><button id="resetResp">Reset to defaults</button></div>
+  </details>
 
-  <h2>3. Try without a camera</h2>
-  <p class="note">Click a card to simulate the kid handing it over. Keys 1 to 0 work too.</p>
-  <div class="row" id="simButtons"></div>
+  <details>
+    <summary>3. Camera and cards</summary>
+    <video id="video" autoplay playsinline muted></video>
+    <div class="row" style="margin-top:8px"><button id="startCam" class="primary">Start camera</button></div>
+    <div id="status">Loading vision model…</div>
+    <p class="note">First teach <b>no card</b> (nothing held up). Then hold each card up and click Teach. 3 seconds each; a couple of angles helps.</p>
+    <div class="row"><select id="cardSelect"></select><button id="teachBtn">Teach</button></div>
+    <table id="cardList" style="margin-top:8px"></table>
+    <div class="row" style="margin-top:8px"><button id="clearBtn">Forget taught cards</button></div>
+  </details>
+
+  <details open>
+    <summary>4. Session</summary>
+    <div class="row" style="margin-top:8px">
+      <button id="sessionBtn" class="primary">Start session</button>
+      <button id="kidBtn">Kid view</button>
+    </div>
+    <p class="note">Kid view hides this panel. Double-click the companion or press Esc to come back.</p>
+    <div id="summary"></div>
+    <div class="row" style="margin-top:6px"><button id="copyBtn" style="display:none">Copy summary</button></div>
+  </details>
+
+  <details>
+    <summary>Try without a camera</summary>
+    <p class="note">Click a card to simulate the child handing it over. Keys 1 to 0 work too.</p>
+    <div class="row" id="simButtons"></div>
+  </details>
 </aside>
 
 <section id="stage" class="breathing">
+  <div id="sessionBadge"></div>
   <div id="item"></div>
   <svg viewBox="0 0 400 380" aria-label="Companion character">
     <ellipse cx="200" cy="348" rx="110" ry="12" fill="#e4dbd1"/>
@@ -93,8 +132,8 @@
         <circle cx="140" cy="235" r="16" fill="var(--cheek)" opacity=".7"/>
         <circle cx="260" cy="235" r="16" fill="var(--cheek)" opacity=".7"/>
         <g id="eyes">
-          <g id="eyeL"><ellipse cx="160" cy="190" rx="16" ry="20" fill="var(--ink)"/><circle cx="165" cy="183" r="5" fill="#fff"/></g>
-          <g id="eyeR"><ellipse cx="240" cy="190" rx="16" ry="20" fill="var(--ink)"/><circle cx="245" cy="183" r="5" fill="#fff"/></g>
+          <g><ellipse cx="160" cy="190" rx="16" ry="20" fill="var(--ink)"/><circle cx="165" cy="183" r="5" fill="#fff"/></g>
+          <g><ellipse cx="240" cy="190" rx="16" ry="20" fill="var(--ink)"/><circle cx="245" cy="183" r="5" fill="#fff"/></g>
         </g>
         <path id="mouth" d="M185 240 q15 12 30 0" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" fill="none"/>
       </g>
@@ -109,226 +148,288 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier@1.2.6/dist/knn-classifier.min.js"></script>
 <script>
-// ---------- cards ----------
+const $ = id => document.getElementById(id);
+function load(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch { return d; } }
+function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+
+// ---------- cards and responses ----------
 const CORE = ["I want","more","all done","stop","help","yes","no","break","play","go"];
-let personal = load("cc_personal", []);
 const NONE = "no card";
-const allCards = () => [NONE, ...CORE, ...personal];
+const DEFAULT_RESP = {
+  "I want": "What do you want?",
+  "{item} after I want": "You want {item}!",
+  "{item}": "{item}! Here you go.",
+  "more": "More {item}!",
+  "more (nothing picked yet)": "More!",
+  "all done": "All done. Nice job.",
+  "all done (grown-up joining)": "All done! Show your grown-up.",
+  "stop": "Okay. Stopping.",
+  "help": "I'm here. I can help.",
+  "help (grown-up joining)": "Let's get your grown-up to help.",
+  "yes": "Yes!",
+  "no": "Okay. No.",
+  "break": "Break time.",
+  "play": "Let's play!",
+  "go": "Let's go!"
+};
+let RESP = Object.assign({}, DEFAULT_RESP, load("cc_resp", {}));
+const line = (key, item) => (RESP[key] ?? DEFAULT_RESP[key]).replaceAll("{item}", item ?? "");
+
+// ---------- profile ----------
+const P_FIELDS = ["pName","pFavs","pMotion","pVoice","pPace","pGrownup","pNotes"];
+function readProfile() {
+  return { name: $("pName").value.trim(), favs: $("pFavs").value.split(",").map(s => s.trim().toLowerCase()).filter(Boolean),
+           motion: $("pMotion").value, voice: $("pVoice").value, pace: +$("pPace").value, grownup: $("pGrownup").checked, notes: $("pNotes").value };
+}
+function applyProfile() {
+  const p = readProfile();
+  const amp = { calm: .45, normal: 1, lively: 1.3 }[p.motion], spd = { calm: .7, normal: 1, lively: 1.15 }[p.motion];
+  document.documentElement.style.setProperty("--amp", amp);
+  document.documentElement.style.setProperty("--spd", spd);
+  const saved = {}; P_FIELDS.forEach(f => saved[f] = $(f).type === "checkbox" ? $(f).checked : $(f).value);
+  save("cc_profile", saved);
+  renderCards(); renderSim();
+}
+function restoreProfile() {
+  const s = load("cc_profile", {});
+  P_FIELDS.forEach(f => { if (s[f] !== undefined) { if ($(f).type === "checkbox") $(f).checked = s[f]; else $(f).value = s[f]; } });
+}
+const personal = () => readProfile().favs;
+const allCards = () => [NONE, ...CORE, ...personal()];
 
 // ---------- character ----------
-const stage = document.getElementById("stage");
-const captionEl = document.getElementById("caption");
-const itemEl = document.getElementById("item");
-const stateEl = document.getElementById("state");
-const eyes = document.getElementById("eyes");
-const mouth = document.getElementById("mouth");
+const stage = $("stage"), captionEl = $("caption"), itemEl = $("item"), eyes = $("eyes"), mouth = $("mouth");
 const MOUTH = { smile:"M185 240 q15 12 30 0", flat:"M188 242 h24", open:"M190 236 q10 16 20 0 q-10 -6 -20 0", soft:"M188 242 q12 5 24 0" };
-
-let state = "idle";       // idle | noticing | responding | waiting_item | frozen | resting
-let lastItem = null;      // remembered for "more"
-let timers = [];
+let state = "idle", lastItem = null, askedWant = false, timers = [];
 const later = (fn, ms) => timers.push(setTimeout(fn, ms));
-function clearTimers() { timers.forEach(clearTimeout); timers = []; }
-
-function setState(s) { state = s; stateEl.textContent = s.replace("_"," "); }
+const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
+function setState(s) { state = s; $("state").textContent = s.replace("_", " "); }
 function anim(cls, ms) { stage.classList.add(cls); later(() => stage.classList.remove(cls), ms); }
 function say(text) {
   captionEl.textContent = text;
-  if (document.getElementById("voice").checked && "speechSynthesis" in window) {
+  const v = readProfile().voice;
+  if (v !== "off" && text && "speechSynthesis" in window) {
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text); u.rate = 0.85; u.pitch = 1.1; u.volume = 0.8;
+    const u = new SpeechSynthesisUtterance(text); u.rate = .85; u.pitch = 1.1; u.volume = v === "soft" ? .5 : .9;
     speechSynthesis.speak(u);
   }
 }
-function showItem(name) { itemEl.textContent = name; itemEl.style.opacity = 1; }
-function hideItem() { itemEl.style.opacity = 0; }
-function resetLook() {
-  stage.className = "breathing"; mouth.setAttribute("d", MOUTH.smile);
-  eyes.setAttribute("transform", ""); hideItem();
-}
-function backToIdle(ms = 3500) {
-  later(() => { resetLook(); captionEl.textContent = ""; setState("idle"); }, ms);
-}
+const showItem = n => { itemEl.textContent = n; itemEl.style.opacity = 1; };
+const hideItem = () => itemEl.style.opacity = 0;
+function resetLook() { stage.className = "breathing"; mouth.setAttribute("d", MOUTH.smile); eyes.setAttribute("transform", ""); hideItem(); }
+function backToIdle(ms = 3500) { later(() => { resetLook(); captionEl.textContent = ""; setState("idle"); }, ms); }
 
-// gentle idle life: blink and small glances, never prompting the kid
+// idle life: an occasional blink. It never prompts the child.
 setInterval(() => {
   if (state === "frozen" || state === "resting") return;
   eyes.setAttribute("transform", "translate(0,190) scale(1,0.1) translate(0,-190)");
-  setTimeout(() => eyes.setAttribute("transform", ""), 140);
+  setTimeout(() => { if (state !== "resting") eyes.setAttribute("transform", ""); }, 140);
 }, 4200);
 
-// the main behavior: what happens when the kid hands over a card
+// the child hands over a card
 function receive(card) {
-  // STOP always wins, instantly, from any state
-  if (card === "stop") {
+  logEvent(card);
+  if (card === "stop") {           // stop always wins, instantly, from any state
     clearTimers(); askedWant = false; if (window.speechSynthesis) speechSynthesis.cancel();
     stage.className = "frozen"; mouth.setAttribute("d", MOUTH.soft); hideItem();
-    captionEl.textContent = "Okay. Stopping.";
-    setState("frozen");
-    return; // stays still until the next card
+    captionEl.textContent = line("stop"); setState("frozen");
+    return;                        // stays still until the next card
   }
-  if (state === "noticing") return; // already taking a card in
+  if (state === "noticing") return;
   clearTimers();
   if (state === "frozen" || state === "resting") resetLook();
-
-  // notice first: lean in, eyes widen. Feels like it saw the card.
-  setState("noticing");
+  setState("noticing");            // notice first: lean in, so the child feels seen
   stage.className = "breathing close"; mouth.setAttribute("d", MOUTH.open);
-  later(() => { stage.classList.remove("close"); respond(card); }, 600);
+  later(() => { stage.classList.remove("close"); respond(card); }, readProfile().pace);
 }
 
-let askedWant = false;   // true right after an "I want" card, so the next item completes the sentence
 function respond(card) {
-  const wasAsked = askedWant; askedWant = false;
+  const p = readProfile(), wasAsked = askedWant; askedWant = false;
   setState("responding"); mouth.setAttribute("d", MOUTH.smile);
   switch (card) {
     case "I want":
-      say("What do you want?");
-      eyes.setAttribute("transform", "translate(0,-6)");
+      say(line("I want")); eyes.setAttribute("transform", "translate(0,-6)");
       setState("waiting_item"); askedWant = true;
       later(() => { if (state === "waiting_item") { askedWant = false; resetLook(); captionEl.textContent = ""; setState("idle"); } }, 12000);
       return;
     case "more":
-      if (lastItem) { say("More " + lastItem + "!"); showItem(lastItem); }
-      else say("More!");
-      anim("bounce", 1000); break;
+      if (lastItem) { say(line("more", lastItem)); showItem(lastItem); } else say(line("more (nothing picked yet)"));
+      anim("bounce", 1100); break;
     case "all done":
-      say("All done. Nice job."); anim("wave", 1500); lastItem = null; break;
+      say(line(p.grownup ? "all done (grown-up joining)" : "all done")); anim("wave", 1600); lastItem = null; break;
     case "help":
-      say("I'm here. I can help."); stage.classList.add("close"); break;
+      say(line(p.grownup ? "help (grown-up joining)" : "help")); stage.classList.add("close"); break;
     case "yes":
-      say("Yes!"); anim("nod", 900); break;
-    case "no":
-      say("Okay, not that."); mouth.setAttribute("d", MOUTH.flat); anim("shake", 900); break;
+      say(line("yes")); anim("nod", 1000); break;
+    case "no":                     // acknowledge calmly and back off: the child's no is heard
+      say(line("no")); mouth.setAttribute("d", MOUTH.soft); stage.classList.add("backoff"); hideItem(); break;
     case "break":
-      say("Break time."); stage.className = "resting"; setState("resting"); eyes.setAttribute("transform", "translate(0,190) scale(1,0.15) translate(0,-190)"); mouth.setAttribute("d", MOUTH.soft);
+      say(line("break")); stage.className = "resting"; setState("resting");
+      eyes.setAttribute("transform", "translate(0,190) scale(1,0.15) translate(0,-190)"); mouth.setAttribute("d", MOUTH.soft);
       later(() => { resetLook(); captionEl.textContent = ""; setState("idle"); }, 20000);
       return;
-    case "play":
-      say("Let's play!"); anim("bounce", 1000); break;
-    case "go":
-      say("Let's go!"); anim("scoot", 1200); break;
-    default: // a personal item card
-      lastItem = card;
-      say(wasAsked ? "You want " + card + "!" : card + "! Here you go.");
-      showItem(card); anim("bounce", 1000);
+    case "play": say(line("play")); anim("bounce", 1100); break;
+    case "go": say(line("go")); anim("scoot", 1300); break;
+    default:                       // one of the child's favorite things
+      lastItem = card; say(line(wasAsked ? "{item} after I want" : "{item}", card)); showItem(card); anim("bounce", 1100);
   }
   backToIdle();
 }
-// ---------- simulate buttons ----------
+
+// ---------- responses table ----------
+function renderResp() {
+  const t = $("respTable"); t.innerHTML = "";
+  Object.keys(DEFAULT_RESP).forEach(k => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${k}</td><td><input type="text"></td>`;
+    const inp = tr.querySelector("input"); inp.value = RESP[k];
+    inp.oninput = () => { RESP[k] = inp.value; save("cc_resp", RESP); };
+    t.appendChild(tr);
+  });
+}
+$("resetResp").onclick = () => { RESP = Object.assign({}, DEFAULT_RESP); save("cc_resp", {}); renderResp(); };
+
+// ---------- session + summary (stays on this device) ----------
+let session = null;
+function logEvent(card) {
+  if (!session) return;
+  session.events.push({ t: Date.now(), card });
+  $("sessionBadge").textContent = `Session: ${session.events.length} cards`;
+}
+const mins = ms => Math.max(1, Math.round(ms / 60000));
+function buildSummary(s) {
+  const p = readProfile(), end = s.end || Date.now(), counts = {};
+  s.events.forEach(e => counts[e.card] = (counts[e.card] || 0) + 1);
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const fmt = t => new Date(t).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  let out = `Session summary${p.name ? " for " + p.name : ""}\n`;
+  out += `${new Date(s.start).toLocaleDateString()}, ${fmt(s.start)} to ${fmt(end)} (${mins(end - s.start)} min)\n`;
+  out += `Grown-up joining: ${p.grownup ? "yes" : "no"}\n\n`;
+  out += `Cards handed over: ${s.events.length}\n`;
+  sorted.forEach(([c, n]) => out += `  ${c}: ${n}\n`);
+  const favs = sorted.filter(([c]) => !CORE.includes(c));
+  if (favs.length) out += `\nMost requested: ${favs[0][0]}\n`;
+  if (counts.stop) out += `Used "stop" ${counts.stop} time${counts.stop > 1 ? "s" : ""}.\n`;
+  if (counts.break) out += `Asked for a break ${counts.break} time${counts.break > 1 ? "s" : ""}.\n`;
+  if (s.events.length) out += `\nTimeline:\n` + s.events.map(e => `  ${fmt(e.t)}  ${e.card}`).join("\n");
+  return out;
+}
+$("sessionBtn").onclick = () => {
+  if (!session) {
+    session = { start: Date.now(), events: [] };
+    $("sessionBtn").textContent = "End session"; $("summary").style.display = "none"; $("copyBtn").style.display = "none";
+    $("sessionBadge").textContent = "Session: 0 cards";
+  } else {
+    session.end = Date.now();
+    $("summary").textContent = buildSummary(session); $("summary").style.display = "block"; $("copyBtn").style.display = "inline-block";
+    const past = load("cc_sessions", []); past.push(session); save("cc_sessions", past.slice(-20));
+    session = null; $("sessionBtn").textContent = "Start session"; $("sessionBadge").textContent = "";
+  }
+};
+$("copyBtn").onclick = async () => {
+  try { await navigator.clipboard.writeText($("summary").textContent); $("copyBtn").textContent = "Copied"; }
+  catch { $("copyBtn").textContent = "Select the text to copy"; }
+  setTimeout(() => $("copyBtn").textContent = "Copy summary", 2000);
+};
+
+// ---------- simulate + kid view ----------
 function renderSim() {
-  const box = document.getElementById("simButtons"); box.innerHTML = "";
-  [...CORE, ...personal].forEach((c, i) => {
+  const box = $("simButtons"); box.innerHTML = "";
+  [...CORE, ...personal()].forEach((c, i) => {
     const b = document.createElement("button"); b.textContent = (i < 10 ? ((i + 1) % 10) + " " : "") + c;
     b.onclick = () => receive(c); box.appendChild(b);
   });
 }
 document.addEventListener("keydown", e => {
-  if (e.target.tagName === "INPUT") return;
-  const n = "1234567890".indexOf(e.key);
-  if (n >= 0) receive(CORE[n]);
+  if (["INPUT","TEXTAREA","SELECT"].includes(e.target.tagName)) return;
+  const n = "1234567890".indexOf(e.key); if (n >= 0) receive(CORE[n]);
   if (e.key === "Escape") document.body.classList.remove("kid");
 });
-document.getElementById("kidBtn").onclick = () => { document.body.classList.add("kid"); say(""); };
+$("kidBtn").onclick = () => document.body.classList.add("kid");
 stage.addEventListener("dblclick", () => document.body.classList.remove("kid"));
 
-// ---------- recognition ----------
-const statusEl = document.getElementById("status");
-const video = document.getElementById("video");
+// ---------- recognition (all on this device) ----------
+const statusEl = $("status"), video = $("video");
 let net = null, knn = null, camOn = false, teaching = null;
-const counts = {};
-
-function load(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } }
-function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+const counts = load("cc_counts", {});
+const MODEL_KEY = "indexeddb://card-companion-mobilenet";
 
 async function initModel() {
+  if (typeof mobilenet === "undefined") { statusEl.textContent = "Vision model not available (offline before first setup?). Simulated cards still work."; return; }
   try {
-    net = await mobilenet.load({ version: 2, alpha: 0.5 });
-    knn = knnClassifier.create();
-    restoreDataset();
-    statusEl.textContent = "Model ready. Start the camera.";
-  } catch (e) {
-    statusEl.textContent = "Couldn't load the vision model (no internet?). Simulated cards still work.";
-  }
+    try { net = await mobilenet.load({ version: 2, alpha: 0.5, modelUrl: MODEL_KEY }); statusEl.textContent = "Vision model loaded from this device."; }
+    catch {
+      net = await mobilenet.load({ version: 2, alpha: 0.5 });   // one-time download during setup
+      try { await net.model.save(MODEL_KEY); } catch {}
+      statusEl.textContent = "Vision model downloaded and saved. It runs offline from now on.";
+    }
+    knn = knnClassifier.create(); restoreDataset();
+  } catch { statusEl.textContent = "Couldn't load the vision model. Simulated cards still work."; }
 }
 function saveDataset() {
-  if (!knn) return;
-  const d = knn.getClassifierDataset(); const out = {};
+  const d = knn.getClassifierDataset(), out = {};
   for (const k in d) out[k] = { data: Array.from(d[k].dataSync()), shape: d[k].shape };
-  save("cc_dataset", out);
+  save("cc_dataset", out); save("cc_counts", counts);
 }
 function restoreDataset() {
   const raw = load("cc_dataset", null); if (!raw) return;
-  const ds = {}; for (const k in raw) { ds[k] = tf.tensor(raw[k].data, raw[k].shape); counts[k] = raw[k].shape[0]; }
+  const ds = {}; for (const k in raw) ds[k] = tf.tensor(raw[k].data, raw[k].shape);
   knn.setClassifierDataset(ds); renderCards();
 }
-
-document.getElementById("startCam").onclick = async () => {
-  try {
-    video.srcObject = await navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 } });
-    camOn = true; statusEl.textContent = net ? "Camera on." : statusEl.textContent; loop();
-  } catch { statusEl.textContent = "Camera blocked. Allow camera access, or use simulated cards."; }
+$("startCam").onclick = async () => {
+  try { video.srcObject = await navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 } }); camOn = true; loop(); }
+  catch { statusEl.textContent = "Camera blocked. Allow camera access, or use simulated cards."; }
 };
-
-document.getElementById("teachBtn").onclick = () => {
+$("teachBtn").onclick = () => {
   if (!camOn || !net) { statusEl.textContent = "Start the camera first."; return; }
-  teaching = { label: document.getElementById("cardSelect").value, until: performance.now() + 3000 };
+  teaching = { label: $("cardSelect").value, until: performance.now() + 3000 };
 };
-document.getElementById("addBtn").onclick = () => {
-  const v = document.getElementById("newCard").value.trim().toLowerCase();
-  if (v && !allCards().includes(v)) { personal.push(v); save("cc_personal", personal); }
-  document.getElementById("newCard").value = ""; renderCards(); renderSim();
-};
-document.getElementById("clearBtn").onclick = () => {
+$("clearBtn").onclick = () => {
   if (knn) knn.clearAllClasses(); for (const k in counts) delete counts[k];
-  personal = []; save("cc_personal", []); save("cc_dataset", null); renderCards(); renderSim();
+  save("cc_dataset", null); save("cc_counts", {}); renderCards();
 };
-
 function renderCards() {
-  const sel = document.getElementById("cardSelect"), list = document.getElementById("cardList");
-  const cur = sel.value; sel.innerHTML = ""; list.innerHTML = "";
+  const sel = $("cardSelect"), list = $("cardList"), cur = sel.value;
+  sel.innerHTML = ""; list.innerHTML = "";
   allCards().forEach(c => {
     const o = document.createElement("option"); o.value = o.textContent = c; sel.appendChild(o);
-    const r = document.createElement("div");
-    r.innerHTML = `<span>${c}</span><span style="color:var(--soft)">${counts[c] ? counts[c] + " samples" : "not taught"}</span>`;
-    list.appendChild(r);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${c}</td><td style="text-align:right;color:var(--soft)">${counts[c] ? counts[c] + " samples" : "not taught"}</td>`;
+    list.appendChild(tr);
   });
   if (cur) sel.value = cur;
 }
 
-// a card counts as "handed over" when the same card is seen confidently for ~1 second,
-// then nothing new triggers until the card is taken away
+// a card counts as handed over when the same card is seen confidently for about a second;
+// nothing else triggers until the card is taken away
 let streakLabel = null, streak = 0, armed = true, noneStreak = 0;
 async function loop() {
   if (!camOn) return;
-  if (net && video.readyState >= 2) {
+  if (net && knn && video.readyState >= 2) {
     const emb = tf.tidy(() => net.infer(video, true));
     if (teaching) {
       knn.addExample(emb, teaching.label);
       counts[teaching.label] = (counts[teaching.label] || 0) + 1;
       statusEl.textContent = `Teaching "${teaching.label}"… ${counts[teaching.label]} samples`;
-      if (performance.now() > teaching.until) { teaching = null; saveDataset(); renderCards(); statusEl.textContent = "Saved."; }
-    } else if (knn.getNumClasses() >= 2 && counts[NONE]) {
-      const res = await knn.predictClass(emb, 5);
-      const conf = res.confidences[res.label];
-      if (res.label === NONE || conf < 0.8) {
-        noneStreak++; streak = 0; streakLabel = null;
-        if (noneStreak > 5) armed = true;
-      } else {
-        noneStreak = 0;
-        streak = (res.label === streakLabel) ? streak + 1 : 1; streakLabel = res.label;
+      if (performance.now() > teaching.until) { teaching = null; saveDataset(); renderCards(); statusEl.textContent = "Saved on this device."; }
+    } else if (counts[NONE] && knn.getNumClasses() >= 2) {
+      const res = await knn.predictClass(emb, 5), conf = res.confidences[res.label];
+      if (res.label === NONE || conf < .8) { noneStreak++; streak = 0; streakLabel = null; if (noneStreak > 5) armed = true; }
+      else {
+        noneStreak = 0; streak = res.label === streakLabel ? streak + 1 : 1; streakLabel = res.label;
         statusEl.textContent = `Seeing: ${res.label} (${Math.round(conf * 100)}%)`;
         if (streak >= 7 && armed) { armed = false; receive(res.label); }
       }
-    } else if (!counts[NONE]) {
-      statusEl.textContent = 'Teach "no card" first, then your cards.';
-    }
+    } else statusEl.textContent = 'Teach "no card" first, then the cards.';
     emb.dispose();
   }
   setTimeout(loop, 130);
 }
 
-renderCards(); renderSim(); initModel();
+// ---------- start ----------
+restoreProfile();
+P_FIELDS.forEach(f => $(f).addEventListener(f === "pName" || f === "pFavs" || f === "pNotes" ? "input" : "change", applyProfile));
+renderResp(); applyProfile(); initModel();
 </script>
 </body>
 </html>
