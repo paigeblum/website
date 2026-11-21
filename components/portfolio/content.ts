@@ -158,6 +158,21 @@ export const groups: Group[] = [
     title: "Experiments",
     pieces: [
       {
+        title: "Card companion",
+        meta: "Interaction design, computer vision / JavaScript",
+        status: "Prototype",
+        description:
+          "A practice partner for kids who communicate with picture cards (PECS). A therapist sets it up, the child holds a card up to the camera, and a character I drew responds. No chatbot: it recognizes the child's own cards and chooses from a short list of lines the therapist can see and edit. Designed with Claire, who studies autism therapy at USC.",
+        media: {
+          type: "image",
+          src: "/portfolio/card-companion.jpg",
+          alt: "A hand-drawn pink character waving as big blue bubbles float up, with the caption: You want big blue bubbles!",
+          width: 1200,
+          height: 760,
+        },
+        links: [{ label: "Try the prototype", href: "/portfolio/card-companion.html" }],
+      },
+      {
         title: "Dancing leg",
         meta: "Motion matching / Python",
         status: "In progress",
