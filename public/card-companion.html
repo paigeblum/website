@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex">
 <title>Card Companion (prototype)</title>
 <style>
-  :root { --bg:#f6f1ea; --ink:#2f2a28; --soft:#8a817b; --body:#cfe3dc; --cheek:#f3c9c0; --line:#e4dbd1; --amp:1; --spd:1; }
+  :root { --bg:#f6f1ea; --ink:#2f2a28; --soft:#8a817b; --body:#cfe3dc; --cheek:#f3c9c0; --line:#e4dbd1; --amp:1; --spd:1; --glow:transparent; }
   * { box-sizing:border-box; }
   body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--bg); color:var(--ink); }
   main { display:grid; grid-template-columns: 360px 1fr; height:100vh; }
@@ -14,7 +14,9 @@
   h1 { font-size:18px; margin:0 0 4px; }
   details { border-top:1px solid var(--line); padding:10px 0; }
   summary { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--soft); cursor:pointer; font-weight:600; }
-  p.note { font-size:13px; color:var(--soft); margin:8px 0; line-height:1.4; }
+  p.note, .how li { font-size:13px; color:var(--soft); margin:8px 0; line-height:1.45; }
+  .how h3 { font-size:13px; margin:12px 0 2px; color:var(--ink); }
+  .how ul { margin:0; padding-left:18px; }
   label.f { display:block; font-size:13px; margin:10px 0 4px; }
   video { width:100%; border-radius:10px; background:#ddd; transform:scaleX(-1); aspect-ratio:4/3; object-fit:cover; margin-top:8px; }
   button { font:inherit; font-size:13px; border:1px solid var(--line); background:#fff; border-radius:8px; padding:6px 10px; cursor:pointer; }
@@ -27,31 +29,52 @@
   #status { font-size:12px; color:var(--soft); margin-top:6px; min-height:16px; }
   table { width:100%; border-collapse:collapse; font-size:13px; }
   td { padding:3px 0; border-bottom:1px dashed var(--line); vertical-align:middle; }
-  td:first-child { width:34%; color:var(--soft); }
+  td:first-child { width:36%; color:var(--soft); }
   td input { border:none !important; background:transparent !important; padding:3px 2px !important; }
   td input:focus { background:#fff !important; outline:1px solid var(--line); }
+  .simgroup { font-size:11px; color:var(--soft); text-transform:uppercase; letter-spacing:.05em; margin:10px 0 4px; }
   #summary { font-size:13px; white-space:pre-wrap; background:#fff; border:1px solid var(--line); border-radius:8px; padding:10px; margin-top:8px; display:none; }
-  #stage { display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-  #caption { font-size:34px; min-height:48px; margin-top:12px; text-align:center; padding:0 20px; }
-  #item { position:absolute; top:12%; font-size:22px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:8px 18px; opacity:0; transition:opacity .4s; }
+
+  #stage { display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden;
+           background: radial-gradient(circle at 50% 55%, var(--glow), transparent 72%); transition: background 1s ease; }
+  #fx { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  #caption { font-size:34px; min-height:48px; margin-top:12px; text-align:center; padding:0 20px; position:relative; }
+  #item { position:absolute; top:10%; font-size:22px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:8px 18px; opacity:0; transition:opacity .4s; }
   #state { position:absolute; bottom:14px; right:18px; font-size:12px; color:var(--soft); }
   #sessionBadge { position:absolute; top:14px; right:18px; font-size:12px; color:var(--soft); }
-  svg { width:min(400px, 60vw, 60vh); overflow:visible; }
+  #snap { position:absolute; left:6%; bottom:8%; width:120px; border-radius:10px; background:#fff; border:2px solid #fff; box-shadow:0 4px 18px rgba(0,0,0,.12);
+          opacity:0; font-size:18px; text-align:center; padding:0; overflow:hidden; pointer-events:none; }
+  #snap img { width:100%; display:block; transform:scaleX(-1); }
+  #snap span { display:block; padding:16px 8px; }
+  #waitCard { position:absolute; top:12%; right:10%; background:#fff; border:2px solid var(--ink); border-radius:12px; padding:14px 18px; text-align:center; display:none; cursor:pointer; }
+  #waitCard b { display:block; font-size:28px; }
+  #waitCard small { color:var(--soft); font-size:12px; }
+
+  svg#char { width:min(400px, 60vw, 60vh); overflow:visible; position:relative; }
   #creature { transform-origin:200px 330px; transition: transform calc(.5s / var(--spd)) ease, filter 1s ease; }
+  #eyes { transition: transform .25s ease; transform-origin:200px 190px; }
   .breathing #bodyGroup { animation: breathe 4s ease-in-out infinite; transform-origin:200px 330px; }
   @keyframes breathe { 50% { transform: scaleY(calc(1 + .025 * var(--amp))); } }
   .bounce #creature { animation: bounce calc(.5s / var(--spd)) ease 2; }
   @keyframes bounce { 50% { transform: translateY(calc(-28px * var(--amp))); } }
-  .nod #creature { animation: nod calc(.45s / var(--spd)) ease 2; }
-  @keyframes nod { 50% { transform: rotate(calc(4deg * var(--amp))) translateY(calc(6px * var(--amp))); } }
-  .scoot #creature { animation: scoot calc(1.2s / var(--spd)) ease 1; }
-  @keyframes scoot { 25% { transform: translateX(calc(-30px * var(--amp))); } 75% { transform: translateX(calc(30px * var(--amp))); } }
+  .dance #creature { animation: dance calc(.8s / var(--spd)) ease-in-out 4; }
+  @keyframes dance { 25% { transform: rotate(calc(-7deg * var(--amp))) translateY(calc(-14px * var(--amp))); } 75% { transform: rotate(calc(7deg * var(--amp))) translateY(calc(-14px * var(--amp))); } }
   .wave #arm { animation: wave calc(.5s / var(--spd)) ease 3; transform-origin:300px 270px; }
   @keyframes wave { 50% { transform: rotate(-35deg); } }
   .resting #creature { filter: saturate(.4) brightness(.92); transform: scaleY(.92); }
   .close #creature { transform: scale(calc(1 + .12 * var(--amp))); }
   .backoff #creature { transform: scale(.94) translateY(6px); }
+  .hidden-eyes #eyes { transform: scaleY(.05); }
   .frozen * { animation-play-state: paused !important; }
+
+  .bubble { position:absolute; bottom:-80px; border-radius:50%; border:2px solid rgba(255,255,255,.9);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), var(--bc, rgba(190,220,240,.35)) 60%); animation: rise linear forwards; }
+  @keyframes rise { to { transform: translate(var(--dx), -115vh); } }
+  .note { position:absolute; bottom:30%; font-size:30px; color:var(--soft); animation: floatnote 2.6s ease-out forwards; }
+  @keyframes floatnote { to { transform: translate(var(--dx), -220px); opacity:0; } }
+  .star { position:absolute; width:9px; height:9px; border-radius:50%; background:var(--sc, #f0cf6a); box-shadow:0 0 14px 5px var(--sc, #f3dc8a); animation: twinkle 1.6s ease-in-out infinite alternate; }
+  @keyframes twinkle { from { opacity:.2; } to { opacity:1; } }
+
   body.kid aside { display:none; }
   body.kid main { grid-template-columns: 1fr; }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: .01s !important; } }
@@ -61,23 +84,49 @@
 <main>
 <aside>
   <h1>Card Companion</h1>
-  <p class="note">Prototype. The child holds a picture card up to the camera and the companion responds. It only says the lines listed under Responses, and video never leaves this device.</p>
+  <p class="note">Prototype. A practice partner for picture-card communication (PECS) that a therapist sets up. The child holds a card up to the camera and the companion responds.</p>
+
+  <details>
+    <summary>How it works</summary>
+    <div class="how">
+      <h3>What it uses</h3>
+      <ul>
+        <li>A small image recognizer that learns each child's own cards from a few seconds of video.</li>
+        <li>Hand-designed behavior, the same kind of character AI used in games, so every response is predictable and reviewable.</li>
+        <li>No chatbot or language model. Nothing it says is generated.</li>
+      </ul>
+      <h3>What it will never do</h3>
+      <ul>
+        <li>Say anything outside the Responses list. That list is everything it can say.</li>
+        <li>Go online. The vision model downloads once during setup, then it runs offline.</li>
+        <li>Store or send video. Recognition happens on this device.</li>
+        <li>Prompt or pressure the child. It waits for the child to start.</li>
+        <li>Ignore "no." "No" stops everything instantly, every time.</li>
+      </ul>
+      <h3>Who it's for</h3>
+      <ul>
+        <li>Extra practice of skills a therapist has already taught, between sessions.</li>
+        <li>The therapist sets it up and reads the session summary. A grown-up brings real items. It supports people; it does not replace them.</li>
+      </ul>
+    </div>
+  </details>
 
   <details open>
     <summary>1. About the child</summary>
-    <p class="note">Filled in by the therapist or parent before the session. Each answer directly changes how the companion behaves.</p>
+    <p class="note">Filled in by the therapist or parent. Each answer directly changes how the companion behaves.</p>
     <label class="f">First name (optional)</label>
     <input type="text" id="pName" placeholder="e.g. Sam">
-    <label class="f">Favorite things (each becomes a card it can learn)</label>
-    <input type="text" id="pFavs" placeholder="e.g. bubbles, lizards, trains">
+    <label class="f">Real things a grown-up can bring</label>
+    <input type="text" id="pReal" placeholder="e.g. snack, juice, blocks">
+    <label class="f">Other things the child likes to share</label>
+    <input type="text" id="pShare" placeholder="e.g. lizard, airplane">
     <label class="f">Movement</label>
     <select id="pMotion"><option value="calm">Calm: small, slow movements</option><option value="normal">Normal</option><option value="lively">Lively</option></select>
-    <label class="f">Voice</label>
-    <select id="pVoice"><option value="off">Off: words on screen only</option><option value="soft">Soft voice</option><option value="normal">Normal voice</option></select>
+    <label class="f">Sound</label>
+    <select id="pSound"><option value="off">Off: words on screen, music shown as notes</option><option value="soft">Soft</option><option value="normal">Normal</option></select>
     <label class="f">Wait before responding</label>
-    <select id="pPace"><option value="1500">Longer pause (1.5 s)</option><option value="700">Short pause (0.7 s)</option></select>
-    <label class="f"><input type="checkbox" id="pGrownup"> A grown-up is joining the session</label>
-    <p class="note" style="margin-top:2px">When checked, some responses hand off to the grown-up (for example "all done" ends with "Show your grown-up!").</p>
+    <select id="pPace"><option value="1200">Longer pause (1.2 s)</option><option value="600">Short pause (0.6 s)</option></select>
+    <label class="f"><input type="checkbox" id="pGrownup" checked> A grown-up is joining the session</label>
     <label class="f">Notes for the therapist</label>
     <textarea id="pNotes" placeholder="What calms them, what to avoid..."></textarea>
     <p class="note" style="margin-top:2px">Only for the adults. The companion never reads this.</p>
@@ -85,7 +134,7 @@
 
   <details>
     <summary>2. Responses (everything it can say)</summary>
-    <p class="note">This is the complete list of what the companion can say. Nothing is generated. Edit any line. {item} is the card the child picked.</p>
+    <p class="note">The complete list of what the companion can say. Nothing is generated. Edit any line. {item} is the card the child picked.</p>
     <table id="respTable"></table>
     <div class="row" style="margin-top:8px"><button id="resetResp">Reset to defaults</button></div>
   </details>
@@ -106,23 +155,28 @@
     <div class="row" style="margin-top:8px">
       <button id="sessionBtn" class="primary">Start session</button>
       <button id="kidBtn">Kid view</button>
+      <button id="arrivedBtn">Grown-up: item is here</button>
     </div>
-    <p class="note">Kid view hides this panel. Double-click the companion or press Esc to come back.</p>
+    <p class="note">Kid view hides this panel (double-click the companion or press Esc to return). When the companion shows "wait," tap the wait card or press Space once the real item is handed over.</p>
     <div id="summary"></div>
     <div class="row" style="margin-top:6px"><button id="copyBtn" style="display:none">Copy summary</button></div>
   </details>
 
-  <details>
+  <details open>
     <summary>Try without a camera</summary>
-    <p class="note">Click a card to simulate the child handing it over. Keys 1 to 0 work too.</p>
-    <div class="row" id="simButtons"></div>
+    <p class="note">Click cards to simulate the child handing them over, one after another for sentences (I want, big, blue, bubbles).</p>
+    <div id="simButtons"></div>
   </details>
 </aside>
 
 <section id="stage" class="breathing">
+  <div id="fx"></div>
   <div id="sessionBadge"></div>
   <div id="item"></div>
-  <svg viewBox="0 0 400 380" aria-label="Companion character">
+  <div id="waitCard"><b>✋ wait</b><small>grown-up: tap when it's here</small></div>
+  <div id="snap"></div>
+  <!-- Character: swap in new art by keeping these ids: creature, bodyGroup, eyes, mouth, arm -->
+  <svg id="char" viewBox="0 0 400 380" aria-label="Companion character">
     <ellipse cx="200" cy="348" rx="110" ry="12" fill="#e4dbd1"/>
     <g id="creature">
       <g id="bodyGroup">
@@ -151,178 +205,286 @@
 const $ = id => document.getElementById(id);
 function load(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch { return d; } }
 function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+const rand = (a, b) => a + Math.random() * (b - a);
 
-// ---------- cards and responses ----------
-const CORE = ["I want","more","all done","stop","help","yes","no","break","play","go"];
+// ---------- the card set (based on PECS) ----------
+const GROUPS = {
+  "Things it gives": ["bubbles","music","dance","peekaboo","lights"],
+  "Sentences and describing": ["I want","big","blue"],
+  "Speaking up": ["help","break","no"],
+  "Sharing": ["I see","dog","train"],
+  "Feelings": ["I feel","happy"]
+};
+const GIVES = GROUPS["Things it gives"];
+const STARTERS = ["I want","I see","I feel"];
+const SIZES = ["big","little"];
+const COLORS = { blue:"#8fb8e8", red:"#f0a0a0", green:"#a8d8a8", yellow:"#f3dc8a" };
+const FEELINGS = ["happy","sad","tired","mad"];
+const BUILT_IN = Object.values(GROUPS).flat();
 const NONE = "no card";
+
 const DEFAULT_RESP = {
   "I want": "What do you want?",
-  "{item} after I want": "You want {item}!",
-  "{item}": "{item}! Here you go.",
-  "more": "More {item}!",
-  "more (nothing picked yet)": "More!",
-  "all done": "All done. Nice job.",
-  "all done (grown-up joining)": "All done! Show your grown-up.",
-  "stop": "Okay. Stopping.",
-  "help": "I'm here. I can help.",
-  "help (grown-up joining)": "Let's get your grown-up to help.",
-  "yes": "Yes!",
-  "no": "Okay. No.",
+  "I see": "What do you see?",
+  "I feel": "How do you feel?",
+  "describing word": "{item}…",
+  "after I want": "You want {item}!",
+  "bubbles": "Bubbles!",
+  "music": "Music!",
+  "dance": "Let's dance!",
+  "peekaboo (hiding)": "Where did I go?",
+  "peekaboo": "Peekaboo!",
+  "lights": "Lights!",
+  "real thing": "Wait. Your grown-up is getting {item}.",
+  "real thing (no grown-up)": "{item}! Let's ask a grown-up.",
+  "after waiting": "Nice waiting!",
+  "dog": "A dog! Woof!",
+  "train": "A train! Choo choo!",
+  "shared thing": "A {item}! Cool!",
+  "happy": "You feel happy! Me too.",
+  "help": "Let's get your grown-up to help.",
+  "help (no grown-up)": "Help is coming. Let's find a grown-up.",
   "break": "Break time.",
-  "play": "Let's play!",
-  "go": "Let's go!"
+  "no": "Okay. No."
 };
-let RESP = Object.assign({}, DEFAULT_RESP, load("cc_resp", {}));
-const line = (key, item) => (RESP[key] ?? DEFAULT_RESP[key]).replaceAll("{item}", item ?? "");
+let RESP = Object.assign({}, DEFAULT_RESP, load("cc2_resp", {}));
+const line = (key, item) => (RESP[key] ?? DEFAULT_RESP[key] ?? key).replaceAll("{item}", item ?? "");
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 // ---------- profile ----------
-const P_FIELDS = ["pName","pFavs","pMotion","pVoice","pPace","pGrownup","pNotes"];
-function readProfile() {
-  return { name: $("pName").value.trim(), favs: $("pFavs").value.split(",").map(s => s.trim().toLowerCase()).filter(Boolean),
-           motion: $("pMotion").value, voice: $("pVoice").value, pace: +$("pPace").value, grownup: $("pGrownup").checked, notes: $("pNotes").value };
+const P_FIELDS = ["pName","pReal","pShare","pMotion","pSound","pPace","pGrownup","pNotes"];
+const list = id => $(id).value.split(",").map(s => s.trim().toLowerCase()).filter(Boolean);
+function profile() {
+  return { name: $("pName").value.trim(), real: list("pReal"), share: list("pShare"), motion: $("pMotion").value,
+           sound: $("pSound").value, pace: +$("pPace").value, grownup: $("pGrownup").checked };
 }
 function applyProfile() {
-  const p = readProfile();
-  const amp = { calm: .45, normal: 1, lively: 1.3 }[p.motion], spd = { calm: .7, normal: 1, lively: 1.15 }[p.motion];
-  document.documentElement.style.setProperty("--amp", amp);
-  document.documentElement.style.setProperty("--spd", spd);
-  const saved = {}; P_FIELDS.forEach(f => saved[f] = $(f).type === "checkbox" ? $(f).checked : $(f).value);
-  save("cc_profile", saved);
-  renderCards(); renderSim();
+  const p = profile();
+  document.documentElement.style.setProperty("--amp", { calm: .45, normal: 1, lively: 1.3 }[p.motion]);
+  document.documentElement.style.setProperty("--spd", { calm: .7, normal: 1, lively: 1.15 }[p.motion]);
+  const s = {}; P_FIELDS.forEach(f => s[f] = $(f).type === "checkbox" ? $(f).checked : $(f).value);
+  save("cc2_profile", s); renderCards(); renderSim();
 }
 function restoreProfile() {
-  const s = load("cc_profile", {});
+  const s = load("cc2_profile", {});
   P_FIELDS.forEach(f => { if (s[f] !== undefined) { if ($(f).type === "checkbox") $(f).checked = s[f]; else $(f).value = s[f]; } });
 }
-const personal = () => readProfile().favs;
-const allCards = () => [NONE, ...CORE, ...personal()];
+const extraCards = () => { const p = profile(); return [...p.real, ...p.share].filter(c => !BUILT_IN.includes(c)); };
+const allCards = () => [NONE, ...BUILT_IN, ...extraCards()];
 
-// ---------- character ----------
-const stage = $("stage"), captionEl = $("caption"), itemEl = $("item"), eyes = $("eyes"), mouth = $("mouth");
-const MOUTH = { smile:"M185 240 q15 12 30 0", flat:"M188 242 h24", open:"M190 236 q10 16 20 0 q-10 -6 -20 0", soft:"M188 242 q12 5 24 0" };
-let state = "idle", lastItem = null, askedWant = false, timers = [];
+// ---------- character + effects ----------
+const stage = $("stage"), captionEl = $("caption"), itemEl = $("item"), eyes = $("eyes"), mouth = $("mouth"), fx = $("fx");
+const MOUTH = { smile:"M185 240 q15 12 30 0", big:"M182 236 q18 22 36 0 z", open:"M190 236 q10 16 20 0 q-10 -6 -20 0", soft:"M188 242 q12 5 24 0" };
+let state = "idle", pending = null, waitingFor = null, timers = [];
 const later = (fn, ms) => timers.push(setTimeout(fn, ms));
 const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
-function setState(s) { state = s; $("state").textContent = s.replace("_", " "); }
+function setState(s) { state = s; $("state").textContent = s.replaceAll("_", " "); }
 function anim(cls, ms) { stage.classList.add(cls); later(() => stage.classList.remove(cls), ms); }
 function say(text) {
   captionEl.textContent = text;
-  const v = readProfile().voice;
-  if (v !== "off" && text && "speechSynthesis" in window) {
+  const s = profile().sound;
+  if (s !== "off" && text && "speechSynthesis" in window) {
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text); u.rate = .85; u.pitch = 1.1; u.volume = v === "soft" ? .5 : .9;
+    const u = new SpeechSynthesisUtterance(text.replace("…", "")); u.rate = .85; u.pitch = 1.1; u.volume = s === "soft" ? .5 : .9;
     speechSynthesis.speak(u);
   }
 }
 const showItem = n => { itemEl.textContent = n; itemEl.style.opacity = 1; };
 const hideItem = () => itemEl.style.opacity = 0;
-function resetLook() { stage.className = "breathing"; mouth.setAttribute("d", MOUTH.smile); eyes.setAttribute("transform", ""); hideItem(); }
+function resetLook() {
+  stage.className = "breathing"; mouth.setAttribute("d", MOUTH.smile); eyes.style.transform = ""; hideItem();
+  stage.style.setProperty("--glow", "transparent");
+}
 function backToIdle(ms = 3500) { later(() => { resetLook(); captionEl.textContent = ""; setState("idle"); }, ms); }
+
+// effects the companion can actually give
+let audio = null, oscs = [];
+function stopEffects() {
+  fx.innerHTML = ""; stage.style.setProperty("--glow", "transparent");
+  oscs.forEach(o => { try { o.stop(); } catch {} }); oscs = [];
+  if (window.speechSynthesis) speechSynthesis.cancel();
+}
+function bubbles(size, color) {
+  const scale = size === "big" ? 2.1 : size === "little" ? .55 : 1;
+  for (let i = 0; i < 16; i++) {
+    const b = document.createElement("div"); b.className = "bubble";
+    const d = rand(26, 70) * scale; b.style.width = b.style.height = d + "px";
+    b.style.left = rand(5, 90) + "%"; b.style.setProperty("--dx", rand(-60, 60) + "px");
+    if (color) b.style.setProperty("--bc", COLORS[color] + "88");
+    b.style.animationDuration = rand(4.5, 7) + "s"; b.style.animationDelay = rand(0, 1.5) + "s";
+    fx.appendChild(b);
+  }
+}
+function music(size) {
+  const notes = [523, 587, 659, 784, 659, 587, 523, 659, 784, 880, 784, 659];
+  for (let i = 0; i < 8; i++) {
+    const n = document.createElement("div"); n.className = "note"; n.textContent = i % 2 ? "♪" : "♫";
+    n.style.left = rand(35, 65) + "%"; n.style.setProperty("--dx", rand(-120, 120) + "px"); n.style.animationDelay = (i * .45) + "s";
+    if (size === "big") n.style.fontSize = "48px";
+    fx.appendChild(n);
+  }
+  const s = profile().sound; if (s === "off") return;
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume();
+    const vol = s === "soft" ? .05 : .11, t0 = audio.currentTime + .05;
+    notes.forEach((f, i) => {
+      const o = audio.createOscillator(), g = audio.createGain();
+      o.type = "sine"; o.frequency.value = f; o.connect(g); g.connect(audio.destination);
+      const t = t0 + i * .32; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + .03); g.gain.exponentialRampToValueAtTime(.0001, t + .3);
+      o.start(t); o.stop(t + .32); oscs.push(o);
+    });
+  } catch {}
+}
+function lights(size, color) {
+  const palette = color ? [COLORS[color]] : ["#f3c9c0", "#cfe3dc", "#f3dc8a", "#c9d4f3"];
+  const strength = size === "big" ? "ff" : "cc";
+  palette.concat(palette).forEach((c, i) => later(() => stage.style.setProperty("--glow", c + strength), i * 700));
+  for (let i = 0; i < (size === "big" ? 40 : 20); i++) {
+    const s = document.createElement("div"); s.className = "star";
+    s.style.left = rand(3, 97) + "%"; s.style.top = rand(3, 80) + "%"; s.style.animationDelay = rand(0, 1.5) + "s";
+    if (color) s.style.setProperty("--sc", COLORS[color]);
+    fx.appendChild(s);
+  }
+}
+function give(card, ctx) {
+  const size = ctx?.size, color = ctx?.color;
+  if (size === "big") document.documentElement.style.setProperty("--amp", 1.5);
+  const done = ms => later(() => { stopEffects(); applyProfile(); }, ms);
+  if (card === "bubbles") { bubbles(size, color); anim("bounce", 1100); done(8500); return 6000; }
+  if (card === "music")   { music(size); anim("dance", 3200); done(4500); return 4500; }
+  if (card === "dance")   { anim("dance", 3200); done(3400); return 3400; }
+  if (card === "lights")  { lights(size, color); done(6000); return 6000; }
+  if (card === "peekaboo") {
+    stage.classList.add("hidden-eyes"); captionEl.textContent = line("peekaboo (hiding)");
+    later(() => { stage.classList.remove("hidden-eyes"); mouth.setAttribute("d", MOUTH.big); say(line(card)); anim("bounce", 1100); }, 1400);
+    done(2600); return 3200;
+  }
+  return 2500;
+}
 
 // idle life: an occasional blink. It never prompts the child.
 setInterval(() => {
-  if (state === "frozen" || state === "resting") return;
-  eyes.setAttribute("transform", "translate(0,190) scale(1,0.1) translate(0,-190)");
-  setTimeout(() => { if (state !== "resting") eyes.setAttribute("transform", ""); }, 140);
+  if (["frozen","resting"].includes(state) || stage.classList.contains("hidden-eyes")) return;
+  eyes.style.transform = "scaleY(.1)"; setTimeout(() => { if (state !== "resting") eyes.style.transform = ""; }, 140);
 }, 4200);
 
-// the child hands over a card
-function receive(card) {
-  logEvent(card);
-  if (card === "stop") {           // stop always wins, instantly, from any state
-    clearTimers(); askedWant = false; if (window.speechSynthesis) speechSynthesis.cancel();
-    stage.className = "frozen"; mouth.setAttribute("d", MOUTH.soft); hideItem();
-    captionEl.textContent = line("stop"); setState("frozen");
-    return;                        // stays still until the next card
-  }
-  if (state === "noticing") return;
-  clearTimers();
-  if (state === "frozen" || state === "resting") resetLook();
-  setState("noticing");            // notice first: lean in, so the child feels seen
-  stage.className = "breathing close"; mouth.setAttribute("d", MOUTH.open);
-  later(() => { stage.classList.remove("close"); respond(card); }, readProfile().pace);
+// snapshot of the card flying to the companion
+function showCard(label, img) {
+  const s = $("snap"); s.innerHTML = img ? `<img src="${img}" alt="">` : `<span>${label}</span>`;
+  s.animate([{ opacity: 0, transform: "translate(0,0) scale(.9)" }, { opacity: 1, offset: .15 },
+             { opacity: 1, transform: "translate(28vw,-30vh) scale(.7)", offset: .8 }, { opacity: 0, transform: "translate(30vw,-32vh) scale(.5)" }],
+            { duration: 1300, easing: "ease-in-out" });
 }
 
-function respond(card) {
-  const p = readProfile(), wasAsked = askedWant; askedWant = false;
-  setState("responding"); mouth.setAttribute("d", MOUTH.smile);
-  switch (card) {
-    case "I want":
-      say(line("I want")); eyes.setAttribute("transform", "translate(0,-6)");
-      setState("waiting_item"); askedWant = true;
-      later(() => { if (state === "waiting_item") { askedWant = false; resetLook(); captionEl.textContent = ""; setState("idle"); } }, 12000);
-      return;
-    case "more":
-      if (lastItem) { say(line("more", lastItem)); showItem(lastItem); } else say(line("more (nothing picked yet)"));
-      anim("bounce", 1100); break;
-    case "all done":
-      say(line(p.grownup ? "all done (grown-up joining)" : "all done")); anim("wave", 1600); lastItem = null; break;
-    case "help":
-      say(line(p.grownup ? "help (grown-up joining)" : "help")); stage.classList.add("close"); break;
-    case "yes":
-      say(line("yes")); anim("nod", 1000); break;
-    case "no":                     // acknowledge calmly and back off: the child's no is heard
-      say(line("no")); mouth.setAttribute("d", MOUTH.soft); stage.classList.add("backoff"); hideItem(); break;
-    case "break":
-      say(line("break")); stage.className = "resting"; setState("resting");
-      eyes.setAttribute("transform", "translate(0,190) scale(1,0.15) translate(0,-190)"); mouth.setAttribute("d", MOUTH.soft);
-      later(() => { resetLook(); captionEl.textContent = ""; setState("idle"); }, 20000);
-      return;
-    case "play": say(line("play")); anim("bounce", 1100); break;
-    case "go": say(line("go")); anim("scoot", 1300); break;
-    default:                       // one of the child's favorite things
-      lastItem = card; say(line(wasAsked ? "{item} after I want" : "{item}", card)); showItem(card); anim("bounce", 1100);
+// ---------- the exchange ----------
+function receive(card, img) {
+  logEvent(card); showCard(card, img);
+  if (card === "no") {                    // "no" always wins, instantly, from any state
+    clearTimers(); stopEffects(); pending = null; waitingFor = null; $("waitCard").style.display = "none"; applyProfile();
+    stage.className = "frozen backoff"; mouth.setAttribute("d", MOUTH.soft); hideItem();
+    captionEl.textContent = line("no"); setState("frozen");
+    return;                               // stays still until the next card
   }
-  backToIdle();
+  if (state === "noticing" || state === "waiting_grownup") return;
+  clearTimers(); stopEffects(); applyProfile();
+  if (["frozen","resting"].includes(state)) resetLook();
+  setState("noticing");                   // notice first: lean in, so the child feels seen
+  stage.className = "breathing close"; mouth.setAttribute("d", MOUTH.open);
+  later(() => { stage.classList.remove("close"); respond(card); }, profile().pace);
 }
+
+function armPending() { later(() => { if (state === "waiting_card") { pending = null; resetLook(); captionEl.textContent = ""; setState("idle"); } }, 15000); }
+
+function respond(card) {
+  const p = profile();
+  mouth.setAttribute("d", MOUTH.smile); setState("responding");
+
+  if (STARTERS.includes(card)) {          // sentence starter: wait for the rest
+    pending = { starter: card, size: null, color: null };
+    say(line(card)); eyes.style.transform = "translateY(-6px)"; setState("waiting_card"); armPending(); return;
+  }
+  if (SIZES.includes(card) || COLORS[card]) {   // describing word: hold it for the next card
+    pending = pending || { starter: null, size: null, color: null };
+    if (SIZES.includes(card)) pending.size = card; else pending.color = card;
+    const desc = [pending.size, pending.color].filter(Boolean).join(" ");
+    say(pending.starter === "I want" ? "You want " + desc + "…" : line("describing word", cap(desc)));
+    setState("waiting_card"); armPending(); return;
+  }
+
+  const ctx = pending; pending = null;
+  const named = [ctx?.size, ctx?.color, card].filter(Boolean).join(" ");
+  let hold = 3500;
+
+  if (GIVES.includes(card)) {
+    if (card !== "peekaboo") say(ctx?.starter === "I want" ? line("after I want", named) : line(card));
+    if (card !== "peekaboo") showItem(named);
+    hold = give(card, ctx);
+  } else if (p.real.includes(card)) {     // a real item: the grown-up brings it
+    if (!p.grownup) { say(line("real thing (no grown-up)", cap(named))); }
+    else { waitingFor = named; say(line("real thing", named)); $("waitCard").style.display = "block"; setState("waiting_grownup"); return; }
+  } else if (card === "help") {
+    say(line(p.grownup ? "help" : "help (no grown-up)")); stage.classList.add("close");
+  } else if (card === "break") {
+    say(line("break")); stage.className = "resting"; setState("resting");
+    eyes.style.transform = "scaleY(.15)"; mouth.setAttribute("d", MOUTH.soft);
+    later(() => { resetLook(); captionEl.textContent = ""; setState("idle"); }, 20000); return;
+  } else if (FEELINGS.includes(card)) {
+    say(RESP[card] !== undefined ? line(card) : `You feel ${card}.`);
+    if (card === "happy") anim("bounce", 1100);
+  } else {                                // sharing: interest is the reward
+    say(RESP[card] !== undefined ? line(card) : line("shared thing", named));
+    showItem(named); anim("wave", 1600);
+  }
+  backToIdle(hold);
+}
+
+function itemArrived() {
+  if (state !== "waiting_grownup") return;
+  $("waitCard").style.display = "none"; logEvent("(item handed over: " + waitingFor + ")");
+  waitingFor = null; setState("responding"); say(line("after waiting")); mouth.setAttribute("d", MOUTH.big); anim("bounce", 1100); backToIdle();
+}
+$("waitCard").onclick = itemArrived; $("arrivedBtn").onclick = itemArrived;
 
 // ---------- responses table ----------
 function renderResp() {
   const t = $("respTable"); t.innerHTML = "";
   Object.keys(DEFAULT_RESP).forEach(k => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${k}</td><td><input type="text"></td>`;
+    const tr = document.createElement("tr"); tr.innerHTML = `<td>${k}</td><td><input type="text"></td>`;
     const inp = tr.querySelector("input"); inp.value = RESP[k];
-    inp.oninput = () => { RESP[k] = inp.value; save("cc_resp", RESP); };
+    inp.oninput = () => { RESP[k] = inp.value; save("cc2_resp", RESP); };
     t.appendChild(tr);
   });
 }
-$("resetResp").onclick = () => { RESP = Object.assign({}, DEFAULT_RESP); save("cc_resp", {}); renderResp(); };
+$("resetResp").onclick = () => { RESP = Object.assign({}, DEFAULT_RESP); save("cc2_resp", {}); renderResp(); };
 
 // ---------- session + summary (stays on this device) ----------
 let session = null;
-function logEvent(card) {
-  if (!session) return;
-  session.events.push({ t: Date.now(), card });
-  $("sessionBadge").textContent = `Session: ${session.events.length} cards`;
-}
-const mins = ms => Math.max(1, Math.round(ms / 60000));
+function logEvent(card) { if (!session) return; session.events.push({ t: Date.now(), card }); $("sessionBadge").textContent = `Session: ${session.events.filter(e => !e.card.startsWith("(")).length} cards`; }
 function buildSummary(s) {
-  const p = readProfile(), end = s.end || Date.now(), counts = {};
-  s.events.forEach(e => counts[e.card] = (counts[e.card] || 0) + 1);
+  const p = profile(), end = s.end, cards = s.events.filter(e => !e.card.startsWith("(")), counts = {};
+  cards.forEach(e => counts[e.card] = (counts[e.card] || 0) + 1);
+  const n = c => counts[c] || 0, fmt = t => new Date(t).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
   const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-  const fmt = t => new Date(t).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-  let out = `Session summary${p.name ? " for " + p.name : ""}\n`;
-  out += `${new Date(s.start).toLocaleDateString()}, ${fmt(s.start)} to ${fmt(end)} (${mins(end - s.start)} min)\n`;
-  out += `Grown-up joining: ${p.grownup ? "yes" : "no"}\n\n`;
-  out += `Cards handed over: ${s.events.length}\n`;
-  sorted.forEach(([c, n]) => out += `  ${c}: ${n}\n`);
-  const favs = sorted.filter(([c]) => !CORE.includes(c));
-  if (favs.length) out += `\nMost requested: ${favs[0][0]}\n`;
-  if (counts.stop) out += `Used "stop" ${counts.stop} time${counts.stop > 1 ? "s" : ""}.\n`;
-  if (counts.break) out += `Asked for a break ${counts.break} time${counts.break > 1 ? "s" : ""}.\n`;
-  if (s.events.length) out += `\nTimeline:\n` + s.events.map(e => `  ${fmt(e.t)}  ${e.card}`).join("\n");
+  const requests = sorted.filter(([c]) => GIVES.includes(c) || p.real.includes(c));
+  const sentences = s.events.reduce((a, e, i, arr) => a + (e.card === "I want" && arr[i + 1] && !STARTERS.includes(arr[i + 1].card) ? 1 : 0), 0);
+  let out = `Session summary${p.name ? " for " + p.name : ""}\n${new Date(s.start).toLocaleDateString()}, ${fmt(s.start)} to ${fmt(end)} (${Math.max(1, Math.round((end - s.start) / 60000))} min)\n\n`;
+  out += `Cards handed over: ${cards.length}\n`; sorted.forEach(([c, k]) => out += `  ${c}: ${k}\n`);
+  out += `\nHighlights\n`;
+  if (requests.length) out += `  Most requested: ${requests[0][0]}\n`;
+  out += `  "I want" sentences: ${sentences}\n`;
+  out += `  Shared or commented: ${n("I see") + n("dog") + n("train") + p.share.reduce((a, c) => a + n(c), 0)}\n`;
+  out += `  Asked for help: ${n("help")}   Breaks: ${n("break")}   Said no: ${n("no")}\n`;
+  if (cards.length) out += `\nTimeline\n` + s.events.map(e => `  ${fmt(e.t)}  ${e.card}`).join("\n");
   return out;
 }
 $("sessionBtn").onclick = () => {
   if (!session) {
-    session = { start: Date.now(), events: [] };
-    $("sessionBtn").textContent = "End session"; $("summary").style.display = "none"; $("copyBtn").style.display = "none";
-    $("sessionBadge").textContent = "Session: 0 cards";
+    session = { start: Date.now(), events: [] }; $("sessionBtn").textContent = "End session";
+    $("summary").style.display = "none"; $("copyBtn").style.display = "none"; $("sessionBadge").textContent = "Session: 0 cards";
   } else {
-    session.end = Date.now();
-    $("summary").textContent = buildSummary(session); $("summary").style.display = "block"; $("copyBtn").style.display = "inline-block";
-    const past = load("cc_sessions", []); past.push(session); save("cc_sessions", past.slice(-20));
+    session.end = Date.now(); $("summary").textContent = buildSummary(session);
+    $("summary").style.display = "block"; $("copyBtn").style.display = "inline-block";
+    const past = load("cc2_sessions", []); past.push(session); save("cc2_sessions", past.slice(-20));
     session = null; $("sessionBtn").textContent = "Start session"; $("sessionBadge").textContent = "";
   }
 };
@@ -335,15 +497,18 @@ $("copyBtn").onclick = async () => {
 // ---------- simulate + kid view ----------
 function renderSim() {
   const box = $("simButtons"); box.innerHTML = "";
-  [...CORE, ...personal()].forEach((c, i) => {
-    const b = document.createElement("button"); b.textContent = (i < 10 ? ((i + 1) % 10) + " " : "") + c;
-    b.onclick = () => receive(c); box.appendChild(b);
-  });
+  const groups = Object.assign({}, GROUPS); const extra = extraCards(); if (extra.length) groups["From the profile"] = extra;
+  for (const [g, cards] of Object.entries(groups)) {
+    const h = document.createElement("div"); h.className = "simgroup"; h.textContent = g; box.appendChild(h);
+    const row = document.createElement("div"); row.className = "row";
+    cards.forEach(c => { const b = document.createElement("button"); b.textContent = c; b.onclick = () => receive(c); row.appendChild(b); });
+    box.appendChild(row);
+  }
 }
 document.addEventListener("keydown", e => {
   if (["INPUT","TEXTAREA","SELECT"].includes(e.target.tagName)) return;
-  const n = "1234567890".indexOf(e.key); if (n >= 0) receive(CORE[n]);
   if (e.key === "Escape") document.body.classList.remove("kid");
+  if (e.key === " ") { e.preventDefault(); itemArrived(); }
 });
 $("kidBtn").onclick = () => document.body.classList.add("kid");
 stage.addEventListener("dblclick", () => document.body.classList.remove("kid"));
@@ -351,28 +516,23 @@ stage.addEventListener("dblclick", () => document.body.classList.remove("kid"));
 // ---------- recognition (all on this device) ----------
 const statusEl = $("status"), video = $("video");
 let net = null, knn = null, camOn = false, teaching = null;
-const counts = load("cc_counts", {});
+const counts = load("cc2_counts", {});
 const MODEL_KEY = "indexeddb://card-companion-mobilenet";
-
 async function initModel() {
   if (typeof mobilenet === "undefined") { statusEl.textContent = "Vision model not available (offline before first setup?). Simulated cards still work."; return; }
   try {
     try { net = await mobilenet.load({ version: 2, alpha: 0.5, modelUrl: MODEL_KEY }); statusEl.textContent = "Vision model loaded from this device."; }
-    catch {
-      net = await mobilenet.load({ version: 2, alpha: 0.5 });   // one-time download during setup
-      try { await net.model.save(MODEL_KEY); } catch {}
-      statusEl.textContent = "Vision model downloaded and saved. It runs offline from now on.";
-    }
+    catch { net = await mobilenet.load({ version: 2, alpha: 0.5 }); try { await net.model.save(MODEL_KEY); } catch {} statusEl.textContent = "Vision model downloaded and saved. It runs offline from now on."; }
     knn = knnClassifier.create(); restoreDataset();
   } catch { statusEl.textContent = "Couldn't load the vision model. Simulated cards still work."; }
 }
 function saveDataset() {
   const d = knn.getClassifierDataset(), out = {};
   for (const k in d) out[k] = { data: Array.from(d[k].dataSync()), shape: d[k].shape };
-  save("cc_dataset", out); save("cc_counts", counts);
+  save("cc2_dataset", out); save("cc2_counts", counts);
 }
 function restoreDataset() {
-  const raw = load("cc_dataset", null); if (!raw) return;
+  const raw = load("cc2_dataset", null); if (!raw) return;
   const ds = {}; for (const k in raw) ds[k] = tf.tensor(raw[k].data, raw[k].shape);
   knn.setClassifierDataset(ds); renderCards();
 }
@@ -380,25 +540,17 @@ $("startCam").onclick = async () => {
   try { video.srcObject = await navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 } }); camOn = true; loop(); }
   catch { statusEl.textContent = "Camera blocked. Allow camera access, or use simulated cards."; }
 };
-$("teachBtn").onclick = () => {
-  if (!camOn || !net) { statusEl.textContent = "Start the camera first."; return; }
-  teaching = { label: $("cardSelect").value, until: performance.now() + 3000 };
-};
-$("clearBtn").onclick = () => {
-  if (knn) knn.clearAllClasses(); for (const k in counts) delete counts[k];
-  save("cc_dataset", null); save("cc_counts", {}); renderCards();
-};
+$("teachBtn").onclick = () => { if (!camOn || !net) { statusEl.textContent = "Start the camera first."; return; } teaching = { label: $("cardSelect").value, until: performance.now() + 3000 }; };
+$("clearBtn").onclick = () => { if (knn) knn.clearAllClasses(); for (const k in counts) delete counts[k]; save("cc2_dataset", null); save("cc2_counts", {}); renderCards(); };
 function renderCards() {
-  const sel = $("cardSelect"), list = $("cardList"), cur = sel.value;
-  sel.innerHTML = ""; list.innerHTML = "";
+  const sel = $("cardSelect"), tbl = $("cardList"), cur = sel.value; sel.innerHTML = ""; tbl.innerHTML = "";
   allCards().forEach(c => {
     const o = document.createElement("option"); o.value = o.textContent = c; sel.appendChild(o);
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${c}</td><td style="text-align:right;color:var(--soft)">${counts[c] ? counts[c] + " samples" : "not taught"}</td>`;
-    list.appendChild(tr);
+    const tr = document.createElement("tr"); tr.innerHTML = `<td>${c}</td><td style="text-align:right;color:var(--soft)">${counts[c] ? counts[c] + " samples" : "not taught"}</td>`; tbl.appendChild(tr);
   });
   if (cur) sel.value = cur;
 }
+function snapshot() { const c = document.createElement("canvas"); c.width = 160; c.height = 120; c.getContext("2d").drawImage(video, 0, 0, 160, 120); return c.toDataURL("image/jpeg", .7); }
 
 // a card counts as handed over when the same card is seen confidently for about a second;
 // nothing else triggers until the card is taken away
@@ -408,8 +560,7 @@ async function loop() {
   if (net && knn && video.readyState >= 2) {
     const emb = tf.tidy(() => net.infer(video, true));
     if (teaching) {
-      knn.addExample(emb, teaching.label);
-      counts[teaching.label] = (counts[teaching.label] || 0) + 1;
+      knn.addExample(emb, teaching.label); counts[teaching.label] = (counts[teaching.label] || 0) + 1;
       statusEl.textContent = `Teaching "${teaching.label}"… ${counts[teaching.label]} samples`;
       if (performance.now() > teaching.until) { teaching = null; saveDataset(); renderCards(); statusEl.textContent = "Saved on this device."; }
     } else if (counts[NONE] && knn.getNumClasses() >= 2) {
@@ -418,7 +569,7 @@ async function loop() {
       else {
         noneStreak = 0; streak = res.label === streakLabel ? streak + 1 : 1; streakLabel = res.label;
         statusEl.textContent = `Seeing: ${res.label} (${Math.round(conf * 100)}%)`;
-        if (streak >= 7 && armed) { armed = false; receive(res.label); }
+        if (streak >= 7 && armed) { armed = false; receive(res.label, snapshot()); }
       }
     } else statusEl.textContent = 'Teach "no card" first, then the cards.';
     emb.dispose();
@@ -428,7 +579,7 @@ async function loop() {
 
 // ---------- start ----------
 restoreProfile();
-P_FIELDS.forEach(f => $(f).addEventListener(f === "pName" || f === "pFavs" || f === "pNotes" ? "input" : "change", applyProfile));
+P_FIELDS.forEach(f => $(f).addEventListener(["pName","pReal","pShare","pNotes"].includes(f) ? "input" : "change", applyProfile));
 renderResp(); applyProfile(); initModel();
 </script>
 </body>
