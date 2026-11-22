@@ -170,7 +170,9 @@ export const groups: Group[] = [
           width: 1200,
           height: 760,
         },
-        links: [{ label: "Try the prototype", href: "/portfolio/card-companion.html" }],
+        links: [
+          { label: "Try the prototype", href: "/portfolio/card-companion.html" },
+        ],
       },
       {
         title: "Dancing leg",
