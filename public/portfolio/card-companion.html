@@ -75,7 +75,7 @@
   .bubble { position:absolute; bottom:-80px; border-radius:50%; border:2px solid rgba(255,255,255,.9);
             background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), var(--bc, rgba(190,220,240,.35)) 60%); animation: rise linear forwards; }
   @keyframes rise { to { transform: translate(var(--dx), -115vh); } }
-  .note { position:absolute; bottom:30%; font-size:30px; color:var(--soft); animation: floatnote 2.6s ease-out forwards; }
+  .mnote { position:absolute; bottom:30%; font-size:30px; color:var(--soft); animation: floatnote 2.6s ease-out forwards; }
   @keyframes floatnote { to { transform: translate(var(--dx), -220px); opacity:0; } }
   .star { position:absolute; width:9px; height:9px; border-radius:50%; background:var(--sc, #f0cf6a); box-shadow:0 0 14px 5px var(--sc, #f3dc8a); animation: twinkle 1.6s ease-in-out infinite alternate; }
   @keyframes twinkle { from { opacity:.2; } to { opacity:1; } }
@@ -375,7 +375,7 @@ function bubbles(size, color) {
 function music(size) {
   const notes = [523, 587, 659, 784, 659, 587, 523, 659, 784, 880, 784, 659];
   for (let i = 0; i < 8; i++) {
-    const n = document.createElement("div"); n.className = "note"; n.textContent = i % 2 ? "♪" : "♫";
+    const n = document.createElement("div"); n.className = "mnote"; n.textContent = i % 2 ? "♪" : "♫";
     n.style.left = rand(35, 65) + "%"; n.style.setProperty("--dx", rand(-120, 120) + "px"); n.style.animationDelay = (i * .45) + "s";
     if (size === "big") n.style.fontSize = "48px";
     fx.appendChild(n);
