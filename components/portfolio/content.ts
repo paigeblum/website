@@ -172,6 +172,7 @@ export const groups: Group[] = [
         },
         links: [
           { label: "Try the prototype", href: "/portfolio/card-companion.html" },
+          { label: "Print the test cards", href: "/portfolio/card-companion-cards.pdf" },
         ],
       },
       {
