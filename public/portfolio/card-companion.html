@@ -17,6 +17,10 @@
   p.note, .how li { font-size:13px; color:var(--soft); margin:8px 0; line-height:1.45; }
   .how h3 { font-size:13px; margin:12px 0 2px; color:var(--ink); }
   .how ul { margin:0; padding-left:18px; }
+  ol.steps { font-size:13px; color:var(--soft); line-height:1.45; margin:8px 0; padding-left:18px; }
+  ol.steps li { margin:4px 0; }
+  ol.steps b, p.note b { color:var(--ink); font-weight:600; }
+  aside a { color:var(--ink); }
   label.f { display:block; font-size:13px; margin:10px 0 4px; }
   video { width:100%; border-radius:10px; background:#ddd; transform:scaleX(-1); aspect-ratio:4/3; object-fit:cover; margin-top:8px; }
   button { font:inherit; font-size:13px; border:1px solid var(--line); background:#fff; border-radius:8px; padding:6px 10px; cursor:pointer; }
@@ -121,14 +125,12 @@
   <div class="row" style="margin:6px 0 4px"><button id="wizOpen" class="primary">Guided setup</button></div>
   <details>
     <summary>Try it</summary>
-    <ol class="note" style="padding-left:18px">
-      <li>Print the <a href="/portfolio/card-companion-cards.pdf" target="_blank">test cards</a> (bubbles, music, no, help, dog) and cut them out. Card pictures from <a href="https://mypecs.com" target="_blank" rel="noopener">MyPECS</a>.</li>
-      <li>Open <b>3. Camera and cards</b> and click <b>Start camera</b>.</li>
-      <li>Pick <b>no card</b> and click <b>Teach</b> with no card in view. Do it twice.</li>
-      <li>For each card: pick its name, hold it up, click <b>Teach</b>, and move it a little. Twice each.</li>
-      <li>Hold a card still for about a second and the character responds. Lower it between tries. <b>No</b> stops everything.</li>
+    <ol class="steps">
+      <li>Print the <a href="/portfolio/card-companion-cards.pdf" target="_blank">test cards</a> (bubbles, music, no, help, dog) and cut them out.</li>
+      <li>Click <b>Guided setup</b> and follow the steps to teach each card.</li>
+      <li>Hold a card still for about a second and the companion responds. <b>No</b> stops everything.</li>
     </ol>
-    <p class="note">No camera? Use the buttons under <b>Try without a camera</b>.</p>
+    <p class="note">No camera? Use the buttons under <b>Try without a camera</b>. Card pictures from <a href="https://mypecs.com" target="_blank" rel="noopener">MyPECS</a>.</p>
   </details>
 
   <details>
