@@ -446,6 +446,7 @@ function receive(card, img) {
   }
   if (state === "noticing" || state === "waiting_grownup") return;
   clearTimers(); stopEffects(); applyProfile();
+  hideItem(); captionEl.textContent = ""; eyes.style.transform = "";   // clear what the last card left on screen
   if (["frozen","resting"].includes(state)) resetLook();
   setState("noticing");                   // notice first: lean in, so the child feels seen
   stage.className = "breathing close"; mouth.setAttribute("d", MOUTH.open);
