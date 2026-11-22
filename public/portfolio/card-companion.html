@@ -82,16 +82,44 @@
 
   body.kid aside { display:none; }
   body.kid main { grid-template-columns: 1fr; }
+
+  #wizard { position:fixed; inset:0; background:rgba(246,241,234,.96); display:none; align-items:center; justify-content:center; z-index:50; }
+  #wizard.show { display:flex; }
+  #wiz { width:min(560px, 92vw); background:#fff; border:1px solid var(--line); border-radius:16px; padding:28px; box-shadow:0 10px 40px rgba(0,0,0,.08); text-align:center; }
+  #wiz h2 { margin:0 0 6px; font-size:22px; }
+  #wiz p { color:var(--soft); font-size:15px; line-height:1.5; margin:8px 0; }
+  #wizStep { font-size:12px; color:var(--soft); text-transform:uppercase; letter-spacing:.06em; }
+  #wizMedia { display:flex; gap:16px; justify-content:center; align-items:center; margin:16px 0; min-height:40px; flex-wrap:wrap; }
+  #wizMedia img.card { width:150px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.1); }
+  #wizMedia img.mini { width:64px; border-radius:6px; }
+  #wizMedia video { width:220px; margin:0; }
+  #wizCount { font-size:44px; font-weight:600; min-height:52px; }
+  #wizBar { height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin:10px auto; width:70%; display:none; }
+  #wizBar div { height:100%; width:0; background:var(--ink); }
+  #wizBtns { display:flex; gap:8px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+  #wizBtns button { font-size:15px; padding:9px 16px; }
+  #wizSkip { margin-top:14px; font-size:13px; color:var(--soft); background:none; border:none; text-decoration:underline; }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: .01s !important; } }
 </style>
 </head>
 <body>
+<div id="wizard"><div id="wiz">
+  <div id="wizStep"></div>
+  <h2 id="wizTitle"></h2>
+  <p id="wizText"></p>
+  <div id="wizMedia"></div>
+  <div id="wizCount"></div>
+  <div id="wizBar"><div></div></div>
+  <div id="wizBtns"></div>
+  <button id="wizSkip">Skip setup</button>
+</div></div>
 <main>
 <aside>
   <h1>Card Companion</h1>
   <p class="note">Prototype. A practice partner for picture-card communication (PECS) that a therapist sets up. The child holds a card up to the camera and the companion responds.</p>
 
-  <details open>
+  <div class="row" style="margin:6px 0 4px"><button id="wizOpen" class="primary">Guided setup</button></div>
+  <details>
     <summary>Try it</summary>
     <ol class="note" style="padding-left:18px">
       <li>Print the <a href="/portfolio/card-companion-cards.pdf" target="_blank">test cards</a> (bubbles, music, no, help, dog) and cut them out. Card pictures from <a href="https://mypecs.com" target="_blank" rel="noopener">MyPECS</a>.</li>
@@ -565,6 +593,11 @@ function restoreDataset() {
   const ds = {}; for (const k in raw) ds[k] = tf.tensor(raw[k].data, raw[k].shape);
   knn.setClassifierDataset(ds); renderCards();
 }
+async function startCamera() {
+  if (camOn) return true;
+  try { video.srcObject = await navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 } }); camOn = true; loop(); return true; }
+  catch { statusEl.textContent = "Camera blocked. Allow camera access, or use simulated cards."; return false; }
+}
 $("startCam").onclick = async () => {
   try { video.srcObject = await navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 } }); camOn = true; loop(); }
   catch { statusEl.textContent = "Camera blocked. Allow camera access, or use simulated cards."; }
@@ -591,7 +624,7 @@ async function loop() {
     if (teaching) {
       knn.addExample(emb, teaching.label); counts[teaching.label] = (counts[teaching.label] || 0) + 1;
       statusEl.textContent = `Teaching "${teaching.label}"… ${counts[teaching.label]} samples`;
-      if (performance.now() > teaching.until) { teaching = null; saveDataset(); renderCards(); statusEl.textContent = "Saved on this device."; }
+      if (performance.now() > teaching.until) { const done = teaching.done; teaching = null; saveDataset(); renderCards(); statusEl.textContent = "Saved on this device."; if (done) done(); }
     } else if (counts[NONE] && knn.getNumClasses() >= 2) {
       const res = await knn.predictClass(emb, 5), conf = res.confidences[res.label];
       if (res.label === NONE || conf < .8) { noneStreak++; streak = 0; streakLabel = null; if (noneStreak > 5) armed = true; }
@@ -605,6 +638,91 @@ async function loop() {
   }
   setTimeout(loop, 130);
 }
+
+
+// ---------- guided setup with the test cards ----------
+const TEST_CARDS = ["bubbles","music","no","help","dog"];
+const cardImg = c => `/portfolio/cc-cards/${c}.jpg`;
+const wiz = { el: $("wizard"), home: null };
+function wizShow(on) {
+  wiz.el.classList.toggle("show", on);
+  if (on && !wiz.home) { wiz.home = video.parentNode; wiz.next = video.nextSibling; }
+  if (!on && wiz.home) { wiz.home.insertBefore(video, wiz.next); }
+}
+function wizRender({ step = "", title, text, media = "", buttons = [], skip = true }) {
+  $("wizStep").textContent = step; $("wizTitle").textContent = title; $("wizText").innerHTML = text;
+  const m = $("wizMedia"); m.innerHTML = media; $("wizCount").textContent = ""; $("wizBar").style.display = "none";
+  const b = $("wizBtns"); b.innerHTML = "";
+  buttons.forEach(([label, fn, primary]) => { const x = document.createElement("button"); x.textContent = label; if (primary) x.className = "primary"; x.onclick = fn; b.appendChild(x); });
+  $("wizSkip").style.display = skip ? "inline" : "none";
+}
+function wizVideo(extra = "") { const m = $("wizMedia"); m.innerHTML = extra; m.appendChild(video); }
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function countdownTeach(label) {
+  $("wizBtns").innerHTML = "";
+  for (const n of [3, 2, 1]) { $("wizCount").textContent = n; await sleep(800); }
+  $("wizCount").textContent = "Hold it there…";
+  const bar = $("wizBar"), fill = bar.firstElementChild; bar.style.display = "block"; fill.style.transition = "none"; fill.style.width = "0";
+  requestAnimationFrame(() => { fill.style.transition = "width 3s linear"; fill.style.width = "100%"; });
+  await new Promise(res => { teaching = { label, until: performance.now() + 3000, done: res }; });
+  $("wizCount").textContent = "Got it ✓"; bar.style.display = "none"; await sleep(700);
+}
+function stepWelcome() {
+  wizRender({ step: "Setup · 1 of 5", title: "Let's teach it your cards",
+    text: 'You\'ll need the five test cards. Print them on matte paper and cut them out. <a href="/portfolio/card-companion-cards.pdf" target="_blank">Print the test cards</a>',
+    media: TEST_CARDS.map(c => `<img class="mini" src="${cardImg(c)}" alt="${c}">`).join(""),
+    buttons: [["I have my cards", stepCamera, true], ["Try without a camera", noCamera]] });
+}
+async function stepCamera() {
+  wizRender({ step: "Setup · 2 of 5", title: "Turn on the camera", text: "It only looks at the cards. Video stays on this device and is never saved or sent.",
+    buttons: [["Start camera", async () => {
+      if (!(await startCamera())) { wizRender({ step: "Setup · 2 of 5", title: "The camera is blocked", text: "Allow camera access in your browser's address bar, then try again.", buttons: [["Try again", stepCamera, true], ["Try without a camera", noCamera]] }); return; }
+      stepNoCard();
+    }, true]] });
+}
+async function waitForModel() {
+  while (!(net && knn)) {
+    if (/Couldn't load|not available/.test(statusEl.textContent)) return false;
+    $("wizCount").textContent = ""; $("wizText").textContent = "Loading the vision model (first time only)…"; await sleep(400);
+  }
+  return true;
+}
+async function stepNoCard() {
+  wizRender({ step: "Setup · 3 of 5", title: "First, show it what “no card” looks like",
+    text: "Sit how you normally would, face and hands in view, with <b>no card</b> showing. Click Teach, then stay still for a few seconds.", skip: true });
+  wizVideo();
+  if (!(await waitForModel())) { wizRender({ step: "", title: "The vision model didn't load", text: "Check your internet connection and reload. You can still try it without a camera.", buttons: [["Try without a camera", noCamera, true]] }); return; }
+  $("wizText").innerHTML = "Sit how you normally would, face and hands in view, with <b>no card</b> showing. Click Teach, then stay still for a few seconds.";
+  let pass = 0;
+  const go = async () => { await countdownTeach(NONE); pass++; if (pass < 2) { $("wizText").innerHTML = "One more time. Shift a little so it learns you from slightly different angles."; $("wizBtns").innerHTML = ""; const b = document.createElement("button"); b.className = "primary"; b.textContent = "Teach again"; b.onclick = go; $("wizBtns").appendChild(b); } else stepCard(0, 0); };
+  const b = document.createElement("button"); b.className = "primary"; b.textContent = "Teach"; b.onclick = go; $("wizBtns").appendChild(b);
+}
+function stepCard(i, pass) {
+  const c = TEST_CARDS[i];
+  wizRender({ step: `Setup · 4 of 5 · card ${i + 1} of ${TEST_CARDS.length}`, title: pass ? `“${c}” again, a little farther away` : `Hold up “${c}”`,
+    text: pass ? "Hold it a bit farther from the camera this time, and tilt it slightly while it learns." : "Hold it about a foot from the camera so it fills a good part of the picture. Move it a little while it learns." });
+  wizVideo(`<img class="card" src="${cardImg(c)}" alt="${c} card">`);
+  const b = document.createElement("button"); b.className = "primary"; b.textContent = "Teach"; b.onclick = async () => {
+    await countdownTeach(c);
+    if (pass === 0) stepCard(i, 1); else if (i + 1 < TEST_CARDS.length) stepCard(i + 1, 0); else stepDone();
+  }; $("wizBtns").appendChild(b);
+}
+function stepDone() {
+  try { localStorage.setItem("cc2_setup_done", "1"); } catch {}
+  wizRender({ step: "Setup · 5 of 5", title: "All set. Try it!", skip: false,
+    text: "Hold up any card and keep it still for about a second. The companion will lean in, then respond. Lower the card between tries. <b>No</b> stops everything.<br><br>Press Esc anytime to see the settings.",
+    buttons: [["Start", () => { wizShow(false); document.body.classList.add("kid"); }, true]] });
+}
+function noCamera() {
+  try { localStorage.setItem("cc2_setup_done", "1"); } catch {}
+  wizShow(false);
+  document.querySelectorAll("aside details").forEach(d => d.open = d.querySelector("summary").textContent.includes("without a camera"));
+}
+function openWizard() { wizShow(true); stepWelcome(); }
+$("wizSkip").onclick = () => { teaching = null; wizShow(false); };
+$("wizOpen").onclick = openWizard;
+let setupDone = false; try { setupDone = !!localStorage.getItem("cc2_setup_done"); } catch {}
+if (!setupDone && !Object.keys(counts).length) openWizard();
 
 // ---------- start ----------
 restoreProfile();
