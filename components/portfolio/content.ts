@@ -37,13 +37,13 @@ export const groups: Group[] = [
     id: "mw4",
     title: "Call of Duty: Modern Warfare 4",
     note: "AI Gameplay Engineer, Infinity Ward. Campaign and DMZ. 2026.",
-    also: "Also built: battle chatter between soldiers.",
+    also: "Also built: battle chatter, where soldiers call out to each other and answer back so a squad sounds like it's working together.",
     pieces: [
       {
         title: "Rex",
         meta: "Companion behavior / C++",
         description:
-          "The dog who opens DMZ. In the first mission the player follows Rex as he runs ahead through the forest, crosses the river and leads them to the crash site.",
+          "The dog who opens DMZ. He waits for the player, then leads them through the opening story that sets up the whole mode. I worked on making his turns believable and keeping him in step with the player, because the story depends on the player getting attached to him in the first few minutes. Small details do that work: a dog who notices when you fall behind and waits. Getting people attached to an AI character is powerful, and worth being deliberate about.",
         media: {
           type: "video",
           src: "/portfolio/rex-dmz.mp4",
@@ -53,9 +53,9 @@ export const groups: Group[] = [
       },
       {
         title: "Attack dogs",
-        meta: "Behavior, locomotion, attacks / C++",
+        meta: "Animation state machine, behavior tree / C++",
         description:
-          "AI for the attack dogs in the campaign. They run on a quadruped base shared with the K9 robots, each with its own behavior, animation and movement.",
+          "Campaign attack dogs that patrol, investigate, pursue and attack, appearing in several missions including Hired Gun. They run on an animation state machine and a behavior tree, on a quadruped base shared with the K9 robots, and there's a version that works alongside a handler. When a dog lunges, the player can fight it off with a well-timed button press, and the dog backs off to give them a moment before coming again. Pacing that back-and-forth is as much behavior design as combat.",
         media: {
           type: "video",
           src: "/portfolio/dogs-hired-gun.mp4",
@@ -67,7 +67,7 @@ export const groups: Group[] = [
         title: "K9 robots",
         meta: "Behavior, locomotion, attacks / C++",
         description:
-          "Explosive robot dogs in DMZ that charge the player and self-destruct. Same base as the attack dogs, tuned to move and fight like machines.",
+          "Explosive robot dogs in DMZ. Same base as the attack dogs, retuned to move like machines: more direct, no hesitation, no backing off. One behavior system, two very different characters.",
         media: {
           type: "video",
           src: "/portfolio/k9-robots-dmz.mp4",
@@ -79,7 +79,7 @@ export const groups: Group[] = [
         title: "Foot phase annotator",
         meta: "Animation tooling / Python",
         description:
-          "Walk and run animations are kept in sync by marking four poses in every step: each foot landing and each foot passing the other. Animators placed these marks by hand, and the old automatic tool broke on noisy motion capture. I rebuilt it to treat the distance between the feet as a wave, smooth out the noise, and read the poses from its peaks and crossings. It now marks most cycles on its own, more accurately than the tool it replaced.",
+          "Walk and run animations stay in sync by marking four poses in every step: each foot landing and each foot passing the other. Animators placed these marks by hand, and the old automatic tool broke on noisy motion capture. I rebuilt it to treat the distance between the feet as a wave, smooth the noise with an RBF kernel (a technique borrowed from machine learning), and read the poses from its peaks and crossings. It takes over the tedious marking without taking control away: there's no training data or black box, so animators can see why every mark lands where it does and fix any they disagree with.",
         media: {
           type: "image",
           src: "/portfolio/foot-phase-diagram.svg",
@@ -90,9 +90,9 @@ export const groups: Group[] = [
       },
       {
         title: "AI and vehicles",
-        meta: "Driving, seating, entering, exiting / C++",
+        meta: "Driving, seating, aiming / C++",
         description:
-          "AI that drives, rides and fights from vehicles, used by the patrols and convoys that move through DMZ. I also refactored the system that moves soldiers between seats.",
+          "AI that drives, rides and fights from more than 20 vehicles, helicopters included, each with its own design and animations. It runs through the whole game: DMZ's convoys and patrols, and many campaign missions, including one that opens with a firefight in traffic. I moved the system from GSC, Call of Duty's scripting language, to C++ for performance, and rebuilt how soldiers decide to switch into a lean-out seat to shoot and how they get out again. I also made their aim smoother against moving targets, worked on driving, obstacle avoidance and when soldiers get in and out, and added a feature that lets them jump out before the vehicle stops.",
         media: {
           type: "video",
           src: "/portfolio/vehicles-dmz.mp4",
@@ -118,7 +118,7 @@ export const groups: Group[] = [
         title: "What Makes an Image Steerable?",
         meta: "Senior capstone research, Colgate University / With Emily Kociubes and Nyah Harrison / PyTorch / 2024",
         description:
-          "Can you predict how easily a text-to-image model can be steered away from a starting image? CNNs and linear regression on image features, comparing real and AI-generated images.",
+          "How easily can a text-to-image model be steered away from a starting image? We used CNN features and linear regression to predict it. The strongest predictor was whether the image was real or AI-generated: generated images behave differently, which matters more every year: as more of the images online are generated, models increasingly learn from, and get steered by, their own output.",
         media: {
           type: "image",
           src: "/portfolio/thesis-poster.jpg",
@@ -135,7 +135,7 @@ export const groups: Group[] = [
         title: "Lyric generation with RNNs",
         meta: "LSTM / TensorFlow / 2023",
         description:
-          "Single-direction and bidirectional LSTMs trained on pop and rock lyrics, comparing how genre and training length change what they write. Validation loss turns upward after about 25 epochs, where the models begin to overfit.",
+          "Single-direction and bidirectional LSTMs trained on pop and rock lyrics, comparing how genre and training length change what they write. After about 25 epochs validation loss turns upward: the models stop learning how lyrics work and start memorizing the ones they've seen. A small version of a bigger question: when a generative model writes, how much is it making and how much is it copying the people it learned from?",
         media: {
           type: "image",
           src: "/portfolio/lyric-loss.png",
@@ -162,7 +162,7 @@ export const groups: Group[] = [
         meta: "Interaction design, computer vision / JavaScript",
         status: "Prototype",
         description:
-          "A practice partner for kids who communicate with picture cards (PECS). A therapist sets it up, the child holds a card up to the camera, and a character I drew responds. No chatbot: it recognizes the child's own cards and chooses from a short list of lines the therapist can see and edit. Designed with Claire, who studies autism therapy at USC.",
+          "A practice partner for kids who communicate with picture cards (PECS). A therapist sets it up, the child holds a card up to the camera, and a character I drew responds. Under the hood it's a small image classifier that learns each child's own cards, plus hand-designed behavior like the AI I build for game characters. No chatbot: everything it can say is on a short list the therapist can read and edit, \"no\" always stops it, and video never leaves the device. It gives kids extra practice between sessions and reports back to the therapist, who stays in charge. Designed with Claire Niehaus, who studies autism therapy at USC.",
         media: {
           type: "image",
           src: "/portfolio/card-companion.jpg",
@@ -193,7 +193,8 @@ export const groups: Group[] = [
         title: "Faces in nature",
         meta: "Computer vision / Python",
         status: "In progress",
-        description: "An algorithm that finds faces and human silhouettes in photos of clouds and mountains.",
+        description:
+          "An algorithm that finds faces and human silhouettes in photos of clouds and mountains: teaching a computer to see things the way people do, mistakes included.",
         placeholder: "Images: photos with the faces it found",
       },
     ],
