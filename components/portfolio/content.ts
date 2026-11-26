@@ -21,6 +21,7 @@ export type Media = {
 export type Figure = {
   media: Media;
   caption: string; // say what to look at, not just what it is
+  span?: boolean; // show across the full width in the extra-figures grid
 };
 
 export type Project = {
@@ -351,36 +352,68 @@ export const projects: Project[] = [
           height: 884,
         },
         caption: "Watercolor and ink: a figure in profile with a many-colored jester crown, facing a rainbow-washed form.",
+        span: true,
       },
       {
         media: {
           type: "image",
-          src: "/portfolio/art/stained-glass-flowers.jpg",
-          alt: "Stained glass panel of red and orange flowers on green glass",
-          width: 1960,
-          height: 1545,
+          src: "/portfolio/art/stained-glass-leaves.jpg",
+          alt: "Stained glass panel of red and orange leaves on green glass, hanging in a sunny window",
+          width: 1024,
+          height: 768,
         },
-        caption: "Stained glass panel: red and orange flowers on green glass, with the cut pieces joined by metal lines.",
+        caption: "Stained glass panel: red and orange leaves on green glass, with the cut pieces joined by metal lines.",
+      },
+      {
+        media: {
+          type: "image",
+          src: "/portfolio/art/stained-glass-leaves-design.jpg",
+          alt: "Screenshot of Glass Eye 2000 design software showing the leaves panel with every glass piece numbered",
+          width: 1024,
+          height: 768,
+        },
+        caption: "The same panel in design software (Glass Eye 2000), where every piece of glass is outlined and numbered.",
+      },
+      {
+        media: {
+          type: "image",
+          src: "/portfolio/art/stained-glass-sun-valley.jpg",
+          alt: "Stained glass panel of a sun over a green ski mountain with a Sun Valley banner, hanging in a snowy window",
+          width: 1024,
+          height: 768,
+        },
+        caption: "Stained glass panel: a sun over a green ski mountain, with a Sun Valley banner.",
+        span: true,
+      },
+      {
+        media: {
+          type: "image",
+          src: "/portfolio/art/stained-glass-sun-valley-angle.jpg",
+          alt: "The Sun Valley stained glass panel seen from the side on a windowsill, showing its red glass frame",
+          width: 768,
+          height: 1024,
+        },
+        caption: "The same panel from the side, showing its red glass frame.",
       },
       {
         media: {
           type: "image",
           src: "/portfolio/art/stained-glass-geometric.jpg",
-          alt: "Square stained glass panel with a pink pinwheel flower around a blue center, inside a blue diamond, set in a yellow circle",
-          width: 1780,
-          height: 1780,
+          alt: "Square stained glass panel with a pink pinwheel flower inside a blue diamond, set in a yellow circle, standing in a window",
+          width: 768,
+          height: 1024,
         },
         caption: "Stained glass panel: a pink pinwheel flower inside a blue diamond, set in a yellow circle.",
       },
       {
         media: {
           type: "image",
-          src: "/portfolio/art/stained-glass-sun-valley.jpg",
-          alt: "Stained glass panel of a sun over a green ski mountain with a Sun Valley banner",
-          width: 1976,
-          height: 1318,
+          src: "/portfolio/art/stained-glass-green-circle.jpg",
+          alt: "Round stained glass piece in shades of green with one clear strip, hanging in front of a blue sky",
+          width: 768,
+          height: 1024,
         },
-        caption: "Stained glass panel: a sun over a green ski mountain, with a Sun Valley banner.",
+        caption: "Stained glass circle in shades of green, with one clear strip of glass.",
       },
     ],
     radiance: { caption: "Radiance. Generative art, p5.js. It draws itself, and you can pause or restart it." },
@@ -426,27 +459,35 @@ export const artworks: Artwork[] = [
     row: 1,
   },
   {
-    src: "/portfolio/art/stained-glass-flowers.jpg",
-    alt: "Stained glass panel of red and orange flowers on green glass",
+    src: "/portfolio/art/stained-glass-leaves.jpg",
+    alt: "Stained glass panel of red and orange leaves on green glass",
     medium: "Stained glass",
-    width: 1960,
-    height: 1545,
-    row: 2,
-  },
-  {
-    src: "/portfolio/art/stained-glass-geometric.jpg",
-    alt: "Square stained glass panel with a pink pinwheel flower around a blue center, inside a blue diamond, set in a yellow circle",
-    medium: "Stained glass",
-    width: 1780,
-    height: 1780,
+    width: 1024,
+    height: 768,
     row: 2,
   },
   {
     src: "/portfolio/art/stained-glass-sun-valley.jpg",
     alt: "Stained glass panel of a sun over a green ski mountain with a Sun Valley banner",
     medium: "Stained glass",
-    width: 1976,
-    height: 1318,
+    width: 1024,
+    height: 768,
     row: 2,
+  },
+  {
+    src: "/portfolio/art/stained-glass-geometric.jpg",
+    alt: "Square stained glass panel with a pink pinwheel flower inside a blue diamond",
+    medium: "Stained glass",
+    width: 768,
+    height: 1024,
+    row: 3,
+  },
+  {
+    src: "/portfolio/art/stained-glass-green-circle.jpg",
+    alt: "Round stained glass piece in shades of green with one clear strip",
+    medium: "Stained glass",
+    width: 768,
+    height: 1024,
+    row: 3,
   },
 ];

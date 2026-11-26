@@ -481,3 +481,7 @@
   margin-top: 40px;
   border-top: 1px solid #ece8e3;
 }
+
+.pf-more .pf-span {
+  grid-column: 1 / -1;
+}

@@ -7,7 +7,7 @@ import { getNeighbors, projects, type Figure, type Project } from "./content";
 function FigureView({ figure }: { figure: Figure }) {
   const { media, caption } = figure;
   return (
-    <figure className="pf-fig">
+    <figure className={figure.span ? "pf-fig pf-span" : "pf-fig"}>
       {media.type === "video" ? (
         <PlayableVideo src={media.src} poster={media.poster} label={media.alt} />
       ) : (
