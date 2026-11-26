@@ -333,7 +333,7 @@ export const projects: Project[] = [
         width: 2000,
         height: 1400,
       },
-      caption: "Watercolor and ink.",
+      caption: "Watercolor and ink: a pink sea creature covered in white dots, with a small orange fish.",
     },
     rows: [
       {
@@ -350,7 +350,7 @@ export const projects: Project[] = [
           width: 1700,
           height: 884,
         },
-        caption: "Watercolor and ink.",
+        caption: "Watercolor and ink: a figure in profile with a many-colored jester crown, facing a rainbow-washed form.",
       },
       {
         media: {
@@ -360,7 +360,7 @@ export const projects: Project[] = [
           width: 1960,
           height: 1545,
         },
-        caption: "Stained glass.",
+        caption: "Stained glass panel: red and orange flowers on green glass, with the cut pieces joined by metal lines.",
       },
       {
         media: {
@@ -370,7 +370,7 @@ export const projects: Project[] = [
           width: 1780,
           height: 1780,
         },
-        caption: "Stained glass.",
+        caption: "Stained glass panel: a pink pinwheel flower inside a blue diamond, set in a yellow circle.",
       },
       {
         media: {
@@ -380,7 +380,7 @@ export const projects: Project[] = [
           width: 1976,
           height: 1318,
         },
-        caption: "Stained glass.",
+        caption: "Stained glass panel: a sun over a green ski mountain, with a Sun Valley banner.",
       },
     ],
     radiance: { caption: "Radiance. Generative art, p5.js. It draws itself, and you can pause or restart it." },

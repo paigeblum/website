@@ -46,11 +46,8 @@ export default function ProjectView({ project }: { project: Project }) {
         </ul>
       )}
 
-      <details className="pf-deeper">
-        <summary>
-          <span className="pf-mono">Go deeper</span>
-          <span className="pf-deeper-hint">The full story, step by step</span>
-        </summary>
+      <div className="pf-detail-rule" />
+
       <div className="pf-rows">
         {project.rows.map((row) => (
           <div key={row.label} style={{ display: "contents" }}>
@@ -67,8 +64,6 @@ export default function ProjectView({ project }: { project: Project }) {
           ))}
         </div>
       )}
-
-      </details>
 
       {project.radiance && (
         <div className="pf-radiance">
