@@ -47,6 +47,19 @@ export default function ProjectView({ project }: { project: Project }) {
 
       <FigureView figure={project.hero} />
 
+      {project.tags && (
+        <ul className="pf-tags pf-mono" aria-label="Built with">
+          {project.tags.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+      )}
+
+      <details className="pf-deeper">
+        <summary>
+          <span className="pf-mono">Go deeper</span>
+          <span className="pf-deeper-hint">The full story, step by step</span>
+        </summary>
       <div className="pf-rows">
         {project.rows.map((row) => (
           <div key={row.label} style={{ display: "contents" }}>
@@ -63,6 +76,8 @@ export default function ProjectView({ project }: { project: Project }) {
           ))}
         </div>
       )}
+
+      </details>
 
       {project.radiance && (
         <div className="pf-radiance">

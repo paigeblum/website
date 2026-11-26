@@ -30,6 +30,7 @@ export type Project = {
   kind: string; // small label above the title: where and when
   lede: string; // one plain sentence: what is this?
   hero: Figure;
+  tags?: string[]; // short chips shown at a glance
   rows: { label: string; text: string }[];
   more?: Figure[]; // extra images or clips, shown below the rows
   radiance?: { caption: string }; // shows the live Radiance sketch after `more`
@@ -48,6 +49,7 @@ export const groups: { label: string; slugs: string[] }[] = [
 export const projects: Project[] = [
   {
     slug: "dogs",
+    tags: ["C++", "Behavior trees", "Animation state machines"],
     name: "Dogs",
     desc: "Dog AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
@@ -102,6 +104,7 @@ export const projects: Project[] = [
   },
   {
     slug: "vehicles",
+    tags: ["C++", "GSC scripting"],
     name: "AI and vehicles",
     desc: "Vehicle AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
@@ -134,6 +137,7 @@ export const projects: Project[] = [
   },
   {
     slug: "foot-phase",
+    tags: ["Python", "RBF kernel"],
     name: "Foot phase tool",
     desc: "Animation tool",
     kind: "Infinity Ward / Animation tooling / Python",
@@ -171,6 +175,7 @@ export const projects: Project[] = [
   },
   {
     slug: "card-companion",
+    tags: ["JavaScript", "Image classifier"],
     name: "Card companion",
     desc: "Picture-card companion",
     kind: "Prototype / Designed with Claire Niehaus",
@@ -211,6 +216,7 @@ export const projects: Project[] = [
   },
   {
     slug: "dancing-leg",
+    tags: ["Python", "Motion matching", "In progress"],
     name: "Dancing leg",
     desc: "Predicting a missing leg",
     kind: "In progress / Motion matching / Python",
@@ -240,6 +246,7 @@ export const projects: Project[] = [
   },
   {
     slug: "steerable-images",
+    tags: ["PyTorch", "CNN features", "Linear regression"],
     name: "Steerable images",
     desc: "AI image research",
     kind: "Senior capstone research / Colgate University / 2024",
@@ -276,6 +283,7 @@ export const projects: Project[] = [
   },
   {
     slug: "lyric-rnns",
+    tags: ["TensorFlow", "LSTM"],
     name: "Lyric RNNs",
     desc: "Neural nets writing lyrics",
     kind: "TensorFlow / 2023",
@@ -320,6 +328,7 @@ export const projects: Project[] = [
   },
   {
     slug: "art",
+    tags: ["Watercolor", "Stained glass", "Generative"],
     name: "Art",
     desc: "Watercolor, glass, code",
     kind: "Watercolor / Stained glass / Generative",

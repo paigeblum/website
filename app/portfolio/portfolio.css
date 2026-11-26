@@ -352,3 +352,59 @@
     scroll-behavior: auto;
   }
 }
+
+/* At-a-glance chips and the optional "Go deeper" layer */
+.pf-tags {
+  list-style: none;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pf-tags li {
+  padding: 5px 12px;
+  border: 1px solid #f3c6dc;
+  border-radius: 999px;
+  background: #fff5fa;
+  font-size: 12px;
+  color: #9d174d;
+}
+.pf-deeper {
+  margin-top: 36px;
+  border-top: 1px solid #ece8e3;
+}
+.pf-deeper > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 16px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.pf-deeper > summary::-webkit-details-marker {
+  display: none;
+}
+.pf-deeper > summary::before {
+  content: "+";
+  font-size: 18px;
+  color: #f72585;
+  width: 14px;
+}
+.pf-deeper[open] > summary::before {
+  content: "\2212";
+}
+.pf-deeper > summary .pf-mono {
+  font-size: 12px;
+  color: #141414;
+}
+.pf-deeper-hint {
+  font-size: 14px;
+  color: #6b7280;
+}
+.pf-deeper > summary:focus-visible {
+  outline: 2px solid #f72585;
+  outline-offset: 2px;
+}
+.pf-deeper .pf-rows {
+  margin-top: 8px;
+}
