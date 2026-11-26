@@ -30,9 +30,10 @@ export type Project = {
   desc: string; // a few plain words, shown under the name in the sidebar
   kind: string; // small label above the title: where and when
   lede: string; // one plain sentence: what is this?
-  hero: Figure;
+  hero?: Figure; // omitted when the page is a `gallery`
   tags?: string[]; // short chips shown at a glance
   rows: { label: string; text: string }[];
+  gallery?: Figure[][]; // rows of pictures that share one height; replaces hero, tags and rows
   more?: Figure[]; // extra images or clips, shown below the rows
   radiance?: { caption: string }; // shows the live Radiance sketch after `more`
   links?: { label: string; href: string }[];
@@ -321,101 +322,101 @@ export const projects: Project[] = [
   },
   {
     slug: "art",
-    tags: ["Watercolor", "Stained glass", "Generative"],
     name: "Art",
     desc: "Watercolor, glass, code",
     kind: "Watercolor / Stained glass / Generative",
     lede: "Watercolors, stained glass, and generative art made with code.",
-    hero: {
-      media: {
-        type: "image",
-        src: "/portfolio/art/watercolor-sea.jpg",
-        alt: "Watercolor of a pink sea creature covered in white dots, with a small orange fish, against blue and violet water",
-        width: 2000,
-        height: 1400,
-      },
-      caption: "Watercolor and ink: a pink sea creature covered in white dots, with a small orange fish.",
-    },
-    rows: [
-      {
-        label: "Mediums",
-        text: "Watercolor and ink, stained glass, and generative art written in p5.js (a JavaScript drawing library).",
-      },
+    gallery: [
+      [
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/watercolor-sea.jpg",
+            alt: "Watercolor of a pink sea creature covered in white dots, with a small orange fish, against blue and violet water",
+            width: 2000,
+            height: 1400,
+          },
+          caption: "Watercolor and ink",
+        },
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/watercolor-profile.jpg",
+            alt: "Watercolor and ink of a blue figure in profile with a many-colored jester crown, facing a rainbow-washed form",
+            width: 1700,
+            height: 884,
+          },
+          caption: "Watercolor and ink",
+        },
+      ],
+      [
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/stained-glass-leaves.jpg",
+            alt: "Stained glass panel of red and orange leaves on green glass, hanging in a sunny window",
+            width: 1024,
+            height: 768,
+          },
+          caption: "Stained glass",
+        },
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/stained-glass-leaves-design.jpg",
+            alt: "Screenshot of Glass Eye 2000 design software showing the leaves panel with every glass piece numbered",
+            width: 1024,
+            height: 768,
+          },
+          caption: "Stained glass, in design software",
+        },
+      ],
+      [
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/stained-glass-sun-valley.jpg",
+            alt: "Stained glass panel of a sun over a green ski mountain with a Sun Valley banner, hanging in a snowy window",
+            width: 1024,
+            height: 768,
+          },
+          caption: "Stained glass",
+        },
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/stained-glass-sun-valley-angle.jpg",
+            alt: "The Sun Valley stained glass panel seen from the side on a windowsill, showing its red glass frame",
+            width: 768,
+            height: 1024,
+          },
+          caption: "Stained glass",
+        },
+      ],
+      [
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/stained-glass-geometric.jpg",
+            alt: "Square stained glass panel with a pink pinwheel flower inside a blue diamond, set in a yellow circle",
+            width: 768,
+            height: 1024,
+          },
+          caption: "Stained glass",
+        },
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/stained-glass-green-circle.jpg",
+            alt: "Round stained glass piece in shades of green with one clear strip, hanging in front of a blue sky",
+            width: 768,
+            height: 1024,
+          },
+          caption: "Stained glass",
+        },
+      ],
     ],
-    more: [
-      {
-        media: {
-          type: "image",
-          src: "/portfolio/art/watercolor-profile.jpg",
-          alt: "Watercolor and ink of a blue figure in profile with a many-colored jester crown, facing a rainbow-washed form with a small blue shape between them",
-          width: 1700,
-          height: 884,
-        },
-        caption: "Watercolor and ink: a figure in profile with a many-colored jester crown, facing a rainbow-washed form.",
-        span: true,
-      },
-      {
-        media: {
-          type: "image",
-          src: "/portfolio/art/stained-glass-leaves.jpg",
-          alt: "Stained glass panel of red and orange leaves on green glass, hanging in a sunny window",
-          width: 1024,
-          height: 768,
-        },
-        caption: "Stained glass panel: red and orange leaves on green glass, with the cut pieces joined by metal lines.",
-      },
-      {
-        media: {
-          type: "image",
-          src: "/portfolio/art/stained-glass-leaves-design.jpg",
-          alt: "Screenshot of Glass Eye 2000 design software showing the leaves panel with every glass piece numbered",
-          width: 1024,
-          height: 768,
-        },
-        caption: "The same panel in design software (Glass Eye 2000), where every piece of glass is outlined and numbered.",
-      },
-      {
-        media: {
-          type: "image",
-          src: "/portfolio/art/stained-glass-sun-valley.jpg",
-          alt: "Stained glass panel of a sun over a green ski mountain with a Sun Valley banner, hanging in a snowy window",
-          width: 1024,
-          height: 768,
-        },
-        caption: "Stained glass panel: a sun over a green ski mountain, with a Sun Valley banner.",
-        span: true,
-      },
-      {
-        media: {
-          type: "image",
-          src: "/portfolio/art/stained-glass-sun-valley-angle.jpg",
-          alt: "The Sun Valley stained glass panel seen from the side on a windowsill, showing its red glass frame",
-          width: 768,
-          height: 1024,
-        },
-        caption: "The same panel from the side, showing its red glass frame.",
-      },
-      {
-        media: {
-          type: "image",
-          src: "/portfolio/art/stained-glass-geometric.jpg",
-          alt: "Square stained glass panel with a pink pinwheel flower inside a blue diamond, set in a yellow circle, standing in a window",
-          width: 768,
-          height: 1024,
-        },
-        caption: "Stained glass panel: a pink pinwheel flower inside a blue diamond, set in a yellow circle.",
-      },
-      {
-        media: {
-          type: "image",
-          src: "/portfolio/art/stained-glass-green-circle.jpg",
-          alt: "Round stained glass piece in shades of green with one clear strip, hanging in front of a blue sky",
-          width: 768,
-          height: 1024,
-        },
-        caption: "Stained glass circle in shades of green, with one clear strip of glass.",
-      },
-    ],
+    rows: [],
     radiance: { caption: "Radiance. Generative art, p5.js. It draws itself, and you can pause or restart it." },
   },
 ];

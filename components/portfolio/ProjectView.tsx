@@ -36,7 +36,25 @@ export default function ProjectView({ project }: { project: Project }) {
       <h1 className="pf-title">{project.name}</h1>
       <p className="pf-lede">{project.lede}</p>
 
-      <FigureView figure={project.hero} />
+      {project.hero && <FigureView figure={project.hero} />}
+
+      {project.gallery && (
+        <div className="pf-gallery">
+          {project.gallery.map((row, i) => (
+            <div key={i} className="pf-gal-row">
+              {row.map((fig) => (
+                <div
+                  key={fig.media.src}
+                  className="pf-gal-item"
+                  style={{ "--ratio": (fig.media.width ?? 1) / (fig.media.height ?? 1) } as React.CSSProperties}
+                >
+                  <FigureView figure={fig} />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
 
       {project.tags && (
         <ul className="pf-tags pf-mono" aria-label="Built with">
@@ -46,7 +64,7 @@ export default function ProjectView({ project }: { project: Project }) {
         </ul>
       )}
 
-      <div className="pf-detail-rule" />
+      {project.rows.length > 0 && <div className="pf-detail-rule" />}
 
       <div className="pf-rows">
         {project.rows.map((row) => (

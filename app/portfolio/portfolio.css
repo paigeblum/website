@@ -485,3 +485,36 @@
 .pf-more .pf-span {
   grid-column: 1 / -1;
 }
+
+/* Gallery: each row shares one height, so mixed shapes sit flush */
+.pf-gallery {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.pf-gal-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.pf-gal-item {
+  flex: var(--ratio) 1 0%;
+  min-width: 0;
+}
+.pf-gal-item .pf-fig {
+  margin-top: 0;
+}
+.pf-gal-item .pf-cap {
+  margin-top: 8px;
+  font-size: 13px;
+}
+@media (max-width: 900px) {
+  .pf-gal-row {
+    flex-direction: column;
+  }
+  .pf-gal-item {
+    flex: none;
+    width: 100%;
+  }
+}
