@@ -1,0 +1,354 @@
+/* Portfolio pages. Plain CSS on purpose: the site-wide reset in globals.css
+   zeroes margins and padding, so utility classes can't set spacing here. */
+
+.pf-root {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  color: #141414;
+  line-height: 1.5;
+}
+.pf-root h1,
+.pf-root h2,
+.pf-root h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+.pf-mono {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+}
+
+.pf-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #fffdfb;
+  position: relative;
+}
+
+/* Sidebar */
+.pf-side {
+  flex: 0 0 290px;
+  width: 290px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 36px 20px 24px 24px;
+  border-right: 1px solid #ece8e3;
+  display: flex;
+  flex-direction: column;
+  background: #fffdfb;
+}
+.pf-brand {
+  display: block;
+  padding: 0 8px;
+  color: inherit;
+  text-decoration: none;
+}
+.pf-name {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.pf-role {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #52525b;
+}
+.pf-line {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 18px 0 4px;
+  padding: 0 8px;
+}
+.pf-menu-btn {
+  display: none;
+}
+.pf-nav {
+  flex: 1 1 auto;
+}
+.pf-group {
+  margin-top: 16px;
+}
+.pf-group-label {
+  display: block;
+  padding: 0 8px 6px;
+  font-size: 11px;
+  color: #6b7280;
+}
+.pf-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  color: #141414;
+  text-decoration: none;
+  font-size: 15px;
+}
+.pf-item:hover {
+  background: #f4f1ec;
+}
+.pf-item[aria-current="page"] {
+  background: #f4f1ec;
+  font-weight: 600;
+}
+.pf-item:focus-visible,
+.pf-next:focus-visible,
+.pf-link:focus-visible,
+.pf-menu-btn:focus-visible {
+  outline: 2px solid #f72585;
+  outline-offset: 2px;
+}
+.pf-thumb {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #efe9e1;
+}
+.pf-thumb--contain {
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid #ece8e3;
+}
+.pf-item-text {
+  min-width: 0;
+}
+.pf-item-name {
+  display: block;
+  line-height: 1.25;
+}
+.pf-item-desc {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #52525b;
+}
+.pf-side-foot {
+  display: flex;
+  gap: 20px;
+  padding: 20px 8px 0;
+  font-size: 14px;
+}
+.pf-side-foot a {
+  color: #9d174d;
+  text-decoration: none;
+}
+.pf-side-foot a:hover {
+  text-decoration: underline;
+}
+
+/* Main pane */
+.pf-main {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+.pf-main::before {
+  content: "";
+  position: absolute;
+  top: -90px;
+  right: 4%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: #9370db;
+  opacity: 0.1;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.pf-article {
+  position: relative;
+  max-width: 800px;
+  padding: 44px 56px 72px;
+}
+.pf-kind {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+}
+.pf-title {
+  margin-top: 12px;
+  font-size: 60px;
+  line-height: 1;
+}
+.pf-lede {
+  margin-top: 18px;
+  max-width: 660px;
+  font-size: 21px;
+  line-height: 1.5;
+  color: #27272a;
+}
+.pf-fig {
+  margin-top: 32px;
+}
+.pf-fig img,
+.pf-fig video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: #f4f1ec;
+}
+.pf-fig video {
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.pf-cap {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #52525b;
+}
+.pf-rows {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 18px 28px;
+}
+.pf-row-label {
+  padding-top: 5px;
+  font-size: 12px;
+  color: #6b7280;
+}
+.pf-row-text {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #27272a;
+}
+.pf-more {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 20px;
+  align-items: start;
+}
+.pf-more .pf-fig {
+  margin-top: 0;
+}
+.pf-more .pf-cap {
+  margin-top: 10px;
+  font-size: 14px;
+}
+.pf-radiance {
+  margin-top: 40px;
+}
+.pf-links {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.pf-link {
+  color: #9d174d;
+  text-decoration: none;
+}
+.pf-link:hover {
+  text-decoration: underline;
+}
+.pf-foot {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid #ece8e3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.pf-count {
+  font-size: 12px;
+  color: #6b7280;
+}
+.pf-next {
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #9d174d;
+  text-decoration: none;
+}
+.pf-next:hover {
+  background: #f4f1ec;
+}
+
+/* Phones and narrow windows: the index becomes a collapsible header */
+@media (max-width: 900px) {
+  .pf-shell {
+    flex-direction: column;
+  }
+  .pf-side {
+    position: static;
+    flex: none;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    padding: 20px 20px 12px;
+    border-right: none;
+    border-bottom: 1px solid #ece8e3;
+  }
+  .pf-name {
+    font-size: 30px;
+  }
+  .pf-line {
+    display: none;
+  }
+  .pf-menu-btn {
+    display: block;
+    margin: 14px 8px 0;
+    padding: 8px 14px;
+    border: 1px solid #ece8e3;
+    border-radius: 10px;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: #141414;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  .pf-nav,
+  .pf-side-foot {
+    display: none;
+  }
+  .pf-side[data-open="true"] .pf-nav,
+  .pf-side[data-open="true"] .pf-side-foot {
+    display: block;
+  }
+  .pf-side[data-open="true"] .pf-side-foot {
+    display: flex;
+  }
+  .pf-article {
+    padding: 28px 20px 56px;
+  }
+  .pf-title {
+    font-size: 44px;
+  }
+  .pf-lede {
+    font-size: 19px;
+  }
+  .pf-rows {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px 0;
+  }
+  .pf-row-text {
+    margin-bottom: 14px;
+  }
+  .pf-more {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-fig video {
+    /* the clips autoplay; controls stay available so they can be paused */
+    scroll-behavior: auto;
+  }
+}
