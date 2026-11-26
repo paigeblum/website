@@ -190,24 +190,36 @@ export const projects: Project[] = [
     },
     rows: [
       {
-        label: "The background",
-        text: "PECS (the Picture Exchange Communication System) is a way for children who don't use spoken language to communicate. The child hands a picture card of something they want to another person, who responds right away. It was developed in 1985 at the Delaware Autism Program, and its point is that the child starts the conversation, which many earlier methods didn't ask them to do.",
+        label: "The starting point",
+        text: "Many children on the autism spectrum don't use spoken language, and a common way to give them a voice is PECS, the Picture Exchange Communication System. The child hands a picture card of something they want to another person, who responds right away. It was developed in 1985 at the Delaware Autism Program, and it matters because the child is the one who starts the conversation, which earlier methods often didn't ask of them. I wanted to build a way for a child to practice that exchange between sessions with a therapist.",
       },
       {
-        label: "What I learned",
-        text: "I'm new to autism therapy, and Claire taught me what the design had to respect. She told me every child needs something different, and that the first step is meeting the child and putting together a basic set of cards. That is why everything here is set up per child. Some kids respond to sound and others don't, so the sound can be turned off, soft or normal. She also told me which shapes children tend to gravitate toward, and that shaped the character I drew. My first version included words like \"yes\", and she explained that isn't part of the first step of training. So I narrowed it to practicing first words instead of teaching anything complex.",
+        label: "Who I designed with",
+        text: "I'm a game AI engineer, and I came to this knowing nothing about autism therapy. My friend Claire Niehaus, who is studying autism-related therapy at USC, became my guide. I asked her the questions I would have gotten wrong alone, like what kind of movement a child expects back when they present a card. Her answers changed the design in four ways.",
+      },
+      {
+        label: "Every child is different",
+        text: "Claire told me that every child needs and wants something different, and that the first step of the process is meeting the child and putting together a basic set of cards. So I made everything customizable per child. A therapist or parent fills in a short profile (the child's name, real items to match, how much the character moves, the pace), and every answer changes how the companion behaves. The cards it recognizes are the child's own.",
+      },
+      {
+        label: "Sound is a choice",
+        text: "She also told me that some children respond to sound and others don't. I added a sound setting with three levels (off, soft or normal), and with sound off the words appear on screen and music is shown as notes.",
+      },
+      {
+        label: "A character made for them",
+        text: "Claire told me which shapes children tend to gravitate toward, and that guided how I drew the character.",
+      },
+      {
+        label: "Start with first words",
+        text: "My first prototype included words like \"yes\". Claire explained that isn't part of the first step of training, and that the tool should help children practice their first words rather than teach anything complex from the start. I narrowed it to simple first cards: bubbles, music, no, help and dog.",
       },
       {
         label: "How it works",
-        text: "A therapist sets it up in a short guided setup: a few seconds of video teaches it each of the child's own cards. A small image recognizer (MobileNet) turns each camera frame into a set of numbers, and a nearest-neighbor classifier (it compares what it sees to the examples it was taught) decides which card is being held. It also learns what \"no card\" looks like, so it only responds when a card is held still for about a second and it is at least 80% sure. The response then comes from hand-designed behavior, the same kind of character AI used in games.",
-      },
-      {
-        label: "Made for each child",
-        text: "The therapist or parent fills in a short profile, and every answer changes how the companion behaves: the child's name, real items to match, how much it moves, the sound level (off, soft or normal), and the pace. The card set is taught from that child's own cards, so no two setups need to look alike.",
+        text: "In a short guided setup, a few seconds of video teaches it each of the child's own cards. A small image recognizer (MobileNet) turns every camera frame into a set of numbers, and a nearest-neighbor classifier (it compares what it sees to the examples it was taught) decides which card is being held. It also learns what \"no card\" looks like, so it only responds when a card is held still for about a second and it is at least 80% sure. The response itself comes from hand-designed behavior, the same kind of character AI I build for games, so every reaction is predictable.",
       },
       {
         label: "Designed for safety",
-        text: "It is not a chatbot, and nothing it says is generated. It can only say what is on a short Responses list that the therapist can read and edit. It never goes online after setup: the vision model downloads once, then runs on the device. It never stores or sends video, and recognition happens on the device. It never prompts or pressures the child. It waits for the child to start, and the word \"no\" always stops everything instantly. A grown-up brings the real items and the therapist reads the session summary, so it supports people and does not replace them.",
+        text: "Because the user is a child, I decided what it must never do. It is not a chatbot and nothing it says is generated: it can only say what is on a short Responses list that the therapist can read and edit. It never goes online after setup, because the vision model downloads once and then runs on the device. It never stores or sends video. It never prompts or pressures the child and waits for them to start, and the word \"no\" always stops everything instantly. A grown-up brings the real items and the therapist reads the session summary, so it supports the people in a child's life and does not replace them.",
       },
       {
         label: "What happened",
