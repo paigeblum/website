@@ -180,13 +180,13 @@ export const projects: Project[] = [
     lede: "A practice partner for children who communicate with picture cards, designed with a USC student who studies autism therapy.",
     hero: {
       media: {
-        type: "image",
-        src: "/portfolio/card-companion.jpg",
-        alt: "A hand-drawn pink character waving as big blue bubbles float up, with the caption: You want big blue bubbles!",
-        width: 1200,
-        height: 760,
+        type: "video",
+        src: "/portfolio/card-companion-demo.mp4",
+        poster: "/portfolio/card-companion-demo-poster.jpg",
+        alt: "Screen recording of the Card Companion: teaching it the child's cards, holding up a bubbles card to the camera, the pink character answering, and the therapist's session summary",
       },
-      caption: "The character answers a “bubbles” card with “You want big blue bubbles!”",
+      caption:
+        "In this video: setup teaches it a child's own cards, a card held to the camera gets a response from the character, and the therapist's session summary follows.",
     },
     rows: [
       {
@@ -228,6 +228,18 @@ export const projects: Project[] = [
       {
         label: "Built with",
         text: "JavaScript, TensorFlow.js, MobileNet (a small image-recognition network) and a nearest-neighbor classifier. Card pictures are from MyPECS.",
+      },
+    ],
+    more: [
+      {
+        media: {
+          type: "image",
+          src: "/portfolio/card-companion.jpg",
+          alt: "A hand-drawn pink character waving as big blue bubbles float up, with the caption: You want big blue bubbles!",
+          width: 1200,
+          height: 760,
+        },
+        caption: "The character answers a “bubbles” card with “You want big blue bubbles!”",
       },
     ],
     links: [
