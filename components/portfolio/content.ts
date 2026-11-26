@@ -38,7 +38,7 @@ export type Project = {
 };
 
 export const groups: { label: string; slugs: string[] }[] = [
-  { label: "At Infinity Ward", slugs: ["dogs", "vehicles", "foot-phase"] },
+  { label: "At Infinity Ward", slugs: ["quadrupeds", "vehicles", "foot-phase"] },
   { label: "Prototypes", slugs: ["card-companion", "dancing-leg"] },
   { label: "Research", slugs: ["steerable-images", "lyric-rnns"] },
   { label: "Art", slugs: ["art"] },
@@ -47,12 +47,12 @@ export const groups: { label: string; slugs: string[] }[] = [
 // Order here is the order of the "Next" button.
 export const projects: Project[] = [
   {
-    slug: "dogs",
+    slug: "quadrupeds",
     tags: ["C++", "Behavior trees", "Animation state machines"],
-    name: "Dogs",
-    desc: "Dog AI, Call of Duty",
+    name: "Quadrupeds",
+    desc: "Four-legged AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
-    lede: "Behavior AI for the dogs in Call of Duty: the companion who leads you, the attack dogs, and the robot dogs.",
+    lede: "Behavior AI for the four-legged characters in Call of Duty (quadrupeds): the companion dog who leads you, the attack dogs, and the robot dogs.",
     hero: {
       media: {
         type: "video",
