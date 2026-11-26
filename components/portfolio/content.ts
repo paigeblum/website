@@ -35,7 +35,6 @@ export type Project = {
   more?: Figure[]; // extra images or clips, shown below the rows
   radiance?: { caption: string }; // shows the live Radiance sketch after `more`
   links?: { label: string; href: string }[];
-  thumb: { src: string; fit?: "contain" }; // small image for the sidebar
 };
 
 export const groups: { label: string; slugs: string[] }[] = [
@@ -54,7 +53,6 @@ export const projects: Project[] = [
     desc: "Dog AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
     lede: "Behavior AI for the dogs in Call of Duty: the companion who leads you, the attack dogs, and the robot dogs.",
-    thumb: { src: "/portfolio/thumbs/dogs.jpg" },
     hero: {
       media: {
         type: "video",
@@ -109,7 +107,6 @@ export const projects: Project[] = [
     desc: "Vehicle AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
     lede: "AI that lets enemy soldiers drive, ride and fight from more than 20 vehicles, helicopters included.",
-    thumb: { src: "/portfolio/thumbs/vehicles.jpg" },
     hero: {
       media: {
         type: "video",
@@ -142,7 +139,6 @@ export const projects: Project[] = [
     desc: "Animation tool",
     kind: "Infinity Ward / Animation tooling / Python",
     lede: "An animation tool that finds the key poses in a walk or run, so animators don't have to mark them by hand.",
-    thumb: { src: "/portfolio/foot-phase-diagram.svg", fit: "contain" },
     hero: {
       media: {
         type: "image",
@@ -180,7 +176,6 @@ export const projects: Project[] = [
     desc: "Picture-card companion",
     kind: "Prototype / Designed with Claire Niehaus",
     lede: "A practice partner for children who communicate with picture cards, designed with a USC student who studies autism therapy.",
-    thumb: { src: "/portfolio/thumbs/card-companion.jpg" },
     hero: {
       media: {
         type: "image",
@@ -221,7 +216,6 @@ export const projects: Project[] = [
     desc: "Predicting a missing leg",
     kind: "In progress / Motion matching / Python",
     lede: "A system that predicts how a missing lower leg would move, using only the rest of a dancer's body.",
-    thumb: { src: "/portfolio/thumbs/dancing-leg.jpg" },
     hero: {
       media: {
         type: "image",
@@ -251,7 +245,6 @@ export const projects: Project[] = [
     desc: "AI image research",
     kind: "Senior capstone research / Colgate University / 2024",
     lede: "Research on how easily an AI image generator can be steered away from a starting image.",
-    thumb: { src: "/portfolio/thumbs/steerable-images.jpg" },
     hero: {
       media: {
         type: "image",
@@ -288,7 +281,6 @@ export const projects: Project[] = [
     desc: "Neural nets writing lyrics",
     kind: "TensorFlow / 2023",
     lede: "An experiment training neural networks to write song lyrics, and watching for the moment they start copying.",
-    thumb: { src: "/portfolio/thumbs/lyric-rnns.jpg" },
     hero: {
       media: {
         type: "image",
@@ -333,7 +325,6 @@ export const projects: Project[] = [
     desc: "Watercolor, glass, code",
     kind: "Watercolor / Stained glass / Generative",
     lede: "Watercolors, stained glass, and generative art made with code.",
-    thumb: { src: "/portfolio/thumbs/art.jpg" },
     hero: {
       media: {
         type: "image",

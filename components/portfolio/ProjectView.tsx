@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import PlayableVideo from "./PlayableVideo";
 import RadianceCanvas from "./RadianceCanvas";
 import { getNeighbors, projects, type Figure, type Project } from "./content";
 
@@ -8,14 +9,7 @@ function FigureView({ figure }: { figure: Figure }) {
   return (
     <figure className="pf-fig">
       {media.type === "video" ? (
-        <video
-          src={media.src}
-          poster={media.poster}
-          aria-label={media.alt}
-          controls
-          playsInline
-          preload="none"
-        />
+        <PlayableVideo src={media.src} poster={media.poster} label={media.alt} />
       ) : (
         <a href={media.src} target="_blank" rel="noopener noreferrer" title="Open full size">
           <Image
