@@ -173,7 +173,7 @@ export const projects: Project[] = [
   },
   {
     slug: "card-companion",
-    tags: ["JavaScript", "Image classifier"],
+    tags: ["JavaScript", "TensorFlow.js", "Image classifier"],
     name: "Card companion",
     desc: "Picture-card companion",
     kind: "Prototype / Designed with Claire Niehaus",
@@ -190,20 +190,32 @@ export const projects: Project[] = [
     },
     rows: [
       {
+        label: "The background",
+        text: "PECS (the Picture Exchange Communication System) is a way for children who don't use spoken language to communicate. The child hands a picture card of something they want to another person, who responds right away. It was developed in 1985 at the Delaware Autism Program, and its point is that the child starts the conversation, which many earlier methods didn't ask them to do.",
+      },
+      {
+        label: "What I learned",
+        text: "I'm new to autism therapy, and Claire taught me what the design had to respect. She told me every child needs something different, and that the first step is meeting the child and putting together a basic set of cards. That is why everything here is set up per child. Some kids respond to sound and others don't, so the sound can be turned off, soft or normal. She also told me which shapes children tend to gravitate toward, and that shaped the character I drew. My first version included words like \"yes\", and she explained that isn't part of the first step of training. So I narrowed it to practicing first words instead of teaching anything complex.",
+      },
+      {
         label: "How it works",
-        text: "A therapist sets it up, the child holds a card up to the camera, and a character I drew responds. Under the hood it's a small image classifier that learns each child's own cards, plus hand-designed behavior like the AI I build for game characters.",
+        text: "A therapist sets it up in a short guided setup: a few seconds of video teaches it each of the child's own cards. A small image recognizer (MobileNet) turns each camera frame into a set of numbers, and a nearest-neighbor classifier (it compares what it sees to the examples it was taught) decides which card is being held. It also learns what \"no card\" looks like, so it only responds when a card is held still for about a second and it is at least 80% sure. The response then comes from hand-designed behavior, the same kind of character AI used in games.",
+      },
+      {
+        label: "Made for each child",
+        text: "The therapist or parent fills in a short profile, and every answer changes how the companion behaves: the child's name, real items to match, how much it moves, the sound level (off, soft or normal), and the pace. The card set is taught from that child's own cards, so no two setups need to look alike.",
       },
       {
         label: "Designed for safety",
-        text: "No chatbot. Everything it can say is on a short list the therapist can read and edit, “no” always stops it, and video never leaves the device.",
+        text: "It is not a chatbot, and nothing it says is generated. It can only say what is on a short Responses list that the therapist can read and edit. It never goes online after setup: the vision model downloads once, then runs on the device. It never stores or sends video, and recognition happens on the device. It never prompts or pressures the child. It waits for the child to start, and the word \"no\" always stops everything instantly. A grown-up brings the real items and the therapist reads the session summary, so it supports people and does not replace them.",
       },
       {
-        label: "What it's for",
-        text: "It gives kids extra practice between sessions and reports back to the therapist, who stays in charge.",
+        label: "What happened",
+        text: "Claire showed it to a child, who responded well. They engaged with it and enjoyed presenting cards.",
       },
       {
         label: "Built with",
-        text: "JavaScript, and a small image classifier.",
+        text: "JavaScript, TensorFlow.js, MobileNet (a small image-recognition network) and a nearest-neighbor classifier. Card pictures are from MyPECS.",
       },
     ],
     links: [
