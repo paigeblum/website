@@ -408,3 +408,22 @@
 .pf-deeper .pf-rows {
   margin-top: 8px;
 }
+
+/* Keep one focal point: the index stays quiet until you point at it,
+   and clips wait for a click instead of moving on their own. */
+.pf-item:not([aria-current="page"]) .pf-thumb {
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: filter 0.2s, opacity 0.2s;
+}
+.pf-item:hover .pf-thumb,
+.pf-item:focus-visible .pf-thumb {
+  filter: none;
+  opacity: 1;
+}
+.pf-item:not([aria-current="page"]) .pf-item-desc {
+  color: #71717a;
+}
+.pf-main::before {
+  opacity: 0.06;
+}

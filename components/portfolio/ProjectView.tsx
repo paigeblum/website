@@ -12,12 +12,9 @@ function FigureView({ figure }: { figure: Figure }) {
           src={media.src}
           poster={media.poster}
           aria-label={media.alt}
-          autoPlay
           controls
-          muted
-          loop
           playsInline
-          preload="metadata"
+          preload="none"
         />
       ) : (
         <a href={media.src} target="_blank" rel="noopener noreferrer" title="Open full size">
