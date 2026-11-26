@@ -71,6 +71,11 @@ export default function ProjectView({ project }: { project: Project }) {
           <div key={row.label} style={{ display: "contents" }}>
             <span className="pf-row-label pf-mono">{row.label}</span>
             <span className="pf-row-text">{row.text}</span>
+            {row.figure && (
+              <div className="pf-row-fig">
+                <FigureView figure={row.figure} />
+              </div>
+            )}
           </div>
         ))}
       </div>

@@ -518,3 +518,18 @@
     width: 100%;
   }
 }
+
+/* A figure that belongs to one row sits under that row's text */
+.pf-row-fig {
+  grid-column: 2;
+  max-width: 440px;
+}
+.pf-row-fig .pf-fig {
+  margin-top: 0;
+}
+@media (max-width: 900px) {
+  .pf-row-fig {
+    grid-column: 1;
+    margin-bottom: 14px;
+  }
+}

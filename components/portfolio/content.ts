@@ -32,7 +32,7 @@ export type Project = {
   lede: string; // one plain sentence: what is this?
   hero?: Figure; // omitted when the page is a `gallery`
   tags?: string[]; // short chips shown at a glance
-  rows: { label: string; text: string }[];
+  rows: { label: string; text: string; figure?: Figure }[]; // a figure shows right under its row
   gallery?: Figure[][]; // rows of pictures that share one height; replaces hero, tags and rows
   more?: Figure[]; // extra images or clips, shown below the rows
   radiance?: { caption: string }; // shows the live Radiance sketch after `more`
@@ -208,6 +208,16 @@ export const projects: Project[] = [
       {
         label: "A character made for them",
         text: "Claire told me which shapes children tend to gravitate toward, and that guided how I drew the character.",
+        figure: {
+          media: {
+            type: "image",
+            src: "/portfolio/card-companion.jpg",
+            alt: "A hand-drawn pink character waving as big blue bubbles float up, with the caption: You want big blue bubbles!",
+            width: 1200,
+            height: 760,
+          },
+          caption: "The character answers a “bubbles” card with “You want big blue bubbles!”",
+        },
       },
       {
         label: "Start with first words",
@@ -228,18 +238,6 @@ export const projects: Project[] = [
       {
         label: "Built with",
         text: "JavaScript, TensorFlow.js, MobileNet (a small image-recognition network) and a nearest-neighbor classifier. Card pictures are from MyPECS.",
-      },
-    ],
-    more: [
-      {
-        media: {
-          type: "image",
-          src: "/portfolio/card-companion.jpg",
-          alt: "A hand-drawn pink character waving as big blue bubbles float up, with the caption: You want big blue bubbles!",
-          width: 1200,
-          height: 760,
-        },
-        caption: "The character answers a “bubbles” card with “You want big blue bubbles!”",
       },
     ],
     links: [
