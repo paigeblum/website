@@ -347,7 +347,7 @@ export const projects: Project[] = [
     name: "Dancing leg",
     desc: "Predicting a missing leg",
     kind: "In progress / Motion matching / Python",
-    lede: "I am building a system that predicts how a missing lower leg would move, using only the rest of a dancer's body.",
+    lede: "I am testing how much the rest of a dancer's body reveals about a missing lower leg, starting with simple models and building toward motion matching.",
     hero: {
       media: {
         type: "image",
@@ -356,17 +356,32 @@ export const projects: Project[] = [
         width: 700,
         height: 440,
       },
-      caption: "The real lower leg is black. The three colored legs are the predictions.",
+      caption: "The real lower leg is black. The colored legs are three different predictors guessing it.",
     },
     rows: [
-      // TODO(paige): add "Where it stands" once there is a result to describe.
       {
-        label: "What I'm building",
-        text: "Predicting what a missing lower leg would do during dance, from the motion of the rest of the body. I trained in ballet for eleven years, and this project comes from that: a dancer's legs and torso move as one thought, so the rest of the body already holds clues about the part you cannot see.",
+        label: "",
+        text: "Can the rest of a moving body tell you what a missing leg should do? I hide part of one leg in recorded motion and ask different predictors to fill it in from everything else, using only the past, the way a worn sensor suit would. I trained in ballet for eleven years, and this project comes from that: a dancer's legs and torso move as one thought, so the rest of the body already holds clues about the part you cannot see.",
+      },
+      {
+        label: "",
+        text: "I start with simple predictors on purpose: the average pose, an echo that replays the other leg after a delay (a classic idea that works for walking), and a linear model that looks at the whole body. They set the bar that a neural network and motion matching, the technique game animators use to find the closest recorded pose, will have to beat. Every predictor follows two rules a real device would force on it. It never sees the hidden joints, and its guess at each moment uses only earlier frames. I also split the data so no dancer appears in both training and testing.",
+      },
+      {
+        label: "",
+        text: "My first finding was about the data. AIST++, a large set of dances reconstructed from video, has almost no usable ankle or toe motion, because the video poses stop at the ankle. I switched to DanceDB, professional dancers recorded with marker-based motion capture, where the feet are measured.",
+      },
+      {
+        label: "",
+        text: "On 49 DanceDB recordings, hiding the ankle and toe, the linear model's average ankle error was 17 degrees, against 26 degrees for the average pose and 32 degrees for the echo. The toe error was 14, 21 and 24 degrees. Two things stand out. The rest of a dancer's body does carry information about the missing foot. And the echo, which suits walking, does worse than guessing the average pose, because dancers use their legs differently.",
+      },
+      {
+        label: "",
+        text: "Next I am writing the neural network and the motion matching predictor, then measuring where each one fails, such as turns and jumps. This is a study of prediction in simulation. It is not a prosthesis, and I make no claim about how a real device would feel.",
       },
       {
         label: "Built with",
-        text: "Python, and motion matching (searching recorded motion for the closest match).",
+        text: "Python, NumPy and SciPy, and motion matching (searching recorded motion for the closest match).",
       },
     ],
   },
