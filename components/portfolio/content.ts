@@ -67,23 +67,23 @@ export const projects: Project[] = [
     rows: [
       {
         label: "The three dogs",
-        text: "Rex is an attack dog we modified to be the player's companion in the opening of DMZ. The robot dogs and the bio dog each had their own designer, and each wanted something different.",
+        text: "I was the only engineer on the dogs in Modern Warfare 4. I wrote the behavior for all three: Rex, the companion who runs with you in the opening of DMZ (I adapted him from our attack dog), the campaign attack dogs, and the robot dogs. Each had its own designer and wanted something different, so I worked with each of them and built the code as a base that any four-legged character in a future game can reuse.",
       },
       {
         label: "Where you meet them",
-        text: "In the campaign, K9 German Shepherds show up early in Hired Gun and can be sneaked past without a fight. Attack dogs come after you in Defection while you plant explosives at the North Korean airbase, and two more guard the garage near the end of Escape. In DMZ, Rex is with you in the opening mission, and robot dogs charge at players.",
+        text: "You can meet my work in four places. In Hired Gun, German Shepherds guard an early area and can be sneaked past. In Defection, attack dogs hunt you while you plant explosives at the North Korean airbase. In Escape, two guard the garage near the end. In DMZ, Rex is with you from the first mission, and robot dogs charge at players.",
       },
       {
         label: "One system, three dogs",
-        text: "Rex, the robot dogs and the bio dog (our base attack dog) each have their own behavior tree (the logic that decides what to do next) and animation set, but all share one animation state machine (the logic that switches between movements). Their attacks differ: robot dogs fire tasers and explode, the campaign's attack dogs perform synced takedowns, and there is also a regular attack that isn't synced. I was the only engineer on the dogs and worked with a different designer on each kind, so the system had to be readable to all of them, and I built it as a base for any four-legged character in future games.",
+        text: "I gave Rex, the robot dogs and the bio dog (our base attack dog) each their own behavior tree, the logic that decides what to do next, and their own animations. All of them share one animation state machine that switches between movements. I built the attacks so they could differ: robot dogs fire tasers and explode, the campaign attack dogs perform synced takedowns, and there is also a regular attack that is not synced. I kept the system readable so every designer could tune their own dog without me.",
       },
       {
         label: "The hard part: melee",
-        text: "A dog's bite had to start close enough to feel fair, always connect with the player wherever they moved, and still miss if the player maneuvered quickly. My first version used a charge-to-melee state with an animation that plays once, but the distance to cover is different every time. I found it needed a looping animation to fill that gap, then reworked the system to support every attack style.",
+        text: "A dog's bite had to start close enough to feel fair, connect wherever the player moved, and still miss if the player dodged. My first version charged into a melee state with an animation that plays once, but the distance to cover is different every time. I worked out that it needed a looping animation to fill the gap, then reworked the system so every attack style could use it.",
       },
       {
         label: "Reuse over rewrite",
-        text: "Much of our AI code was written for soldiers, and some of it caused bugs on dogs. We would rather reuse code than rewrite what already exists, so I tracked down those cases and made the dogs share it.",
+        text: "Much of our AI code was written for soldiers, and some of it caused bugs on dogs. Rather than rewrite it, I tracked down each case and made the dogs share the existing code.",
       },
       {
         label: "Why it matters",
