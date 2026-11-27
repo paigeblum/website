@@ -54,7 +54,7 @@ export const projects: Project[] = [
     name: "Quadrupeds",
     desc: "Four-legged AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
-    lede: "I built the AI for the dogs and robot dogs in Call of Duty: the companion who leads you, the attackers, and the robots.",
+    lede: "I was the sole engineer on the dogs in Call of Duty: I programmed how the companion dog, the attack dogs and the robot dogs think, move and fight.",
     hero: {
       media: {
         type: "video",
@@ -123,7 +123,7 @@ export const projects: Project[] = [
     name: "AI and vehicles",
     desc: "Vehicle AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
-    lede: "I own the AI that lets enemy soldiers drive, ride and shoot from more than 20 vehicles, helicopters included.",
+    lede: "I own the AI that lets enemy soldiers drive, ride in and shoot from more than 20 vehicles in Call of Duty, and I rewrote its core in C++.",
     hero: {
       media: {
         type: "video",
@@ -162,7 +162,7 @@ export const projects: Project[] = [
     name: "Foot phase tool",
     desc: "Animation tool",
     kind: "Infinity Ward / Animation tooling / Python",
-    lede: "I built a tool that finds the footsteps in a walk or run automatically, so animators no longer mark them by hand.",
+    lede: "I rebuilt an animation tool in Python so one click marks every footstep in a walk or run, replacing hand-placed marks on thousands of animations.",
     hero: {
       media: {
         type: "image",
@@ -215,7 +215,7 @@ export const projects: Project[] = [
     name: "Card companion",
     desc: "Picture-card companion",
     kind: "Prototype / Designed with Claire Niehaus",
-    lede: "A practice partner for children who communicate with picture cards, designed with a USC student who studies autism therapy.",
+    lede: "I designed and built a companion character that practices picture-card communication with children, together with a USC student who studies autism therapy.",
     hero: {
       media: {
         type: "video",
@@ -289,7 +289,7 @@ export const projects: Project[] = [
     name: "Dancing leg",
     desc: "Predicting a missing leg",
     kind: "In progress / Motion matching / Python",
-    lede: "A system that predicts how a missing lower leg would move, using only the rest of a dancer's body.",
+    lede: "I am building a system that predicts how a missing lower leg would move, using only the rest of a dancer's body.",
     hero: {
       media: {
         type: "image",
@@ -318,7 +318,7 @@ export const projects: Project[] = [
     name: "Steerable images",
     desc: "AI image research",
     kind: "Senior capstone research / Colgate University / 2024",
-    lede: "Research on how easily an AI image generator can be steered away from a starting image.",
+    lede: "With two teammates, I trained models to predict from an image alone how easily an AI image generator can be steered toward it.",
     hero: {
       media: {
         type: "image",
@@ -370,7 +370,7 @@ export const projects: Project[] = [
     name: "Lyric RNNs",
     desc: "Neural nets writing lyrics",
     kind: "Course project / Neural networks and deep learning / 2023",
-    lede: "Neural networks trained to write song lyrics in the style of pop and progressive rock.",
+    lede: "We trained neural networks to write song lyrics in the style of pop and progressive rock, then compared what each genre revealed.",
     hero: {
       media: {
         type: "image",
@@ -421,7 +421,7 @@ export const projects: Project[] = [
     name: "Art",
     desc: "Watercolor, glass, code",
     kind: "Watercolor / Stained glass / Generative",
-    lede: "Watercolors, stained glass, and generative art made with code.",
+    lede: "I paint watercolors, make stained glass, and write code that generates art.",
     gallery: [
       [
         {
