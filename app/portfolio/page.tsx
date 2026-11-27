@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { groups, projects } from "@/components/portfolio/content";
 
@@ -16,27 +17,28 @@ export default function PortfolioHome() {
         question: how does something move, respond and decide?
       </p>
 
-      <div className="pf-index">
-        {groups.map((g) => (
-          <section key={g.label} className="pf-index-group">
-            <h2 className="pf-mono">{g.label}</h2>
-            <ul>
-              {g.slugs.map((slug) => {
-                const p = projects.find((x) => x.slug === slug);
-                if (!p) return null;
-                return (
-                  <li key={p.slug}>
-                    <Link href={`/portfolio/${p.slug}`}>
-                      <span className="pf-index-name">{p.name}</span>
-                      <span className="pf-index-desc">{p.lede}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        ))}
-      </div>
+      <ul className="pf-cards">
+        {groups.flatMap((g) =>
+          g.slugs.map((slug) => {
+            const p = projects.find((x) => x.slug === slug);
+            if (!p) return null;
+            const m = p.hero?.media ?? p.gallery?.[0]?.[0]?.media;
+            const img = m ? (m.type === "video" ? m.poster : m.src) : undefined;
+            return (
+              <li key={p.slug}>
+                <Link href={`/portfolio/${p.slug}`} className="pf-card">
+                  <span className="pf-card-img">
+                    {img && <Image src={img} alt="" fill sizes="(max-width: 900px) 100vw, 420px" />}
+                  </span>
+                  <span className="pf-mono pf-card-group">{g.label}</span>
+                  <span className="pf-index-name">{p.name}</span>
+                  <span className="pf-index-desc">{p.lede}</span>
+                </Link>
+              </li>
+            );
+          })
+        )}
+      </ul>
     </div>
   );
 }
