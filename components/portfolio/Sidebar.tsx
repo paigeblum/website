@@ -1,32 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { groups, projects } from "./content";
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
 
   const activeSlug = pathname?.replace(/^\/portfolio\/?/, "").replace(/\/$/, "");
 
   return (
-    <aside className="pf-side" data-open={open}>
-      <Link href="/portfolio" className="pf-brand" onClick={() => setOpen(false)}>
+    <aside className="pf-side">
+      <Link href="/portfolio" className="pf-brand">
         <div className="pf-name">Paige Blum</div>
-        <p className="pf-role">AI gameplay engineer at Infinity Ward. I program how characters in Call of Duty behave.</p>
       </Link>
-
-      <button
-        type="button"
-        className="pf-menu-btn"
-        aria-expanded={open}
-        aria-controls="pf-projects"
-        onClick={() => setOpen(!open)}
-      >
-        {open ? "Hide projects" : "All projects"}
-      </button>
 
       <nav id="pf-projects" aria-label="Projects" className="pf-nav">
         {groups.map((g) => (
@@ -42,7 +29,7 @@ export default function Sidebar() {
                   href={`/portfolio/${p.slug}`}
                   className="pf-item"
                   aria-current={current ? "page" : undefined}
-                  onClick={() => setOpen(false)}
+                 
                 >
                   <span className="pf-item-text">
                     <span className="pf-item-name">{p.name}</span>
