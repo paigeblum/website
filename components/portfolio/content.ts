@@ -54,7 +54,7 @@ export const projects: Project[] = [
     name: "Quadrupeds",
     desc: "Four-legged AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
-    lede: "I was the sole engineer on the dogs in Call of Duty: I programmed how the companion dog, the attack dogs and the robot dogs think, move and fight.",
+    lede: "I was the sole engineer on the dogs in Call of Duty: Modern Warfare 4: I programmed how the companion dog, the attack dogs and the robot dogs think, move and fight.",
     hero: {
       media: {
         type: "video",
@@ -123,7 +123,7 @@ export const projects: Project[] = [
     name: "AI and vehicles",
     desc: "Vehicle AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
-    lede: "I own the AI that lets enemy soldiers drive, ride in and shoot from more than 20 vehicles in Call of Duty, and I rewrote its core in C++.",
+    lede: "I own the AI that lets enemy soldiers drive, ride in and shoot from more than 20 vehicles in Call of Duty: Modern Warfare 4, and I rewrote its core in C++.",
     hero: {
       media: {
         type: "video",
@@ -136,7 +136,7 @@ export const projects: Project[] = [
     rows: [
       {
         label: "What I built",
-        text: "In Call of Duty, enemy soldiers drive trucks, ride in them, shoot from them and fly helicopters. I am the engineer who owns the AI behind all of it. I rewrote the core of the system in C++ so it runs faster and is easier to extend, while designers keep working in the game's scripting language (GSC), so I built the tools that let them do that. On top of that I rebuilt how soldiers choose a seat to shoot from and how they get out, made their aim hold steady against moving targets, and added a feature that lets them jump out before the vehicle has stopped.",
+        text: "In Call of Duty: Modern Warfare 4, enemy soldiers drive trucks, ride in them, shoot from them and fly helicopters. I am the engineer who owns the AI behind all of it. I rewrote the core of the system in C++ so it runs faster and is easier to extend, while designers keep working in the game's scripting language (GSC), so I built the tools that let them do that. On top of that I rebuilt how soldiers choose a seat to shoot from and how they get out, made their aim hold steady against moving targets, and added a feature that lets them jump out before the vehicle has stopped.",
       },
       {
         label: "Scale",
@@ -162,7 +162,7 @@ export const projects: Project[] = [
     name: "Battle chatter",
     desc: "Soldier conversations, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / AI dialogue / 2026",
-    lede: "I rebuilt how soldiers talk to each other in Call of Duty, so conversations start themselves from what is happening instead of a designer placing every line by hand.",
+    lede: "I rebuilt how soldiers talk to each other in Call of Duty: Modern Warfare 4, so conversations start themselves from what is happening instead of a designer placing every line by hand.",
     hero: {
       media: {
         type: "image",

@@ -14,8 +14,8 @@ export default function AboutPage() {
         <div>
           <h1 className="pf-title">Paige Blum</h1>
           <p className="pf-lede">
-            I&rsquo;m an AI gameplay engineer at Infinity Ward. I program how characters in Call of Duty think, move
-            and talk.
+            I&rsquo;m an AI gameplay engineer at Infinity Ward. I program how characters in Call of Duty: Modern Warfare 4 think,
+            move and talk.
           </p>
         </div>
       </div>
@@ -41,20 +41,6 @@ export default function AboutPage() {
           </p>
         </div>
       </div>
-
-      <figure className="pf-fig">
-        <div className="pf-about-mocap">
-          <Image
-            src="/portfolio/about/mocap.jpg"
-            alt="Two people in black motion capture suits and caps covered in colored markers, making silly faces at the camera"
-            fill
-            sizes="(max-width: 900px) 100vw, 420px"
-          />
-        </div>
-        <figcaption className="pf-cap">
-          Doing the motion capture for the crowd in the alleyway that explodes in the first mission of the campaign.
-        </figcaption>
-      </figure>
     </article>
   );
 }

@@ -14,6 +14,9 @@ export default function Sidebar() {
       <Link href="/portfolio" className="pf-brand">
         <div className="pf-name">Paige Blum</div>
       </Link>
+      <Link href="/portfolio/about" className="pf-about-link" aria-current={activeSlug === "about" ? "page" : undefined}>
+        About
+      </Link>
 
       <nav id="pf-projects" aria-label="Projects" className="pf-nav">
         {groups.map((g) => (
@@ -43,7 +46,6 @@ export default function Sidebar() {
       </nav>
 
       <div className="pf-side-foot">
-        <Link href="/portfolio/about">About</Link>
         <a href="/resume.pdf">Resume</a>
         <a href="mailto:paigemblum@gmail.com">Contact</a>
       </div>

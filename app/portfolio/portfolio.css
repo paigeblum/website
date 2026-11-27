@@ -711,3 +711,15 @@
     align-items: flex-start;
   }
 }
+
+.pf-about-link {
+  display: inline-block;
+  margin: 10px 8px 0;
+  font-size: 15px;
+  color: #9d174d;
+  text-decoration: none;
+}
+.pf-about-link:hover,
+.pf-about-link[aria-current="page"] {
+  text-decoration: underline;
+}
