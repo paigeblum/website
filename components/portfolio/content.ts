@@ -65,18 +65,29 @@ export const projects: Project[] = [
       caption: "In this clip: Rex runs ahead, then waits when the player falls behind.",
     },
     rows: [
-      // TODO(paige): add "What I built" lines for the attack dogs and K9 robots, and "The hard part".
       {
-        label: "What I built",
-        text: "I worked on making Rex's turns believable and keeping him in step with the player.",
+        label: "One system, three dogs",
+        text: "Rex, the robot dogs and the bio dog (our base attack dog) each have their own behavior tree (the logic that decides what to do next) and animation set, but all share one animation state machine (the logic that switches between movements). Their attacks differ: robot dogs fire tasers and explode, the campaign's attack dogs perform synced takedowns, and there is also a regular attack that isn't synced. I was the only engineer on the dogs and worked with a different designer on each kind, so the system had to be readable to all of them, and I built it as a base for any four-legged character in future games.",
+      },
+      {
+        label: "The hard part: melee",
+        text: "A dog's bite had to start close enough to feel fair, always connect with the player wherever they moved, and still miss if the player maneuvered quickly. My first version used a charge-to-melee state with an animation that plays once, but the distance to cover is different every time. I found it needed a looping animation to fill that gap, then reworked the system to support every attack style.",
+      },
+      {
+        label: "Reuse over rewrite",
+        text: "Much of our AI code was written for soldiers, and some of it caused bugs on dogs. We would rather reuse code than rewrite what already exists, so I tracked down those cases and made the dogs share it.",
+      },
+      {
+        label: "The three dogs",
+        text: "Rex is an attack dog we modified to be the player's companion in the opening of DMZ. The robot dogs and the bio dog each had their own designer, and each wanted something different.",
       },
       {
         label: "Why it matters",
-        text: "Rex opens DMZ and leads players through the story that sets up the whole mode, so the story depends on the player getting attached to him in the first few minutes. Small details do that work: a dog who notices when you fall behind and waits.",
+        text: "Rex appears in the first DMZ mission, so a player's attachment to him is part of the story's opening. Small details do that work, like a dog who notices when you fall behind and waits.",
       },
       {
         label: "Built with",
-        text: "C++ (the game engine's language), behavior trees (the logic that decides what a character does next), and animation state machines (how it switches between movements).",
+        text: "C++ (the game engine's language), behavior trees, and animation state machines.",
       },
     ],
     more: [
@@ -119,18 +130,25 @@ export const projects: Project[] = [
       caption: "In this clip: a vehicle pulls up, and the soldiers jump out and spread into cover.",
     },
     rows: [
-      // TODO(paige): add "The hard part".
       {
         label: "What I built",
-        text: "I moved the system from GSC to C++ for performance, and rebuilt how soldiers decide to switch into a lean-out seat to shoot and how they get out again. I also made their aim smoother against moving targets, worked on driving, obstacle avoidance and when soldiers get in and out, and added a feature that lets them jump out before the vehicle stops.",
+        text: "I moved most of the vehicle system from GSC (Call of Duty's scripting language) into C++, and designers still work only in script, so I exposed everything they need. I rebuilt how soldiers decide to switch into a lean-out seat to shoot and how they get out again, smoothed their aim against moving targets, and worked on driving, obstacle avoidance and when soldiers get in and out. I also added a feature that lets them jump out before the vehicle stops.",
       },
       {
         label: "Scale",
-        text: "More than 20 vehicles, each with its own design and animations. The system runs through the whole game: DMZ's convoys and patrols, and many campaign missions, including one that opens with a firefight in traffic.",
+        text: "More than 20 vehicles, each with its own structure, design and animations. The system runs through the whole game: DMZ's convoys and patrols, and many campaign missions, including one that opens with a firefight in traffic.",
+      },
+      {
+        label: "Making gunners feel alive",
+        text: "In Entrenched, the mission with the trenches, players see vehicle gunners at work. Before, a gunner was a still body with a cannon sticking out, and with no movement it felt uncanny and hard to read. I built a feature that animates the barrel procedurally and plays specific reactions on the gunner's body, so the gun and the gunner move together. It improved the view from third person and from first person. It took riggers, designers and animators working together to get the animations that suited it.",
+      },
+      {
+        label: "The hands problem",
+        text: "When a turret moved back and forth, the gunner's hands could slip off it and leave a strange gap. I used IK (inverse kinematics, a technique that makes a limb reach a target) to glue the hands to the turret while the turret kept moving.",
       },
       {
         label: "Built with",
-        text: "C++, and GSC (Call of Duty's scripting language, which the system started in).",
+        text: "C++, and GSC, the scripting language the system started in.",
       },
     ],
   },
@@ -155,19 +173,35 @@ export const projects: Project[] = [
     rows: [
       {
         label: "The problem",
-        text: "Walk and run animations stay in sync by marking four poses in every step: each foot landing and each foot passing the other. Animators placed these marks by hand, and the old automatic tool broke on noisy motion capture.",
+        text: "Locomotion animations can be synchronized by their leg poses, if each walk or run cycle is marked with four key moments: right foot down, left foot down, right foot crossing, and left foot crossing. Those marks were placed by hand, or by a real-time numeric algorithm that broke on noisy motion data.",
       },
       {
-        label: "What I built",
-        text: "I rebuilt it to treat the distance between the feet as a wave, smooth out the noise, and read the poses from the wave's peaks and crossings.",
+        label: "The idea",
+        text: "Every walk cycle follows a pattern. The relative distance between the feet forms a wave, and its peaks and valleys give the four poses. I kept the original algorithm's basics (the distance between the feet and its velocity) as a framework and rebuilt the rest.",
       },
       {
-        label: "Why animators trust it",
-        text: "It takes over the tedious marking without taking control away. There's no training data and no black box, so animators can see why every mark lands where it does and fix any they disagree with.",
+        label: "Smoothing the noise",
+        text: "I used a radial basis function (RBF), a kernel from machine learning, to draw a smooth line through the foot positions, which fixed marks being placed on tiny bumps in the data. Each animation has its own curve, so I wrote a step that picks how wavy the smooth line should be by minimizing its error against the data, to avoid fitting too loosely or too tightly.",
+      },
+      {
+        label: "Better derivatives",
+        text: "The algorithm was still placing some marks wrong because the slopes (derivatives) were computed by hand in loops. Using Python's numerical packages to compute them gave a major jump in accuracy.",
+      },
+      {
+        label: "Naming each pose",
+        text: "Once the marks landed in the right places, the next step was labeling them. A mark that lines up with an inflection point of the foot-position curve is a foot landing, and the slope's direction says which foot. A mark that lines up with an inflection point of the velocity curve is a foot crossing, and the same logic names the foot.",
+      },
+      {
+        label: "What it does for animators",
+        text: "The tool cuts down the time to place markers by hand and is much more accurate than the previous algorithm. An animator clicks one button, and a new track of marks appears in the animation editor. Every mark can be traced to a peak or crossing on the curve, so animators can see why it lands where it does and fix any they disagree with.",
+      },
+      {
+        label: "Where it stops",
+        text: "It works on most animations. Some have a stretch of nearly still, slightly noisy motion at the start or end, which can create false markers. That is rare, and I proposed letting animators drop notes where markers should start and end.",
       },
       {
         label: "Built with",
-        text: "Python, and an RBF kernel (a smoothing technique borrowed from machine learning).",
+        text: "Python, an RBF kernel (a smoothing technique from machine learning), and Python's numerical packages.",
       },
     ],
   },
@@ -293,12 +327,24 @@ export const projects: Project[] = [
     },
     rows: [
       {
+        label: "The question",
+        text: "Image generators like DALL-E follow some prompts better than others. Steerability measures how few prompts it takes to get the image you want. We asked whether a model could predict how steerable an image is from the image alone.",
+      },
+      {
+        label: "How we tested it",
+        text: "We started from ArtWhisperer, a public dataset of more than 51,000 human attempts to steer an AI image generator toward a target picture. We trained two models on it: linear regression on yes or no features of each image (does it show nature, people, a city), and a convolutional neural network (CNN) that looks at the raw picture, resized to 128 by 128 pixels and trained for 10 epochs.",
+      },
+      {
         label: "What we found",
-        text: "We used CNN features and linear regression to predict how steerable an image is. The strongest predictor was whether the image was real or AI-generated. Generated images behave differently.",
+        text: "Both models predicted well: the CNN's mean squared error was under 0.0001, and the linear model's was 0.002. The most influential feature was whether an image was real or AI-generated, and the models were least accurate on real images. Our results matched ArtWhisperer's: nature and city images were more steerable (weights of 0.035 and 0.041), and art and fantasy images less (-0.023 and -0.056).",
       },
       {
         label: "Why it matters",
-        text: "More of the images online are generated every year, so models increasingly learn from, and get steered by, their own output.",
+        text: "Understanding which features raise or lower steerability shows where text-to-image models can improve. That can cut the time and resources it takes to produce custom images for advertising, media and art.",
+      },
+      {
+        label: "Honest limits",
+        text: "The linear model's R-squared was 0.14, so those yes or no features explain only part of steerability, and we didn't have the time or resources to find out why certain features matter. Next steps: look for other features with a domain expert, add feature extraction inside the CNN, and have people interact with the images to measure their perceptions in real time.",
       },
       {
         label: "Built with",
