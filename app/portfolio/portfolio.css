@@ -294,16 +294,9 @@
   }
   .pf-nav {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 6px;
-    margin: 14px -20px 0;
-    padding: 0 20px 6px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .pf-nav::-webkit-scrollbar {
-    display: none;
+    margin: 14px 0 0;
   }
   .pf-group {
     display: contents;
@@ -314,7 +307,7 @@
   }
   .pf-item {
     flex: 0 0 auto;
-    padding: 6px 12px;
+    padding: 5px 12px;
     border: 1px solid #ece8e3;
     border-radius: 999px;
     background: #fff;
