@@ -87,7 +87,7 @@ export const projects: Project[] = [
       },
       {
         label: "Why it matters",
-        text: "Rex appears in the first DMZ mission, so a player's attachment to him is part of the story's opening. Small details do that work, like a dog who notices when you fall behind and waits.",
+        text: "Rex appears in the first DMZ mission, so a player's attachment to him is part of the story's opening. Small details do that work, like a dog who notices when you fall behind and waits. Getting someone to care about a character that is not alive is powerful, and I think the people who build it should be deliberate about how they use it.",
       },
       {
         label: "Built with",
@@ -197,7 +197,7 @@ export const projects: Project[] = [
       },
       {
         label: "What it does for animators",
-        text: "Instead of hand-placing notes on thousands of animations, an animator clicks a button, a new track of marks appears in the animation editor, and they adjust any that look off. It is also much more accurate than the algorithm it replaced. Every mark can be traced to a peak or crossing on the curve, so it is easy to see why it landed where it did.",
+        text: "Instead of hand-placing notes on thousands of animations, an animator clicks a button, a new track of marks appears in the animation editor, and they adjust any that look off. It is also much more accurate than the algorithm it replaced. Every mark can be traced to a peak or crossing on the curve, so it is easy to see why it landed where it did. I wanted the tool to take over the tedious part of an animator's job without taking control away from them, so they spend their time on judgment and craft and still have the last word on every mark.",
       },
       {
         label: "Where it stops",
@@ -304,7 +304,7 @@ export const projects: Project[] = [
       // TODO(paige): add "Where it stands" once there is a result to describe.
       {
         label: "What I'm building",
-        text: "Predicting what a missing lower leg would do during dance, from the motion of the rest of the body.",
+        text: "Predicting what a missing lower leg would do during dance, from the motion of the rest of the body. I trained in ballet for eleven years, and this project comes from that: a dancer's legs and torso move as one thought, so the rest of the body already holds clues about the part you cannot see.",
       },
       {
         label: "Built with",
@@ -344,7 +344,7 @@ export const projects: Project[] = [
       },
       {
         label: "Why it matters",
-        text: "Understanding which features raise or lower steerability shows where text-to-image models can improve. That can cut the time and resources it takes to produce custom images for advertising, media and art.",
+        text: "Understanding which features raise or lower steerability shows where text-to-image models can improve. That can cut the time and resources it takes to produce custom images for advertising, media and art. It also raised a question for us: the feature that mattered most was whether an image was AI-generated, which means these models behave differently on pictures made by other models than on the world they were trained to imitate.",
       },
       {
         label: "Honest limits",
@@ -402,6 +402,10 @@ export const projects: Project[] = [
       {
         label: "",
         text: "Pop had more than 19,000 lines to learn from and rock about 10,000, which may have affected how well each model captured its genre. Next, we wanted to try less structured sequences, train first on a general text dataset, and convert audio to text to build a bigger dataset.",
+      },
+      {
+        label: "",
+        text: "The project left me with a question I still think about: when a model writes lyrics in the style of a genre, is it creating something, or copying the artists it learned from? The rhymes it produced were its own arrangement, but every word came from songs that people wrote.",
       },
       {
         label: "Built with",
