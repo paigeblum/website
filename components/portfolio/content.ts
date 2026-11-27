@@ -377,6 +377,20 @@ export const projects: Project[] = [
       },
       {
         label: "",
+        text: "Looking at the recordings one at a time, the linear model beat the average-pose guess on 47 of 49. On 14 of them it cut the ankle error by more than 10 degrees, and on two it did slightly worse, so it does not help every dancer equally. It helped most where the average pose is far off, around 50 degrees, and least where a dancer's ankle already stays close to the average.",
+        figure: {
+          media: {
+            type: "image",
+            src: "/portfolio/dancing-leg-results.png",
+            alt: "Scatter plot of ankle error for 49 dance recordings: the linear model's error against the average-pose guess's error, with almost every dot below the diagonal",
+            width: 1400,
+            height: 1040,
+          },
+          caption: "Each dot is one recording. Below the line, the linear model did better.",
+        },
+      },
+      {
+        label: "",
         text: "Next I am writing the neural network and the motion matching predictor, then measuring where each one fails, such as turns and jumps. This is a study of prediction in simulation. It is not a prosthesis, and I make no claim about how a real device would feel.",
       },
       {
