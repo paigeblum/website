@@ -228,6 +228,20 @@ export const projects: Project[] = [
         text: "Every walk cycle follows a pattern. The distance between the feet rises and falls like a wave, and its peaks and crossings are the four marks. I kept the old algorithm's starting idea (track the distance between the feet and how fast it changes) and rebuilt everything else.",
       },
       {
+        label: "",
+        text: "I got to take part in motion capture data collection at the studio, which helped inspire the technique.",
+        figure: {
+          media: {
+            type: "image",
+            src: "/portfolio/about/mocap.jpg",
+            alt: "Two people in black motion capture suits and caps covered in colored markers, making silly faces at the camera",
+            width: 768,
+            height: 1024,
+          },
+          caption: "Doing motion capture for a crowd scene in the campaign.",
+        },
+      },
+      {
         label: "Smoothing the noise",
         text: "Raw motion data is full of tiny bumps, and the old algorithm placed marks on them. I used a smoothing technique from machine learning (a radial basis function) to draw a clean line through the data. Each animation has its own curve, so I wrote a step that picks how wavy the smooth line should be by minimizing its error against the data, to avoid fitting too loosely or too tightly.",
       },
