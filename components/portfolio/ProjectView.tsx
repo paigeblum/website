@@ -9,16 +9,27 @@ function FigureView({ figure }: { figure: Figure }) {
   return (
     <figure className={figure.span ? "pf-fig pf-span" : "pf-fig"}>
       {media.type === "video" ? (
-        <PlayableVideo src={media.src} poster={media.poster} label={media.alt} />
+        <PlayableVideo
+          src={media.src}
+          poster={media.poster}
+          label={media.alt}
+        />
       ) : (
-        <a href={media.src} target="_blank" rel="noopener noreferrer" title="Open full size">
+        <a
+          href={media.src}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Open full size"
+        >
           <Image
             src={media.src}
             alt={media.alt}
             width={media.width ?? 1600}
             height={media.height ?? 900}
             sizes="(min-width: 901px) 700px, 100vw"
-            unoptimized={media.src.endsWith(".gif") || media.src.endsWith(".svg")}
+            unoptimized={
+              media.src.endsWith(".gif") || media.src.endsWith(".svg")
+            }
           />
         </a>
       )}
@@ -46,7 +57,12 @@ export default function ProjectView({ project }: { project: Project }) {
                 <div
                   key={fig.media.src}
                   className="pf-gal-item"
-                  style={{ "--ratio": (fig.media.width ?? 1) / (fig.media.height ?? 1) } as React.CSSProperties}
+                  style={
+                    {
+                      "--ratio":
+                        (fig.media.width ?? 1) / (fig.media.height ?? 1),
+                    } as React.CSSProperties
+                  }
                 >
                   <FigureView figure={fig} />
                 </div>
@@ -56,28 +72,21 @@ export default function ProjectView({ project }: { project: Project }) {
         </div>
       )}
 
-      {project.tags && (
-        <ul className="pf-tags pf-mono" aria-label="Built with">
-          {project.tags.map((t) => (
-            <li key={t}>{t}</li>
-          ))}
-        </ul>
-      )}
-
       {project.rows.length > 0 && <div className="pf-detail-rule" />}
 
-      <div className="pf-rows">
-        {project.rows.map((row) => (
-          <div key={row.label} style={{ display: "contents" }}>
-            <span className="pf-row-label pf-mono">{row.label}</span>
-            <span className="pf-row-text">{row.text}</span>
-            {row.figure && (
-              <div className="pf-row-fig">
-                <FigureView figure={row.figure} />
-              </div>
-            )}
-          </div>
-        ))}
+      <div className="pf-prose">
+        {project.rows
+          .filter((r) => r.label !== "Built with")
+          .map((row, i) => (
+            <div key={i}>
+              <p>{row.text}</p>
+              {row.figure && (
+                <div className="pf-row-fig">
+                  <FigureView figure={row.figure} />
+                </div>
+              )}
+            </div>
+          ))}
       </div>
 
       {project.more && (
@@ -87,6 +96,16 @@ export default function ProjectView({ project }: { project: Project }) {
           ))}
         </div>
       )}
+
+      {project.rows
+        .filter((r) => r.label === "Built with")
+        .map((row) => (
+          <div key="built" className="pf-prose">
+            <p className="pf-built">
+              <span className="pf-mono">Built with</span> {row.text}
+            </p>
+          </div>
+        ))}
 
       {project.radiance && (
         <div className="pf-radiance">
@@ -98,7 +117,13 @@ export default function ProjectView({ project }: { project: Project }) {
       {project.links && (
         <div className="pf-links">
           {project.links.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="pf-link">
+            <a
+              key={l.href}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pf-link"
+            >
               {l.label} →
             </a>
           ))}

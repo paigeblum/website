@@ -533,3 +533,38 @@
     margin-bottom: 14px;
   }
 }
+
+/* Story text: plain paragraphs, no side labels */
+.pf-prose {
+  margin-top: 28px;
+  max-width: 660px;
+}
+.pf-prose p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #27272a;
+}
+.pf-prose > div + div {
+  margin-top: 20px;
+}
+.pf-prose .pf-built {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid #ece8e3;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #52525b;
+}
+.pf-prose .pf-built .pf-mono {
+  font-size: 12px;
+  color: #6b7280;
+  margin-right: 8px;
+}
+.pf-prose .pf-row-fig {
+  grid-column: auto;
+  margin-top: 20px;
+  max-width: 440px;
+}
+.pf-detail-rule {
+  display: none;
+}

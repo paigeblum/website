@@ -66,6 +66,14 @@ export const projects: Project[] = [
     },
     rows: [
       {
+        label: "The three dogs",
+        text: "Rex is an attack dog we modified to be the player's companion in the opening of DMZ. The robot dogs and the bio dog each had their own designer, and each wanted something different.",
+      },
+      {
+        label: "Where you meet them",
+        text: "In the campaign, K9 German Shepherds show up early in Hired Gun and can be sneaked past without a fight. Attack dogs come after you in Defection while you plant explosives at the North Korean airbase, and two more guard the garage near the end of Escape. In DMZ, Rex is with you in the opening mission, and robot dogs charge at players.",
+      },
+      {
         label: "One system, three dogs",
         text: "Rex, the robot dogs and the bio dog (our base attack dog) each have their own behavior tree (the logic that decides what to do next) and animation set, but all share one animation state machine (the logic that switches between movements). Their attacks differ: robot dogs fire tasers and explode, the campaign's attack dogs perform synced takedowns, and there is also a regular attack that isn't synced. I was the only engineer on the dogs and worked with a different designer on each kind, so the system had to be readable to all of them, and I built it as a base for any four-legged character in future games.",
       },
@@ -76,10 +84,6 @@ export const projects: Project[] = [
       {
         label: "Reuse over rewrite",
         text: "Much of our AI code was written for soldiers, and some of it caused bugs on dogs. We would rather reuse code than rewrite what already exists, so I tracked down those cases and made the dogs share it.",
-      },
-      {
-        label: "The three dogs",
-        text: "Rex is an attack dog we modified to be the player's companion in the opening of DMZ. The robot dogs and the bio dog each had their own designer, and each wanted something different.",
       },
       {
         label: "Why it matters",
@@ -193,7 +197,7 @@ export const projects: Project[] = [
       },
       {
         label: "What it does for animators",
-        text: "The tool cuts down the time to place markers by hand and is much more accurate than the previous algorithm. An animator clicks one button, and a new track of marks appears in the animation editor. Every mark can be traced to a peak or crossing on the curve, so animators can see why it lands where it does and fix any they disagree with.",
+        text: "Instead of hand-placing notes on thousands of animations, an animator clicks a button, a new track of marks appears in the animation editor, and they adjust any that look off. It is also much more accurate than the algorithm it replaced. Every mark can be traced to a peak or crossing on the curve, so it is easy to see why it landed where it did.",
       },
       {
         label: "Where it stops",
@@ -267,7 +271,7 @@ export const projects: Project[] = [
       },
       {
         label: "What happened",
-        text: "Claire showed it to a child, who responded well. They engaged with it and enjoyed presenting cards.",
+        text: "Claire was able to watch a child try it, and it was a great experience for them. They smiled and laughed while presenting cards, and afterward went back to practicing with their therapist.",
       },
       {
         label: "Built with",
@@ -347,8 +351,12 @@ export const projects: Project[] = [
         text: "The linear model's R-squared was 0.14, so those yes or no features explain only part of steerability, and we didn't have the time or resources to find out why certain features matter. Next steps: look for other features with a domain expert, add feature extraction inside the CNN, and have people interact with the images to measure their perceptions in real time.",
       },
       {
+        label: "How we worked",
+        text: "Emily Kociubes, Nyah Harrison and I did all of it together. We would meet up and divide the work, then share our progress and give each other opinions, and spent a lot of time just working through problems in a room together.",
+      },
+      {
         label: "Built with",
-        text: "PyTorch, CNN features (what an image-recognition network sees), and linear regression. With Emily Kociubes and Nyah Harrison.",
+        text: "PyTorch, CNN features (what an image-recognition network sees), and linear regression.",
       },
     ],
     links: [
@@ -358,11 +366,11 @@ export const projects: Project[] = [
   },
   {
     slug: "lyric-rnns",
-    tags: ["TensorFlow", "LSTM"],
+    tags: ["Python", "Keras", "Bidirectional LSTM"],
     name: "Lyric RNNs",
     desc: "Neural nets writing lyrics",
-    kind: "TensorFlow / 2023",
-    lede: "An experiment training neural networks to write song lyrics, and watching for the moment they start copying.",
+    kind: "Course project / Neural networks and deep learning / 2023",
+    lede: "An experiment training neural networks to write song lyrics in the style of pop and progressive rock, and seeing what they reveal about each genre.",
     hero: {
       media: {
         type: "image",
@@ -372,24 +380,32 @@ export const projects: Project[] = [
         height: 568,
       },
       caption:
-        "Training loss keeps falling, but validation loss turns upward after about 25 epochs, the point where the models start memorizing.",
+        "Training loss keeps falling in both models, but validation loss turns upward after about 25 epochs, a sign they have started memorizing the training lyrics. We stopped at 25.",
     },
     rows: [
       {
-        label: "What I did",
-        text: "Trained single-direction and bidirectional networks on pop and rock lyrics, to compare how genre and training length change what they write.",
+        label: "",
+        text: "This was our final project for a deep learning course, built with Gillian Feder and Charlotte Ryan. We love music, and we wanted to see whether a recurrent neural network (a network that remembers the earlier words it has read) could write lyrics in the style of a genre, and what its output would say about that genre.",
       },
       {
-        label: "What happened",
-        text: "After about 25 epochs (passes through the training lyrics), the models stop learning how lyrics work and start memorizing the ones they've seen.",
+        label: "",
+        text: "We split a Kaggle dataset of 830 songs into pop and progressive rock. We wanted to generate a whole verse instead of a line or two, so each complete line became one token. That exposed a bug where the last line of one song ran into the first line of the next, which we fixed by adding a line break to a copy of the data.",
       },
       {
-        label: "The bigger question",
-        text: "When a generative model writes, how much is it making and how much is it copying the people it learned from?",
+        label: "",
+        text: "We trained a standard LSTM (a type of recurrent network built to remember across long stretches of text) and a bidirectional LSTM, which also reads the lyrics in reverse. The loss plots favored the bidirectional one. Because validation loss started climbing after about 25 epochs, we cut training to 25 epochs and lowered the batch size to limit overfitting.",
+      },
+      {
+        label: "",
+        text: "To write, each model got seed lines, from common lyric openings to the start of a Shakespeare poem to verses from other genres, and predicted the next five words at three temperatures (a setting that lets less likely words in as it rises). The high-temperature output was the most interesting. Some of it rhymed or nearly rhymed. The rock model leaned toward nature words like sun, stars and skylines, along with eyes and time, and the pop model toward more explicit words.",
+      },
+      {
+        label: "",
+        text: "Pop had more than 19,000 lines to learn from and rock about 10,000, which may have affected how well each model captured its genre. Next, we wanted to try less structured sequences, train first on a general text dataset, and convert audio to text to build a bigger dataset.",
       },
       {
         label: "Built with",
-        text: "TensorFlow, and LSTM networks (neural networks that read text in order).",
+        text: "Python and Keras, using a standard LSTM and a bidirectional LSTM.",
       },
     ],
     links: [
