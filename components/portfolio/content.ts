@@ -54,7 +54,7 @@ export const projects: Project[] = [
     name: "Quadrupeds",
     desc: "Four-legged AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
-    lede: "Behavior AI for the four-legged characters in Call of Duty (quadrupeds): the companion dog who leads you, the attack dogs, and the robot dogs.",
+    lede: "I built the AI for the dogs and robot dogs in Call of Duty: the companion who leads you, the attackers, and the robots.",
     hero: {
       media: {
         type: "video",
@@ -123,7 +123,7 @@ export const projects: Project[] = [
     name: "AI and vehicles",
     desc: "Vehicle AI, Call of Duty",
     kind: "Call of Duty: Modern Warfare 4 / Campaign and DMZ / 2026",
-    lede: "AI that lets enemy soldiers drive, ride and fight from more than 20 vehicles, helicopters included.",
+    lede: "I own the AI that lets enemy soldiers drive, ride and shoot from more than 20 vehicles, helicopters included.",
     hero: {
       media: {
         type: "video",
@@ -136,19 +136,19 @@ export const projects: Project[] = [
     rows: [
       {
         label: "What I built",
-        text: "I moved most of the vehicle system from GSC (Call of Duty's scripting language) into C++, and designers still work only in script, so I exposed everything they need. I rebuilt how soldiers decide to switch into a lean-out seat to shoot and how they get out again, smoothed their aim against moving targets, and worked on driving, obstacle avoidance and when soldiers get in and out. I also added a feature that lets them jump out before the vehicle stops.",
+        text: "In Call of Duty, enemy soldiers drive trucks, ride in them, shoot from them and fly helicopters. I am the engineer who owns the AI behind all of it. I rewrote the core of the system in C++ so it runs faster and is easier to extend, while designers keep working in the game's scripting language (GSC), so I built the tools that let them do that. On top of that I rebuilt how soldiers choose a seat to shoot from and how they get out, made their aim hold steady against moving targets, and added a feature that lets them jump out before the vehicle has stopped.",
       },
       {
         label: "Scale",
-        text: "More than 20 vehicles, each with its own structure, design and animations. The system runs through the whole game: DMZ's convoys and patrols, and many campaign missions, including one that opens with a firefight in traffic.",
+        text: "It has to work for more than 20 different vehicles, each built and animated differently. You meet it all over the game: the convoys and patrols in DMZ, and many campaign missions, including one that opens with a firefight in traffic.",
       },
       {
         label: "Making gunners feel alive",
-        text: "In Entrenched, the mission with the trenches, players see vehicle gunners at work. Before, a gunner was a still body with a cannon sticking out, and with no movement it felt uncanny and hard to read. I built a feature that animates the barrel procedurally and plays specific reactions on the gunner's body, so the gun and the gunner move together. It improved the view from third person and from first person. It took riggers, designers and animators working together to get the animations that suited it.",
+        text: "One problem I fixed myself: in Entrenched, the mission with the trenches, you can see enemy gunners up close. They used to be a still body with a cannon sticking out, which felt uncanny and was hard to read. I built a feature that animates the barrel procedurally and plays specific reactions on the gunner's body, so the gun and the gunner move together. It improved the view from third person and from first person. It took riggers, designers and animators working together to get the animations that suited it.",
       },
       {
         label: "The hands problem",
-        text: "When a turret moved back and forth, the gunner's hands could slip off it and leave a strange gap. I used IK (inverse kinematics, a technique that makes a limb reach a target) to glue the hands to the turret while the turret kept moving.",
+        text: "A smaller bug, but a visible one: when a turret swung back and forth, the gunner's hands slid off it and left a gap. I fixed it with inverse kinematics, a technique that makes a hand reach a target, so the hands stay on the turret as it moves.",
       },
       {
         label: "Built with",
@@ -162,7 +162,7 @@ export const projects: Project[] = [
     name: "Foot phase tool",
     desc: "Animation tool",
     kind: "Infinity Ward / Animation tooling / Python",
-    lede: "An animation tool that finds the key poses in a walk or run, so animators don't have to mark them by hand.",
+    lede: "I built a tool that finds the footsteps in a walk or run automatically, so animators no longer mark them by hand.",
     hero: {
       media: {
         type: "image",
@@ -177,19 +177,19 @@ export const projects: Project[] = [
     rows: [
       {
         label: "The problem",
-        text: "Locomotion animations can be synchronized by their leg poses, if each walk or run cycle is marked with four key moments: right foot down, left foot down, right foot crossing, and left foot crossing. Those marks were placed by hand, or by a real-time numeric algorithm that broke on noisy motion data.",
+        text: "To blend one walk or run animation into another smoothly, the game needs to know where the feet are in each step. Every cycle gets four marks: right foot down, left foot down, and each foot passing the other. Animators placed those marks by hand, or relied on an older algorithm that broke whenever the motion data was noisy. I built a tool that finds them automatically.",
       },
       {
         label: "The idea",
-        text: "Every walk cycle follows a pattern. The relative distance between the feet forms a wave, and its peaks and valleys give the four poses. I kept the original algorithm's basics (the distance between the feet and its velocity) as a framework and rebuilt the rest.",
+        text: "Every walk cycle follows a pattern. The distance between the feet rises and falls like a wave, and its peaks and crossings are the four marks. I kept the old algorithm's starting idea (track the distance between the feet and how fast it changes) and rebuilt everything else.",
       },
       {
         label: "Smoothing the noise",
-        text: "I used a radial basis function (RBF), a kernel from machine learning, to draw a smooth line through the foot positions, which fixed marks being placed on tiny bumps in the data. Each animation has its own curve, so I wrote a step that picks how wavy the smooth line should be by minimizing its error against the data, to avoid fitting too loosely or too tightly.",
+        text: "Raw motion data is full of tiny bumps, and the old algorithm placed marks on them. I used a smoothing technique from machine learning (a radial basis function) to draw a clean line through the data. Each animation has its own curve, so I wrote a step that picks how wavy the smooth line should be by minimizing its error against the data, to avoid fitting too loosely or too tightly.",
       },
       {
         label: "Better derivatives",
-        text: "The algorithm was still placing some marks wrong because the slopes (derivatives) were computed by hand in loops. Using Python's numerical packages to compute them gave a major jump in accuracy.",
+        text: "Some marks were still landing in the wrong place because the slopes of the curve were being calculated with slow hand-written loops. Switching to Python's numerical packages made them far more accurate.",
       },
       {
         label: "Naming each pose",
@@ -370,7 +370,7 @@ export const projects: Project[] = [
     name: "Lyric RNNs",
     desc: "Neural nets writing lyrics",
     kind: "Course project / Neural networks and deep learning / 2023",
-    lede: "An experiment training neural networks to write song lyrics in the style of pop and progressive rock, and seeing what they reveal about each genre.",
+    lede: "Neural networks trained to write song lyrics in the style of pop and progressive rock.",
     hero: {
       media: {
         type: "image",
