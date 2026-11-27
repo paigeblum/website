@@ -56,6 +56,7 @@ export default function Sidebar() {
       </nav>
 
       <div className="pf-side-foot">
+        <Link href="/portfolio/about">About</Link>
         <a href="/resume.pdf">Resume</a>
         <a href="mailto:paigemblum@gmail.com">Contact</a>
       </div>

@@ -648,3 +648,45 @@
   object-fit: contain;
   padding: 10px;
 }
+
+/* about */
+.pf-about-top {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 28px;
+}
+.pf-about-top .pf-title {
+  margin-bottom: 8px;
+}
+.pf-about-photo {
+  position: relative;
+  flex: 0 0 160px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.pf-about-photo img {
+  object-fit: cover;
+}
+.pf-about-mocap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pf-about-mocap img {
+  object-fit: cover;
+}
+.pf-about .pf-fig {
+  margin-top: 40px;
+}
+@media (max-width: 900px) {
+  .pf-about-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

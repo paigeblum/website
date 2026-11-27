@@ -469,7 +469,7 @@ export const projects: Project[] = [
     name: "Art",
     desc: "Watercolor, glass, code",
     kind: "Watercolor / Stained glass / Generative",
-    lede: "I paint watercolors, make stained glass, and write code that generates art.",
+    lede: "I paint watercolors, make stained glass and glass pendants, and write code that generates art.",
     gallery: [
       [
         {
@@ -557,6 +557,28 @@ export const projects: Project[] = [
             height: 1024,
           },
           caption: "Stained glass",
+        },
+      ],
+      [
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/glass-pendants.jpg",
+            alt: "Two handmade glass pendants in an open palm: a round one with a turquoise flower and a clear teardrop holding small blue mushrooms",
+            width: 768,
+            height: 1024,
+          },
+          caption: "Lampworked glass",
+        },
+        {
+          media: {
+            type: "image",
+            src: "/portfolio/art/glass-making.jpg",
+            alt: "Paige in safety glasses melting a glass rod in a torch flame at a workbench, with the person behind her blurred",
+            width: 768,
+            height: 1024,
+          },
+          caption: "Lampworked glass, at the torch",
         },
       ],
     ],
