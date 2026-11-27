@@ -40,7 +40,7 @@ export type Project = {
 };
 
 export const groups: { label: string; slugs: string[] }[] = [
-  { label: "At Infinity Ward", slugs: ["quadrupeds", "vehicles", "foot-phase"] },
+  { label: "At Infinity Ward", slugs: ["quadrupeds", "vehicles", "battle-chatter", "foot-phase"] },
   { label: "Prototypes", slugs: ["card-companion", "dancing-leg"] },
   { label: "Research", slugs: ["steerable-images", "lyric-rnns"] },
   { label: "Art", slugs: ["art"] },
@@ -153,6 +153,50 @@ export const projects: Project[] = [
       {
         label: "Built with",
         text: "C++, and GSC, the scripting language the system started in.",
+      },
+    ],
+  },
+  {
+    slug: "battle-chatter",
+    tags: ["C++", "GDT editor", "Tree evaluation"],
+    name: "Battle chatter",
+    desc: "Soldier conversations, Call of Duty",
+    kind: "Call of Duty: Modern Warfare 4 / AI dialogue / 2026",
+    lede: "I rebuilt how soldiers talk to each other in Call of Duty, so conversations start themselves from what is happening instead of a designer placing every line by hand.",
+    hero: {
+      media: {
+        type: "image",
+        src: "/portfolio/battle-chatter-diagram.svg",
+        alt: "Diagram: a root node branches into conditions such as being in combat for a number of seconds, being in fog, or hearing an explosion, and each condition leads to a conversation",
+        width: 1600,
+        height: 900,
+      },
+      caption: "The tree: conditions I wrote decide which conversation is allowed to play.",
+    },
+    rows: [
+      {
+        label: "",
+        text: "Battle chatter is the soldiers talking to each other: calling out what they saw, reacting to an explosion you set off, warning that they are about to chase you in a car. These lines make a world feel lived in, but only if they are logical and well timed. Before, the whole system lived in script and a designer had to trigger each line by hand.",
+      },
+      {
+        label: "",
+        text: "With a designer, I reworked the entire system so it flows on its own. It is one big tree in C++. A root node walks down through the leaves to find the conversation that should play. The shape of the tree lives in the studio's GDT editor, where a designer can add whatever events they need and point each one at conversation assets. I wrote the code functions the tree asks about the world, like HasBeenInCombatForNSeconds or IsInFog, so each branch knows when it applies.",
+      },
+      {
+        label: "",
+        text: "I also built a filter so a conversation never plays unless a player is close enough to hear it. Walk up to a soldier and they might say they just saw someone, react to your explosion, or say they are about to chase you.",
+      },
+      {
+        label: "",
+        text: "The problem we ran into was repetition. The events that trigger conversations can fire many times, with many players around, so you could hear the same exchange over and over. I built a cooldown system that can be set on a whole tree, on a subtree, or on a single conversation. The tree manager that walks the tree knows when it is the right moment to play something.",
+      },
+      {
+        label: "",
+        text: "Now a designer only has to build the right tree in the GDT editor and the conversations flow, with no hand-placed script. When they want control, I gave them functions to stop a conversation or add custom behavior. We also use the same tree on non-human characters like the quadrupeds, to produce their noises.",
+      },
+      {
+        label: "Built with",
+        text: "C++, with the conversation tree built in the studio's GDT editor.",
       },
     ],
   },

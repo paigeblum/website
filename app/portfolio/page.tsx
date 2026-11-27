@@ -27,7 +27,7 @@ export default function PortfolioHome() {
             return (
               <li key={p.slug}>
                 <Link href={`/portfolio/${p.slug}`} className="pf-card">
-                  <span className={`pf-card-img${["foot-phase","dancing-leg","steerable-images","lyric-rnns"].includes(p.slug) ? " pf-fit" : ""}`}>
+                  <span className={`pf-card-img${["foot-phase","battle-chatter","dancing-leg","steerable-images","lyric-rnns"].includes(p.slug) ? " pf-fit" : ""}`}>
                     {img && <Image src={img} alt="" fill sizes="(max-width: 900px) 50vw, 260px" />}
                   </span>
                   <span className="pf-mono pf-card-group">{g.label}</span>
