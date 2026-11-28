@@ -30,7 +30,8 @@ export default function AboutPage() {
       <div className="pf-prose">
         <div>
           <p>
-            I studied <strong>computer science at Colgate</strong> and danced{" "}
+            I studied <strong>computer science at Colgate University</strong>{" "}
+            and danced{" "}
             <strong>Russian Vaganova style ballet for eleven years</strong>,
             which is where I learned to see what makes a movement look alive. I
             want to build technology that helps people:{" "}
