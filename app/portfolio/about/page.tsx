@@ -33,13 +33,11 @@ export default function AboutPage() {
             I studied <strong>computer science at Colgate</strong> and danced{" "}
             <strong>Russian Vaganova style ballet for eleven years</strong>,
             which is where I learned to see what makes a movement look alive. I
-            care most about <strong>characters people get attached to</strong>{" "}
-            and{" "}
-            <strong>
-              tools that help artists without taking decisions away from them
-            </strong>
-            . Outside of work I paint, make stained glass and write code that
-            makes art.
+            want to build technology that helps people:{" "}
+            <strong>tools that free artists to focus on their craft</strong>,{" "}
+            <strong>systems that help people communicate and learn</strong>, and{" "}
+            <strong>characters people come to care about</strong>. Outside of
+            work I paint, make stained glass and write code that makes art.
           </p>
         </div>
         <div>
