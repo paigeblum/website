@@ -391,6 +391,20 @@ export const projects: Project[] = [
       },
       {
         label: "",
+        text: "I also asked which parts of the body carry the signal. Showing the linear model only the legs and pelvis brought the ankle error from 28 degrees to 22. Adding the spine brought it to 21, and adding the arms and head to 20. So the legs do most of the work, and the upper body adds a smaller but steady gain that a method built only on the other leg, like the echo, cannot use. This is one run on one split of 49 recordings, so I treat it as a pattern to test further, not a settled result.",
+        figure: {
+          media: {
+            type: "image",
+            src: "/portfolio/dancing-leg-bodyparts.png",
+            alt: "Bar chart of average ankle error: echo 33.7 degrees, average pose 27.9, linear model with legs and pelvis 22.4, plus spine 21.0, plus arms and head 19.5",
+            width: 1400,
+            height: 920,
+          },
+          caption: "Average ankle error in degrees. Lower is better.",
+        },
+      },
+      {
+        label: "",
         text: "Next I am writing the neural network and the motion matching predictor, then measuring where each one fails, such as turns and jumps. This is a study of prediction in simulation. It is not a prosthesis, and I make no claim about how a real device would feel.",
       },
       {
