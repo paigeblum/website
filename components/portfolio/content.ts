@@ -180,7 +180,7 @@ export const projects: Project[] = [
       },
       {
         label: "",
-        text: "With a designer, I reworked the entire system so it flows on its own. It is one big tree in C++. A root node walks down through the leaves to find the conversation that should play. The shape of the tree lives in the studio's GDT editor, where a designer can add whatever events they need and point each one at conversation assets. I wrote the code functions the tree asks about the world, like HasBeenInCombatForNSeconds or IsInFog, so each branch knows when it applies.",
+        text: "With a designer, I reworked the entire system so it flows on its own. It is one big tree in C++. A root node walks down through the leaves to find the conversation that should play. The shape of the tree lives in the studio's GDT editor, where a designer can add whatever events they need and point each one at conversation assets. I wrote the code functions that let the tree ask questions about the world, such as how long a soldier has been in combat or whether they are in fog, so each branch knows when it applies.",
       },
       {
         label: "",
