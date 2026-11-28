@@ -325,7 +325,7 @@ export const projects: Project[] = [
       },
       {
         label: "Designed for safety",
-        text: "Because the user is a child, I decided what it must never do. It is not a chatbot and nothing it says is generated: it can only say what is on a short Responses list that the therapist can read and edit. It never goes online after setup, because the vision model downloads once and then runs on the device. It never stores or sends video. It never prompts or pressures the child and waits for them to start, and the word \"no\" always stops everything instantly. A grown-up brings the real items and the therapist reads the session summary, so it supports the people in a child's life and does not replace them.",
+        text: "Because the user is a child, I decided what it must never do. It is not a chatbot and nothing it says is generated: it can only say what is on a short list of responses that the therapist can read and edit. It never goes online after setup, because the vision model downloads once and then runs on the device. It never stores or sends video. It never prompts or pressures the child and waits for them to start, and the word \"no\" always stops everything instantly. A grown-up brings the real items and the therapist reads the session summary, so it supports the people in a child's life and does not replace them.",
       },
       {
         label: "What happened",
