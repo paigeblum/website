@@ -63,13 +63,17 @@
   flex: 1 1 auto;
 }
 .pf-group {
-  margin-top: 16px;
+  margin-top: 26px;
 }
 .pf-group-label {
   display: block;
   padding: 0 8px 6px;
-  font-size: 11px;
-  color: #6b7280;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #141414;
 }
 .pf-item {
   display: flex;
@@ -103,7 +107,7 @@
   line-height: 1.25;
 }
 .pf-item-desc {
-  display: block;
+  display: none;
   font-size: 12px;
   font-weight: 400;
   line-height: 1.3;
@@ -725,5 +729,48 @@
 }
 .pf-about-link:hover,
 .pf-about-link[aria-current="page"] {
+  text-decoration: underline;
+}
+
+.pf-about-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0 36px;
+  max-width: 720px;
+}
+.pf-about-shot {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f4f1ec;
+}
+.pf-about-shot img {
+  object-fit: cover;
+}
+.pf-about-text {
+  max-width: 620px;
+}
+.pf-about-text p {
+  margin: 0 0 20px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #3f3f46;
+}
+.pf-about-text strong {
+  font-weight: 600;
+  color: #141414;
+}
+.pf-about-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.pf-about-links a {
+  color: #9d174d;
+  text-decoration: none;
+}
+.pf-about-links a:hover {
   text-decoration: underline;
 }
