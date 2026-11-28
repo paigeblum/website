@@ -373,7 +373,7 @@ export const projects: Project[] = [
       },
       {
         label: "",
-        text: "On 49 DanceDB recordings, hiding the ankle and toe, the linear model's average ankle error was 17 degrees, against 26 degrees for the average pose and 32 degrees for the echo. The toe error was 14, 21 and 24 degrees. Two things stand out. The rest of a dancer's body does carry information about the missing foot. And the echo, which suits walking, does worse than guessing the average pose, because dancers use their legs differently.",
+        text: "On 49 DanceDB recordings, hiding the ankle and toe, the linear model's average ankle error was 20 degrees, against 28 degrees for the average pose and 34 degrees for the echo. The toe error was 14, 20 and 22 degrees. These averages weight each recording by its length. Two things stand out. The rest of a dancer's body does carry information about the missing foot. And the echo, which suits walking, does worse than guessing the average pose, because dancers use their legs differently.",
       },
       {
         label: "",
