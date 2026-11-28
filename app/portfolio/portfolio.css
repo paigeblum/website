@@ -751,3 +751,9 @@
     font-weight: 400;
   }
 }
+
+.pf-about .pf-prose a {
+  color: #9d174d;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
