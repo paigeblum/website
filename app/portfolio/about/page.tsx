@@ -24,7 +24,7 @@ export default function AboutPage() {
         <div>
           <p>
             I studied computer science at Colgate, but the way I look at my work comes from other places. I danced
-            ballet for eleven years, which is where I learned to watch how a body moves and what makes a movement read
+            Russian Vaganova style ballet for eleven years, which is where I learned to watch how a body moves and what makes a movement read
             as alive.
           </p>
         </div>
