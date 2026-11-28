@@ -67,19 +67,19 @@ export const projects: Project[] = [
     rows: [
       {
         label: "The three dogs",
-        text: "I was the only engineer on the dogs in Modern Warfare 4. I wrote the behavior for all three: Rex, the companion who runs with you in the opening of DMZ (I adapted him from our attack dog), the campaign attack dogs, and the robot dogs. Each had its own designer and wanted something different, so I worked with each of them and built the code as a base that any four-legged character in a future game can reuse.",
+        text: "I wrote the behavior for all three: Rex, the companion who runs with you in the opening of DMZ (adapted from our attack dog), the campaign attack dogs, and the robot dogs. Each had its own designer and wanted something different, so I worked with each of them and built the code as a base that any four-legged character in a future game can reuse.",
       },
       {
         label: "Where you meet them",
-        text: "You can meet my work in four places. In Hired Gun, German Shepherds guard an early area and can be sneaked past. In Defection, attack dogs hunt you while you plant explosives at the North Korean airbase. In Escape, two guard the garage near the end. In DMZ, Rex is with you from the first mission, and robot dogs charge at players.",
+        text: "You can meet them in four places. In Hired Gun, German Shepherds guard an early area and can be sneaked past. In Defection, attack dogs hunt you while you plant explosives at the North Korean airbase. In Escape, two guard the garage near the end. And in DMZ, Rex is with you from the first mission while robot dogs charge at players.",
       },
       {
         label: "One system, three dogs",
-        text: "I gave Rex, the robot dogs and the bio dog (our base attack dog) each their own behavior tree, the logic that decides what to do next, and their own animations. All of them share one animation state machine that switches between movements. I built the attacks so they could differ: robot dogs fire tasers and explode, the campaign attack dogs perform synced takedowns, and there is also a regular attack that is not synced. I kept the system readable so every designer could tune their own dog without me.",
+        text: "Rex, the robot dogs and the bio dog (our base attack dog) each have their own behavior tree, the logic that decides what to do next, and their own animations, but all of them share one animation state machine that switches between movements. I built the attacks so they could differ: robot dogs fire tasers and explode, the campaign attack dogs perform synced takedowns, and there is also a regular attack that isn't synced. I kept it all readable so every designer could tune their own dog without me.",
       },
       {
         label: "The hard part: melee",
-        text: "A dog's bite had to start close enough to feel fair, connect wherever the player moved, and still miss if the player dodged. My first version charged into a melee state with an animation that plays once, but the distance to cover is different every time. I worked out that it needed a looping animation to fill the gap, then reworked the system so every attack style could use it.",
+        text: "A dog's bite had to start close enough to feel fair, connect wherever the player moved, and still miss if the player dodged. My first version charged into a melee state with an animation that plays once, but the distance to cover is different every time. I realized it needed a looping animation to fill the gap, and then reworked the system so every attack style could use it.",
       },
       {
         label: "Reuse over rewrite",
@@ -87,7 +87,7 @@ export const projects: Project[] = [
       },
       {
         label: "Why it matters",
-        text: "Rex appears in the first DMZ mission, so a player's attachment to him is part of the story's opening. Small details do that work, like a dog who notices when you fall behind and waits. Getting someone to care about a character that is not alive is powerful, and I think the people who build it should be deliberate about how they use it.",
+        text: "Rex appears in the first DMZ mission, so a player's attachment to him is part of how the game opens. Small details do that work, like a dog who notices when you fall behind and waits. Getting someone to care about something that isn't alive is powerful, and I think the people who build it should be deliberate about how they use it.",
       },
       {
         label: "Built with",
@@ -136,15 +136,15 @@ export const projects: Project[] = [
     rows: [
       {
         label: "What I built",
-        text: "In Call of Duty: Modern Warfare 4, enemy soldiers drive trucks, ride in them, shoot from them and fly helicopters. I am the engineer who owns the AI behind all of it. I rewrote the core of the system in C++ so it runs faster and is easier to extend, while designers keep working in the game's scripting language (GSC), so I built the tools that let them do that. On top of that I rebuilt how soldiers choose a seat to shoot from and how they get out, made their aim hold steady against moving targets, and added a feature that lets them jump out before the vehicle has stopped.",
+        text: "In Call of Duty: Modern Warfare 4, enemy soldiers drive trucks, ride in them, shoot from them and fly helicopters, and I own the AI behind all of it. I rewrote the core of the system in C++ so it runs faster and is easier to extend, while designers keep working in the game's scripting language (GSC), so I built the tools that let them do that. On top of that I rebuilt how soldiers choose a seat to shoot from and how they get out, made their aim hold steady against moving targets, and let them jump out before the vehicle has stopped.",
       },
       {
         label: "Scale",
-        text: "It has to work for more than 20 different vehicles, each built and animated differently. You meet it all over the game: the convoys and patrols in DMZ, and many campaign missions, including one that opens with a firefight in traffic.",
+        text: "It has to work for more than 20 vehicles, each built and animated differently. You meet it all over the game, in the convoys and patrols of DMZ and in many campaign missions, including one that opens with a firefight in traffic.",
       },
       {
         label: "Making gunners feel alive",
-        text: "One problem I fixed myself: in Entrenched, the mission with the trenches, you can see enemy gunners up close. They used to be a still body with a cannon sticking out, which felt uncanny and was hard to read. I built a feature that animates the barrel procedurally and plays specific reactions on the gunner's body, so the gun and the gunner move together. It improved the view from third person and from first person. It took riggers, designers and animators working together to get the animations that suited it.",
+        text: "One problem I fixed myself: in Entrenched, the mission with the trenches, you can see enemy gunners up close, and they used to be a still body with a cannon sticking out, which felt uncanny and was hard to read. I built a feature that animates the barrel procedurally and plays specific reactions on the gunner's body, so the gun and the gunner move together. It improved the view from both third and first person, and it took riggers, designers and animators working together to get the animations right.",
       },
       {
         label: "The hands problem",
@@ -180,19 +180,19 @@ export const projects: Project[] = [
       },
       {
         label: "",
-        text: "With a designer, I reworked the entire system so it flows on its own. It is one big tree in C++. A root node walks down through the leaves to find the conversation that should play. The shape of the tree lives in the studio's GDT editor, where a designer can add whatever events they need and point each one at conversation assets. I wrote the code functions that let the tree ask questions about the world, such as how long a soldier has been in combat or whether they are in fog, so each branch knows when it applies.",
+        text: "With a designer, I reworked the entire system so it flows on its own. It is one big tree in C++: a root node walks down through the leaves to find the conversation that should play. The shape of the tree lives in the studio's GDT editor, where a designer can add whatever events they need and point each one at conversation assets. I wrote the code that lets the tree ask questions about the world, such as how long a soldier has been in combat or whether they are in fog, so each branch knows when it applies.",
       },
       {
         label: "",
-        text: "I also built a filter so a conversation never plays unless a player is close enough to hear it. Walk up to a soldier and they might say they just saw someone, react to your explosion, or say they are about to chase you.",
+        text: "I also built a filter so a conversation only plays if a player is close enough to hear it. Walk up to a soldier and they might say they just saw someone, react to your explosion, or say they are about to chase you.",
       },
       {
         label: "",
-        text: "The problem we ran into was repetition. The events that trigger conversations can fire many times, with many players around, so you could hear the same exchange over and over. I built a cooldown system that can be set on a whole tree, on a subtree, or on a single conversation. The tree manager that walks the tree knows when it is the right moment to play something.",
+        text: "Then we ran into repetition. The events that trigger conversations can fire many times with many players around, so you could hear the same exchange over and over. I built a cooldown system that can be set on a whole tree, on a subtree, or on a single conversation, so the tree manager knows when it is the right moment to play something.",
       },
       {
         label: "",
-        text: "Now a designer only has to build the right tree in the GDT editor and the conversations flow, with no hand-placed script. When they want control, I gave them functions to stop a conversation or add custom behavior. We also use the same tree on non-human characters like the quadrupeds, to produce their noises.",
+        text: "Now a designer only has to build the right tree in the GDT editor and the conversations flow, with no hand-placed script. When they want control, they can use functions I gave them to stop a conversation or add custom behavior. The same tree also drives the noises of non-human characters like the quadrupeds.",
       },
       {
         label: "Built with",
@@ -225,7 +225,7 @@ export const projects: Project[] = [
       },
       {
         label: "The idea",
-        text: "Every walk cycle follows a pattern. The distance between the feet rises and falls like a wave, and its peaks and crossings are the four marks. I kept the old algorithm's starting idea (track the distance between the feet and how fast it changes) and rebuilt everything else.",
+        text: "Every walk cycle follows a pattern: the distance between the feet rises and falls like a wave, and its peaks and crossings are the four marks. I kept the old algorithm's starting idea of tracking that distance and how fast it changes, and rebuilt everything else.",
       },
       {
         label: "",
@@ -243,23 +243,23 @@ export const projects: Project[] = [
       },
       {
         label: "Smoothing the noise",
-        text: "Raw motion data is full of tiny bumps, and the old algorithm placed marks on them. I used a smoothing technique from machine learning (a radial basis function) to draw a clean line through the data. Each animation has its own curve, so I wrote a step that picks how wavy the smooth line should be by minimizing its error against the data, to avoid fitting too loosely or too tightly.",
+        text: "Raw motion data is full of tiny bumps, and the old algorithm placed marks on them. I used a smoothing technique from machine learning (a radial basis function) to draw a clean line through the data. Because each animation has its own curve, I added a step that picks how wavy the line should be by minimizing its error against the data, so it neither fits too loosely nor too tightly.",
       },
       {
         label: "Better derivatives",
-        text: "Some marks were still landing in the wrong place because the slopes of the curve were being calculated with slow hand-written loops. Switching to Python's numerical packages made them far more accurate.",
+        text: "Some marks still landed in the wrong place because the slopes of the curve were calculated with slow hand-written loops. Switching to Python's numerical packages made them far more accurate.",
       },
       {
         label: "Naming each pose",
-        text: "Once the marks landed in the right places, the next step was labeling them. A mark that lines up with an inflection point of the foot-position curve is a foot landing, and the slope's direction says which foot. A mark that lines up with an inflection point of the velocity curve is a foot crossing, and the same logic names the foot.",
+        text: "Once the marks landed in the right places, I labeled them. A mark at an inflection point of the foot-position curve is a foot landing, and the slope's direction says which foot. A mark at an inflection point of the velocity curve is a foot crossing, and the same logic names the foot.",
       },
       {
         label: "What it does for animators",
-        text: "Instead of hand-placing notes on thousands of animations, an animator clicks a button, a new track of marks appears in the animation editor, and they adjust any that look off. It is also much more accurate than the algorithm it replaced. Every mark can be traced to a peak or crossing on the curve, so it is easy to see why it landed where it did. I wanted the tool to take over the tedious part of an animator's job without taking control away from them, so they spend their time on judgment and craft and still have the last word on every mark.",
+        text: "Instead of hand-placing notes on thousands of animations, an animator clicks a button, a new track of marks appears in the animation editor, and they adjust any that look off. It is also much more accurate than the algorithm it replaced, and every mark can be traced to a peak or crossing on the curve, so it is easy to see why it landed where it did. I wanted the tool to take over the tedious part of the job without taking control away from animators, so they spend their time on judgment and craft and keep the last word on every mark.",
       },
       {
         label: "Where it stops",
-        text: "It works on most animations. Some have a stretch of nearly still, slightly noisy motion at the start or end, which can create false markers. That is rare, and I proposed letting animators drop notes where markers should start and end.",
+        text: "It works on most animations. A few have a stretch of nearly still, slightly noisy motion at the start or end, which can create false marks, so I proposed letting animators drop notes where marks should start and end.",
       },
       {
         label: "Built with",
@@ -291,7 +291,7 @@ export const projects: Project[] = [
       },
       {
         label: "Who I designed with",
-        text: "I'm a game AI engineer, and I came to this knowing nothing about autism therapy. My friend Claire Niehaus, who is studying autism-related therapy at USC, became my guide. I asked her the questions I would have gotten wrong alone, like what kind of movement a child expects back when they present a card. Her answers changed the design in four ways.",
+        text: "I'm a game AI engineer, and I came to this knowing nothing about autism therapy. My friend Claire Niehaus, who is studying autism-related therapy at USC, became my guide. I asked her the questions I would have gotten wrong alone, like what kind of movement a child expects back when they present a card, and her answers changed the design in four ways.",
       },
       {
         label: "Every child is different",
@@ -299,7 +299,7 @@ export const projects: Project[] = [
       },
       {
         label: "Sound is a choice",
-        text: "She also told me that some children respond to sound and others don't. I added a sound setting with three levels (off, soft or normal), and with sound off the words appear on screen and music is shown as notes.",
+        text: "She also told me that some children respond to sound and others don't, so I added a sound setting with three levels (off, soft or normal). With sound off, the words appear on screen and music is shown as notes.",
       },
       {
         label: "A character made for them",
@@ -317,7 +317,7 @@ export const projects: Project[] = [
       },
       {
         label: "Start with first words",
-        text: "My first prototype included words like \"yes\". Claire explained that isn't part of the first step of training, and that the tool should help children practice their first words rather than teach anything complex from the start. I narrowed it to simple first cards: bubbles, music, no, help and dog.",
+        text: "My first prototype included words like \"yes\", but Claire explained that those aren't part of the first step of training, and that the tool should help children practice first words rather than teach anything complex. So I narrowed it to simple first cards: bubbles, music, no, help and dog.",
       },
       {
         label: "How it works",
@@ -325,11 +325,11 @@ export const projects: Project[] = [
       },
       {
         label: "Designed for safety",
-        text: "Because the user is a child, I decided what it must never do. It is not a chatbot and nothing it says is generated: it can only say what is on a short list of responses that the therapist can read and edit. It never goes online after setup, because the vision model downloads once and then runs on the device. It never stores or sends video. It never prompts or pressures the child and waits for them to start, and the word \"no\" always stops everything instantly. A grown-up brings the real items and the therapist reads the session summary, so it supports the people in a child's life and does not replace them.",
+        text: "Because the user is a child, I decided up front what it must never do. It is not a chatbot, and nothing it says is generated: it can only say what is on a short list of responses that the therapist can read and edit. It never goes online after setup, because the vision model downloads once and then runs on the device, and it never stores or sends video. It never prompts or pressures the child, it waits for them to start, and the word \"no\" always stops everything instantly. A grown-up brings the real items and the therapist reads the session summary, so it supports the people in a child's life instead of replacing them.",
       },
       {
         label: "What happened",
-        text: "Claire was able to watch a child try it, and it was a great experience for them. They smiled and laughed while presenting cards, and afterward went back to practicing with their therapist.",
+        text: "Claire watched a child try it, and it went well. They smiled and laughed while presenting cards, and afterward went back to practicing with their therapist.",
       },
       {
         label: "Built with",
@@ -449,11 +449,11 @@ export const projects: Project[] = [
       },
       {
         label: "Honest limits",
-        text: "The linear model's R-squared was 0.14, so those yes or no features explain only part of steerability, and we didn't have the time or resources to find out why certain features matter. Next steps: look for other features with a domain expert, add feature extraction inside the CNN, and have people interact with the images to measure their perceptions in real time.",
+        text: "The linear model's R-squared was 0.14, so those yes or no features explain only part of steerability, and we didn't have the time or resources to find out why certain features matter. Next, we would look for other features with a domain expert, add feature extraction inside the CNN, and have people interact with the images to measure their perceptions in real time.",
       },
       {
         label: "How we worked",
-        text: "Emily Kociubes, Nyah Harrison and I did all of it together. We would meet up and divide the work, then share our progress and give each other opinions, and spent a lot of time just working through problems in a room together.",
+        text: "Emily Kociubes, Nyah Harrison and I did all of it together. We met to divide the work, shared our progress and gave each other opinions, and spent a lot of time working through problems in a room together.",
       },
       {
         label: "Built with",

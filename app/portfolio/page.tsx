@@ -13,8 +13,8 @@ export default function PortfolioHome() {
         I build systems that behave <em>like they&rsquo;re alive.</em>
       </h1>
       <p className="pf-statement-sub">
-        By day, the AI behind characters in Call of Duty: Modern Warfare 4. Beyond it, prototypes, research and art that ask the same
-        question: how does something move, respond and decide?
+        By day, I build the AI behind characters in Call of Duty: Modern Warfare 4. Outside of work, my prototypes, research and art ask
+        the same question: how does something move, respond and decide?
       </p>
 
       <ul className="pf-cards">
