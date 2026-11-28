@@ -83,7 +83,7 @@ export const projects: Project[] = [
       },
       {
         label: "Reuse over rewrite",
-        text: "Much of our AI code was written for soldiers, and some of it caused bugs on dogs. Rather than rewrite it, I tracked down each case and made the dogs share the existing code.",
+        text: "Much of our existing AI code was written for soldiers, and some of it caused bugs on dogs. Rather than rewrite it, I tracked down each case and fixed it so the dogs could share the code soldiers already use.",
       },
       {
         label: "Why it matters",
@@ -373,7 +373,7 @@ export const projects: Project[] = [
       },
       {
         label: "",
-        text: "On 49 DanceDB recordings, hiding the ankle and toe, the linear model's average ankle error was 20 degrees, against 28 degrees for the average pose and 34 degrees for the echo. The toe error was 14, 20 and 22 degrees. These averages weight each recording by its length. Two things stand out. The rest of a dancer's body does carry information about the missing foot. And the echo, which suits walking, does worse than guessing the average pose, because dancers use their legs differently.",
+        text: "On 49 DanceDB recordings, hiding the ankle and toe, the linear model's average ankle error was 20 degrees, against 28 degrees for the average pose and 34 degrees for the echo. The toe error was 14, 20 and 22 degrees. These averages weight each recording by its length. Two things stand out: the rest of a dancer's body does carry information about the missing foot, and the echo, which suits walking, does worse than guessing the average pose, because dancers use their legs differently.",
       },
       {
         label: "",
@@ -498,11 +498,11 @@ export const projects: Project[] = [
       },
       {
         label: "",
-        text: "To write, each model got seed lines, from common lyric openings to the start of a Shakespeare poem to verses from other genres, and predicted the next five words at three temperatures (a setting that lets less likely words in as it rises). The high-temperature output was the most interesting. Some of it rhymed or nearly rhymed. The rock model leaned toward nature words like sun, stars and skylines, along with eyes and time, and the pop model toward more explicit words.",
+        text: "To generate lyrics, we gave each model seed lines, from common lyric openings to the start of a Shakespeare poem to verses from other genres, and had it predict the next five words at three temperatures (a setting that lets less likely words in as it rises). The high-temperature output was the most interesting: some of it rhymed or nearly rhymed, the rock model leaned toward nature words like sun, stars and skylines along with eyes and time, and the pop model toward more explicit words.",
       },
       {
         label: "",
-        text: "Pop had more than 19,000 lines to learn from and rock about 10,000, which may have affected how well each model captured its genre. Next, we wanted to try less structured sequences, train first on a general text dataset, and convert audio to text to build a bigger dataset.",
+        text: "Pop had more than 19,000 lines to learn from and rock about 10,000, which may have affected how well each model captured its genre. If we continued, we would try less structured sequences, train first on a general text dataset, and convert audio to text to build a bigger dataset.",
       },
       {
         label: "",
